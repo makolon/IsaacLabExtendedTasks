@@ -6,10 +6,10 @@ from omni.isaac.lab.sensors.frame_transformer.frame_transformer_cfg import Offse
 from omni.isaac.lab.sim.schemas.schemas_cfg import RigidBodyPropertiesCfg
 from omni.isaac.lab.sim.spawners.from_files.from_files_cfg import UsdFileCfg
 from omni.isaac.lab.utils import configclass
-from omni.isaac.lab.utils.assets import ISAAC_NUCLEUS_DIR
 
 from omni.isaac.lab.markers.config import FRAME_MARKER_CFG  # isort: skip
 from omni.isaac.extended_assets.kinova import KINOVA_JACO_7N_CFG  # isort: skip
+from omni.isaac.extended_assets import ISAACLAB_EXTENDED_ASSETS_DATA_DIR
 
 
 @configclass
@@ -37,22 +37,43 @@ class Jaco7NAssemblyEnvCfg(AssemblyEnvCfg):
         # Set the body name for the end effector
         self.commands.object_pose.body_name = "j2n7n300_end_effector"
 
-        # Set Cube as object
+        # Set target object
         self.scene.object = RigidObjectCfg(
             prim_path="{ENV_REGEX_NS}/Object",
             init_state=RigidObjectCfg.InitialStateCfg(
                 pos=[0.5, 0, 0.055], rot=[1, 0, 0, 0]
             ),
             spawn=UsdFileCfg(
-                usd_path=f"{ISAAC_NUCLEUS_DIR}/Props/Blocks/DexCube/dex_cube_instanceable.usd",
-                scale=(0.8, 0.8, 0.8),
+                usd_path=f"{ISAACLAB_EXTENDED_ASSETS_DATA_DIR}/Props/USD/fusion360/00004/model_0/model_0.usd",
+                scale=(1.0, 1.0, 1.0),
                 rigid_props=RigidBodyPropertiesCfg(
-                    solver_position_iteration_count=16,
-                    solver_velocity_iteration_count=1,
-                    max_angular_velocity=1000.0,
-                    max_linear_velocity=1000.0,
-                    max_depenetration_velocity=5.0,
+                    solver_position_iteration_count=32,
+                    solver_velocity_iteration_count=32,
+                    max_angular_velocity=10.0,
+                    max_linear_velocity=10.0,
+                    max_depenetration_velocity=3.0,
                     disable_gravity=False,
+                ),
+            ),
+        )
+
+        # Set fixture
+        self.scene.fixture = RigidObjectCfg(
+            prim_path="{ENV_REGEX_NS}/Fixture",
+            init_state=RigidObjectCfg.InitialStateCfg(
+                pos=[0.5, 0.1, 0.055], rot=[1, 0, 0, 0]
+            ),
+            spawn=UsdFileCfg(
+                usd_path=f"{ISAACLAB_EXTENDED_ASSETS_DATA_DIR}/Props/USD/fusion360/00004/model_1/model_1.usd",
+                scale=(1.0, 1.0, 1.0),
+                rigid_props=RigidBodyPropertiesCfg(
+                    solver_position_iteration_count=32,
+                    solver_velocity_iteration_count=32,
+                    max_angular_velocity=10.0,
+                    max_linear_velocity=10.0,
+                    max_depenetration_velocity=3.0,
+                    disable_gravity=False,
+                    kinematic_enabled=True,
                 ),
             ),
         )

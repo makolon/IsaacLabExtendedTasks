@@ -44,14 +44,14 @@ class FrankaAssemblyEnvCfg(AssemblyEnvCfg):
                 pos=[0.5, 0, 0.055], rot=[1, 0, 0, 0]
             ),
             spawn=UsdFileCfg(
-                usd_path=f"{ISAACLAB_EXTENDED_ASSETS_DATA_DIR}/Props/USD/assembly/00004/model_0/model_0.usd",
-                scale=(1.5, 1.5, 1.5),
+                usd_path=f"{ISAACLAB_EXTENDED_ASSETS_DATA_DIR}/Props/USD/fusion360/00004/model_0/model_0.usd",
+                scale=(1.0, 1.0, 1.0),
                 rigid_props=RigidBodyPropertiesCfg(
-                    solver_position_iteration_count=16,
-                    solver_velocity_iteration_count=1,
-                    max_angular_velocity=1000.0,
-                    max_linear_velocity=1000.0,
-                    max_depenetration_velocity=5.0,
+                    solver_position_iteration_count=32,
+                    solver_velocity_iteration_count=32,
+                    max_angular_velocity=10.0,
+                    max_linear_velocity=10.0,
+                    max_depenetration_velocity=3.0,
                     disable_gravity=False,
                 ),
             ),
@@ -64,14 +64,14 @@ class FrankaAssemblyEnvCfg(AssemblyEnvCfg):
                 pos=[0.5, 0.1, 0.055], rot=[1, 0, 0, 0]
             ),
             spawn=UsdFileCfg(
-                usd_path=f"{ISAACLAB_EXTENDED_ASSETS_DATA_DIR}/Props/USD/assembly/00004/model_1/model_1.usd",
-                scale=(1.5, 1.5, 1.5),
+                usd_path=f"{ISAACLAB_EXTENDED_ASSETS_DATA_DIR}/Props/USD/fusion360/00004/model_1/model_1.usd",
+                scale=(1.0, 1.0, 1.0),
                 rigid_props=RigidBodyPropertiesCfg(
-                    solver_position_iteration_count=16,
-                    solver_velocity_iteration_count=1,
-                    max_angular_veloity=1000.0,
-                    max_linear_velocity=1000.0,
-                    max_depenetration_velocity=5.0,
+                    solver_position_iteration_count=32,
+                    solver_velocity_iteration_count=32,
+                    max_angular_velocity=10.0,
+                    max_linear_velocity=10.0,
+                    max_depenetration_velocity=3.0,
                     disable_gravity=False,
                     kinematic_enabled=True,
                 ),
