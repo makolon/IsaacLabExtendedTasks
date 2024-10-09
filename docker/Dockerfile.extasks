@@ -1,0 +1,10 @@
+# IsaacExtendedTasks Extension
+FROM isaac-lab-base AS base
+
+# Path to the IsaacExtendedTasks directory
+ARG ISAACEXTASKS_PATH_ARG
+ENV ISAACEXTASKS_PATH=${ISAACEXTASKS_PATH_ARG}
+
+# make working directory as the IsaacExtendedTasks directory
+# this is the default directory when the container is run
+WORKDIR ${ISAACEXTASKS_PATH}
