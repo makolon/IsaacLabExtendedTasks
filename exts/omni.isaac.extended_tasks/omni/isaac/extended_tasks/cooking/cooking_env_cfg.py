@@ -164,18 +164,18 @@ class ObservationsCfg:
         """Observations for image group."""
 
         rgb_image = ObsTerm(
-            func=mdp.grab_images,
+            func=mdp.image,
             params={"sensor_cfg": SceneEntityCfg("rgb_camera"), "data_type": "rgb"},
         )
         depth_image = ObsTerm(
-            func=mdp.grab_images,
+            func=mdp.image,
             params={
                 "sensor_cfg": SceneEntityCfg("depth_camera"),
                 "data_type": "distance_to_image_plane",
             },
         )
         semantic_image = ObsTerm(
-            func=mdp.grab_images,
+            func=mdp.image,
             params={
                 "sensor_cfg": SceneEntityCfg("semantic_camera"),
                 "data_type": "semantic_segmentation",
