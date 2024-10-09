@@ -9,6 +9,10 @@
 **/.thumbs
 
 # No USD files allowed in the repo
+**/Props
+**/Robots
+**/Scenes
+**/Policies
 **/*.usd
 **/*.usda
 **/*.usdc
