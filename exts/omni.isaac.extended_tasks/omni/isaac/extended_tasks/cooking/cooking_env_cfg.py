@@ -15,6 +15,7 @@ from omni.isaac.lab.managers import ObservationTermCfg as ObsTerm
 from omni.isaac.lab.managers import RewardTermCfg as RewTerm
 from omni.isaac.lab.managers import SceneEntityCfg
 from omni.isaac.lab.managers import TerminationTermCfg as DoneTerm
+from omni.isaac.lab.terrains import TerrainImporterCfg
 from omni.isaac.lab.scene import InteractiveSceneCfg
 from omni.isaac.lab.sensors import CameraCfg
 from omni.isaac.lab.sensors.frame_transformer.frame_transformer_cfg import (
@@ -26,6 +27,7 @@ from omni.isaac.lab.sim.spawners.from_files.from_files_cfg import (
 )
 from omni.isaac.lab.utils import configclass
 from omni.isaac.lab.utils.assets import ISAAC_NUCLEUS_DIR
+from omni.isaac.extended_assets import ISAACLAB_EXTENDED_ASSETS_DATA_DIR
 
 from . import mdp as extended_mdp
 
@@ -43,6 +45,18 @@ class CookingSceneCfg(InteractiveSceneCfg):
     ee_frame: FrameTransformerCfg = MISSING
     # target object: will be populated by agent env cfg
     object: RigidObjectCfg | DeformableObjectCfg = MISSING
+
+    terrain = TerrainImporterCfg(
+        prim_path="/World/Kitchen",
+        physics_material=sim_utils.RigidBodyMaterialCfg(
+            friction_combine_mode="multiply",
+            restitution_combine_mode="multiply",
+            static_friction=1.0,
+            dynamic_friction=1.0,
+        ),
+        terrain_type="usd",
+        usd_path=f"{ISAACLAB_EXTENDED_ASSETS_DATA_DIR}/Scenes/Kitchen/kitchen_scene_pivot.usd",
+    )
 
     # table
     table = AssetBaseCfg(

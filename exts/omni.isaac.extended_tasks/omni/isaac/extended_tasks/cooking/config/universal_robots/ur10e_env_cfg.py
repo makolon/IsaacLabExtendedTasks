@@ -13,7 +13,7 @@ from omni.isaac.extended_assets.universal_robots import UR5E_ROBOTIQ_2F_140_CFG 
 
 
 @configclass
-class UR10CookingEnvCfg(CookingEnvCfg):
+class UR10eCookingEnvCfg(CookingEnvCfg):
     def __post_init__(self):
         # post init of parent
         super().__post_init__()
@@ -87,7 +87,7 @@ class UR10CookingEnvCfg(CookingEnvCfg):
 
 
 @configclass
-class UR10CookingEnvCfg_PLAY(UR10CookingEnvCfg):
+class UR10eCookingEnvCfg_PLAY(UR10eCookingEnvCfg):
     def __post_init__(self):
         # post init of parent
         super().__post_init__()

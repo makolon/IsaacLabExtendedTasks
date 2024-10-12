@@ -1,5 +1,5 @@
-from omni.isaac.extended_tasks.assembly import mdp
-from omni.isaac.extended_tasks.assembly.cooking_env_cfg import CookingEnvCfg
+from omni.isaac.extended_tasks.cooking import mdp
+from omni.isaac.extended_tasks.cooking.cooking_env_cfg import CookingEnvCfg
 from omni.isaac.lab.assets import RigidObjectCfg
 from omni.isaac.lab.sensors import FrameTransformerCfg
 from omni.isaac.lab.sensors.frame_transformer.frame_transformer_cfg import OffsetCfg

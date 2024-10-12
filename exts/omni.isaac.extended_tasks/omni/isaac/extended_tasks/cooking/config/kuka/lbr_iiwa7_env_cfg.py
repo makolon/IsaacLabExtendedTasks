@@ -9,7 +9,7 @@ from omni.isaac.lab.utils import configclass
 from omni.isaac.lab.utils.assets import ISAAC_NUCLEUS_DIR
 
 from omni.isaac.lab.markers.config import FRAME_MARKER_CFG  # isort: skip
-from omni.isaac.extended_assets.kuka import LBR_IIWA7_CFG  # isort: skip
+from omni.isaac.extended_assets.kuka import LBR_IIWA7_SCHUNK_WSG_50_CFG  # isort: skip
 
 
 @configclass
@@ -19,7 +19,7 @@ class LBRIIWA7CookingEnvCfg(CookingEnvCfg):
         super().__post_init__()
 
         # Set Franka as robot
-        self.scene.robot = LBR_IIWA7_CFG.replace(prim_path="{ENV_REGEX_NS}/Robot")
+        self.scene.robot = LBR_IIWA7_SCHUNK_WSG_50_CFG.replace(prim_path="{ENV_REGEX_NS}/Robot")
 
         # Set actions for the specific robot type (franka)
         self.actions.arm_action = mdp.JointPositionActionCfg(
