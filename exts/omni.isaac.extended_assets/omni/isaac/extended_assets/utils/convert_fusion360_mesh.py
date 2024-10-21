@@ -76,7 +76,7 @@ def main():
             ISAACLAB_EXTENDED_ASSETS_DATA_DIR,
             "Props",
             "USD",
-            "assembly",
+            "fusion360",
             body_type,
             body_name,
         )

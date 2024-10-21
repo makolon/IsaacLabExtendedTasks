@@ -4,7 +4,6 @@ from omni.isaac.lab.app import AppLauncher
 
 parser = argparse.ArgumentParser(description="Utility to convert a mesh file into USD format.")
 parser.add_argument("input", type=str, nargs="+", help="The path to the input mesh file.")
-parser.add_argument("--print_stage", action="store_true", help="Whether print out the stage.")
 AppLauncher.add_app_launcher_args(parser)
 args_cli = parser.parse_args()
 
@@ -21,6 +20,7 @@ from pxr import Sdf, Gf, UsdPhysics, UsdLux, PhysxSchema, Usd, UsdGeom
 from omni.isaac.lab.utils.assets import check_file_path
 
 
+print_stage = False
 def main():
     # check valid file path
     usd_paths = args_cli.input
@@ -46,9 +46,10 @@ def main():
         omni.kit.commands.execute("PivotToolSetPivotToBoundingBoxCenter", prim_paths=[f"/{model_name}/geometry"])
 
         # Open instanceable usd stage
-        stage = Usd.Stage.Open(usd_path)
+        instanceable_usd_path = os.path.join(os.path.dirname(usd_path), "Props/instanceable_meshes.usd")
+        refstage = Usd.Stage.Open(instanceable_usd_path)
 
-        mesh_prim = stage.GetPrimAtPath(f"/{model_name}/geometry/mesh")
+        mesh_prim = refstage.GetPrimAtPath(f"/{model_name}/geometry/mesh")
 
         # Check if the prim is valid and is a Mesh
         if mesh_prim and mesh_prim.IsA(UsdGeom.Mesh):
@@ -76,11 +77,11 @@ def main():
         else:
             mesh.AddTranslateOp().Set(value=(center))
 
-        if args_cli.print_stage:
-            print(stage.ExportToString())
+        if print_stage:
+            print(refstage.ExportToString())
 
         # Save usd
-        stage.GetRootLayer().Save()
+        refstage.GetRootLayer().Save()
         
         print(f"[INFO] Usd path is {usd_path}")
         print("[INFO] Pivotting is done!")
