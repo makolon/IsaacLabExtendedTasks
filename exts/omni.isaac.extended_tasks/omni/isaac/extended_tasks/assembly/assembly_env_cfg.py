@@ -309,9 +309,13 @@ class AssemblyEnvCfg(ManagerBasedRLEnvCfg):
         self.decimation = 2
         self.episode_length_s = 5.0
         # simulation settings
-        self.sim.dt = 1 / 120
+        self.sim.dt = 1 / 60
         self.sim.render_interval = self.decimation
+        self.sim.physx.enable_ccd = True
+        self.sim.physx.enable_stabilization = True
         self.sim.physx.bounce_threshold_velocity = 0.2
-        self.sim.physx.gpu_found_lost_aggregate_pairs_capacity = 1024 * 1024 * 4
-        self.sim.physx.gpu_total_aggregate_pairs_capacity = 16 * 1024
+        self.sim.physx.friction_offset_threshold = 0.1
         self.sim.physx.friction_correlation_distance = 0.00625
+        self.sim.physx.gpu_max_rigid_contact_count = 1024 * 1024 * 64
+        self.sim.physx.gpu_found_lost_aggregate_pairs_capacity = 1024 * 1024 * 64
+        self.sim.physx.gpu_total_aggregate_pairs_capacity = 64 * 1024
