@@ -1,43 +1,42 @@
+import os
 import argparse
 
 # add argparse arguments
 parser = argparse.ArgumentParser(
     description="Utility to convert a MJCF into USD format."
 )
-parser.add_argument("input", type=str, help="The path to the input MJCF file.")
-parser.add_argument("output", type=str, help="The path to store the USD file.")
+parser.add_argument("input", type=str, nargs="+", help="Paths to the input MJCF files.")
 import xml.etree.ElementTree as ET
 
 args_cli = parser.parse_args()
 
-# parse xml
-tree = ET.parse(args_cli.input)
-root = tree.getroot()
 
-# get 'body' tag in 'worldbody'
-worldbody = root.find("worldbody")
-if worldbody is not None:
-    # get 'body name="object"' tag
-    body = worldbody.find("body")
-    body_object = body.find('body[@name="object"]')
+def main():
+    # parse xml
+    xml_paths = args_cli.input
+    for xml_path in xml_paths:
+        tree = ET.parse(xml_path)
+        root = tree.getroot()
 
-    # remove 'body' tag
-    if body is not None:
-        worldbody.remove(body)
+        # get 'body' tag in 'worldbody'
+        worldbody = root.find("worldbody")
+        for body in worldbody.findall('body'):
+            for site in body.findall('site'):
+                body.remove(site)
 
-    if body_object is None:
-        raise ValueError("body object does not exist.")
-    else:
-        worldbody.append(body_object)
+        for body in worldbody.findall('body'):
+            inner_body = body.find('body[@name="object"]')
+            if inner_body is not None:
+                worldbody.append(inner_body)
+                worldbody.remove(body)
 
-    # remove 'site' tag
-    sites_to_remove = [
-        worldbody.find("site"),
-    ]
+        dirname = os.path.dirname(xml_path)
+        basename = os.path.basename(xml_path).split('.')[0]
+        output_path = os.path.join(dirname, f"{basename}_fixed.xml")
 
-    for site in sites_to_remove:
-        if site is not None:
-            worldbody.remove(site)
+        # save fixed xml file
+        tree.write(output_path)
 
-# save fixed xml file
-tree.write(args_cli.output)
+
+if __name__ == "__main__":
+    main()

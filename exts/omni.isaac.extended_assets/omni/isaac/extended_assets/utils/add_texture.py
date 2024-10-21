@@ -16,11 +16,10 @@ import omni
 import omni.usd
 import omni.kit.commands
 import omni.kit.app as app
-from pxr import Sdf, Gf, UsdPhysics, UsdLux, PhysxSchema, Usd, UsdGeom
+from pxr import Sdf, UsdShade, Usd, UsdGeom
 from omni.isaac.lab.utils.assets import check_file_path
 
 
-print_stage = False
 def main():
     # check valid file path
     usd_paths = args_cli.input
@@ -29,27 +28,45 @@ def main():
     else:
         print("USD paths:", usd_paths)
 
-    # enable immediately
-    manager = omni.kit.app.get_app().get_extension_manager()
-    manager.set_extension_enabled_immediate("omni.tools.pivot", True)
-
     for usd_path in usd_paths:
         if not os.path.isabs(usd_path):
             usd_path = os.path.abspath(usd_path)
         if not check_file_path(usd_path):
             raise ValueError(f"Invalid usd file path: {usd_path}")
 
+        # Extract model_name from usd_path
         model_name = os.path.basename(os.path.dirname(usd_path))
 
-        # Open original usd stage
-        omni.kit.commands.execute("PivotToolAddPivot", prim_paths=[f"/{model_name}/geometry"])
-        omni.kit.commands.execute("PivotToolSetPivotToBoundingBoxCenter", prim_paths=[f"/{model_name}/geometry"])
+        # Open usd stage
+        stage = Usd.Stage.Open(usd_path)
+
+        # Create a material.
+        material_path = Sdf.Path("/World/material")
+        material = UsdShade.Material.Define(stage, material_path)
+
+        # Create a shader for the material.
+        shader = UsdShade.Shader.Define(stage, material_path.AppendChild('PBRShader'))
+        shader.CreateIdAttr('UsdPreviewSurface')
+
+        # Create an input for the diffuse color.
+        diffuse_color_input = shader.CreateInput('diffuseColor', Sdf.ValueTypeNames.Color3f)
+
+        # Create a texture for the diffuse color.
+        texture_path = material_path.AppendChild('diffuseTexture')
+        texture = UsdShade.Shader.Define(stage, texture_path)
+        texture.CreateIdAttr('UsdUVTexture')
+
+        # Set the file path of the texture.
+        texture.CreateInput('file', Sdf.ValueTypeNames.Asset).Set('path/to/your/texture.png')
+
+        # Connect the texture to the diffuse color input.
+        texture.CreateOutput('rgb', Sdf.ValueTypeNames.Float3).ConnectToSource(diffuse_color_input)
 
         # Open instanceable usd stage
-        instanceable_usd_path = os.path.join(os.path.dirname(usd_path), "Props/instanceable_meshes.usd")
+        instanceable_usd_path = os.path.join(os.path.dirname(usd_path), "Props/instanceable_meshes.usd")  # TODO: Fix here
         refstage = Usd.Stage.Open(instanceable_usd_path)
 
-        mesh_prim = refstage.GetPrimAtPath(f"/{model_name}/geometry/mesh")
+        mesh_prim = refstage.GetPrimAtPath(f"/{model_name}/geometry/mesh")  # TODO: Fix here
 
         # Check if the prim is valid and is a Mesh
         if mesh_prim and mesh_prim.IsA(UsdGeom.Mesh):
@@ -58,34 +75,19 @@ def main():
         else:
             print("Mesh Prim not found or not a Mesh")
 
-        # Get extent
-        extent = mesh.GetExtentAttr().Get()
-        center_x = -(extent[0][0] + extent[1][0]) / 2
-        center_y = -(extent[0][1] + extent[1][1]) / 2
-        center_z = -(extent[0][2] + extent[1][2]) / 2
-        center = Gf.Vec3f(center_x, center_y, center_z)
+        # Bind the material to the mesh.
+        UsdShade.MaterialBindingAPI(mesh).Bind(material)
 
-        # Add Xform pivot
-        translate_op = None
-        for op in mesh.GetOrderedXformOps():
-            if op.GetOpName() == "xformOp:translate":
-                translate_op = op
-                break
-
-        if translate_op:
-            translate_op.Set(value=(center))
-        else:
-            mesh.AddTranslateOp().Set(value=(center))
-
-        if print_stage:
-            print(refstage.ExportToString())
+        # Connecting Material to Shader.
+        mdlOutput = material.CreateSurfaceOutput("mdl")
+        mdlOutput.ConnectToSource(shader.ConnectableAPI(), "out")
 
         # Save usd
         refstage.GetRootLayer().Save()
         
         print(f"[INFO] Usd path is {usd_path}")
         print("[INFO] Pivotting is done!")
-    
+
     simulation_app.close()
     
 

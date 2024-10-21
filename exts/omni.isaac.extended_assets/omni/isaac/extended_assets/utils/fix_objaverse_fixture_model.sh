@@ -1,16 +1,7 @@
 #!/bin/bash
 
-find ../../../../data/_robocasa/fixtures -name "model.xml" | while read model_path; do
-    # get directory name of model.xml
-    dir_name=$(dirname "$model_path")
-    dir_base=$(basename "$dir_name")
-  
-    input="$model_path"
-    output="$dir_name/fixture.xml"
+# Store the paths of all object.xml files as a list in $input
+input=$(find ../../../../data/Props/MJCF/objaverse/fixtures -name "*.xml")
 
-    echo $input
-    echo $output
-
-    # execute convert_mjcf.py in isaaclab
-    /isaac-sim/python.sh fix_objaverse_fixture_model.py "$input" "$output"
-done
+# Call fix_objaverse_fixture_model.py once, passing all input and corresponding output files
+/isaac-sim/python.sh fix_objaverse_fixture_model.py $input
