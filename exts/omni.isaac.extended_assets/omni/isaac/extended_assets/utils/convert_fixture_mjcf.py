@@ -76,7 +76,6 @@ def main():
             ISAACLAB_EXTENDED_ASSETS_DATA_DIR,
             "Props",
             "USD",
-            "objaverse",
             "fixtures",
             category_name,
             object_name,
