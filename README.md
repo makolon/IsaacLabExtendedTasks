@@ -16,7 +16,16 @@ To install this repository, follow these steps:
 git clone https://github.com/makolon/IsaacLabExtendedTasks.git
 ```
 
-2. Run the following command in each directory to install the necessary components:
+2. Build docker container.
+```
+./docker/container.py start base
+./docker/container.py start extasks
+```
+3. Enter `extasks` container.
+```
+./docker/container.py enter extasks
+```
+3. Run the following command in each directory to install the necessary components:
 ```
 cd omni.isaac.extended_assets
 pip install -e .
@@ -24,8 +33,17 @@ pip install -e .
 cd omni.isaac.extended_tasks
 pip install -e .
 ```
+:construction: You have to add `DISPLAY=:0` as environment variable.
+
 
 ## Usage
+You can simulate the Isaac-Franka-Assembly-v0 environment by running the following command.
+```
+cd ./scripts
+python create_scene.py --task Isaac-Franka-Assembly-v0 --enable_cameras
+```
+
+## Extension
 This repository is intended for use with IsaacTAMP and IsaacLab. It can be installed via the following command:
 ```
 pip install git+https://github.com/makolon/IsaacLabExtendedTasks.git/#subdirectory=omni.isaac.extended_assets
