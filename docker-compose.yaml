@@ -104,7 +104,7 @@ x-default-isaac-extasks-volumes: &default-isaac-extasks-volumes
     target: /etc/localtime
     read_only: true
   - type: bind
-    source: ../
+    source: ./
     target: ${ISAACEXTASKS_PATH}
 
 x-default-isaac-lab-environment: &default-isaac-lab-environment
@@ -128,12 +128,10 @@ services:
   desktop:
     image: ghcr.io/matsuolab/virtual_desktop:latest
     runtime: nvidia
-    build:
-      context: docker
     environment: *default-isaac-lab-environment
     ports:
       - "${WEB_PORT}:6080"
-    volumes: 
+    volumes:
       - "/tmp/.X11-unix:/tmp/.X11-unix:rw"
     security_opt:
       - seccomp:unconfined
@@ -143,6 +141,7 @@ services:
   isaac-lab-base:
     profiles: [ "base" ]
     build:
+      context: docker
       dockerfile: Dockerfile.base
       args:
         - ISAACSIM_VERSION_ARG=${ISAACSIM_VERSION}
@@ -150,7 +149,7 @@ services:
         - ISAACLAB_PATH_ARG=${DOCKER_ISAACLAB_PATH}
         - DOCKER_USER_HOME_ARG=${DOCKER_USER_HOME}
     image: isaac-lab-base
-    depends_on: 
+    depends_on:
       - desktop
     environment: *default-isaac-lab-environment
     volumes: *default-isaac-lab-volumes
@@ -166,14 +165,15 @@ services:
   isaac-lab-extasks:
     profiles: [ "extasks" ]
     build:
+      context: docker
       dockerfile: Dockerfile.extasks
       args:
-        # ISAACEXTASKS_PATH_ARG will default to NONE. 
-        # This is to avoid a warning message when building 
+        # ISAACEXTASKS_PATH_ARG will default to NONE.
+        # This is to avoid a warning message when building
         # only the base profile with the .env.base file
         - ISAACEXTASKS_PATH_ARG=${ISAACEXTASKS_PATH:-NONE}
     image: isaac-lab-extasks
-    depends_on: 
+    depends_on:
       - desktop
     environment: *default-isaac-lab-environment
     volumes: *default-isaac-extasks-volumes
