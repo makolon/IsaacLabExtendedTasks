@@ -18,14 +18,18 @@ git clone https://github.com/makolon/IsaacLabExtendedTasks.git
 
 2. Build docker container.
 ```
-./docker/container.py start base
-./docker/container.py start extasks
+cp .env .env.sample
+docker compose build
+# Or build separately
+docker compose build isaac-lab-base
+docker compose build isaac-lab-extasks
 ```
-3. Enter `extasks` container.
+4. Enter `extasks` container.
 ```
-./docker/container.py enter extasks
+docker compose run isaac-lab-base
+docker compose run isaac-lab-extasks
 ```
-3. Run the following command in each directory to install the necessary components:
+5. Run the following command in each directory to install the necessary components:
 ```
 cd omni.isaac.extended_assets
 pip install -e .
@@ -33,7 +37,16 @@ pip install -e .
 cd omni.isaac.extended_tasks
 pip install -e .
 ```
-:construction: You have to add `DISPLAY=:0` as environment variable.
+
+:construction: Update the DISPLAY environment in the .env file using free display. (The display free if it is not in the /tmp/.X11-unix/ folder of the host machine)
+
+:construction: Also, change the WEBPORT to enable the first free port (Get it by calculating DISPLAY + 6080).
+
+```
+# If there is no file /tmp/.X11-unix/X20
+DISPLAY=:20
+WEBPORT=6100
+```
 
 
 ## Usage
