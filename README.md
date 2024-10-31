@@ -18,7 +18,7 @@ git clone https://github.com/makolon/IsaacLabExtendedTasks.git
 
 2. Build docker container.
 ```
-cp .env .env.sample
+cp .env.sample .env
 docker compose build
 # Or build separately
 docker compose build isaac-lab-base
