@@ -29,8 +29,9 @@ class LBRIIWA7AssemblyEnvCfg(AssemblyEnvCfg):
         self.actions.arm_action = mdp.JointPositionActionCfg(
             asset_name="robot",
             joint_names=["iiwa7_joint_.*"],
-            scale=0.5,
-            use_default_offset=True,
+            scale=1.0,
+            use_default_offset=False,
+            preserve_order=True,
         )
         self.actions.gripper_action = mdp.BinaryJointPositionActionCfg(
             asset_name="robot",

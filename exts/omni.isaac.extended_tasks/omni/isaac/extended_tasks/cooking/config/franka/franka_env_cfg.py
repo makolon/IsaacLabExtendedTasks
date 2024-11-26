@@ -25,8 +25,9 @@ class FrankaCookingEnvCfg(CookingEnvCfg):
         self.actions.arm_action = mdp.JointPositionActionCfg(
             asset_name="robot",
             joint_names=["panda_joint.*"],
-            scale=0.5,
-            use_default_offset=True,
+            scale=1.0,
+            use_default_offset=False,
+            preserve_order=True,
         )
         self.actions.gripper_action = mdp.BinaryJointPositionActionCfg(
             asset_name="robot",

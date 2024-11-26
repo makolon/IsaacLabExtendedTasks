@@ -34,8 +34,9 @@ class UR5eCookingEnvCfg(CookingEnvCfg):
                 "wrist_2_joint",
                 "wrist_3_joint",
             ],
-            scale=0.5,
-            use_default_offset=True,
+            scale=1.0,
+            use_default_offset=False,
+            preserve_order=True,
         )
         self.actions.gripper_action = mdp.BinaryJointPositionActionCfg(
             asset_name="robot",
