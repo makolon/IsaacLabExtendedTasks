@@ -54,9 +54,9 @@ def main():
                 print("-" * 80)
                 print("[INFO]: Resetting environment...")
             # Sample random actions
-            joint_efforts = torch.randn_like(env.action_manager.action)
+            actions = torch.ones_like(env.action_manager.action)
             # Step the environment
-            obs, rew, terminated, truncated, info = env.step(joint_efforts)
+            obs, rew, terminated, truncated, info = env.step(actions)
             # Update counter
             count += 1
 
