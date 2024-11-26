@@ -8,7 +8,8 @@ from omni.isaac.lab.app import AppLauncher
 parser = argparse.ArgumentParser(
     description="Utility to convert a MJCF into USD format."
 )
-parser.add_argument("input", type=str, nargs="+", help="Paths to the input MJCF files.")
+parser.add_argument("input_urdf", type=str, nargs="+", help="Paths to the input URDF files.")
+parser.add_argument("input_meta", type=str, nargs="+", help="Paths to the input json files.")
 parser.add_argument(
     "--fix-base",
     action="store_true",
@@ -39,8 +40,11 @@ simulation_app = app_launcher.app
 
 """Rest everything follows."""
 
+import re
 import os
+import json
 
+from collections import defaultdict
 from omni.isaac.lab.sim.converters import UrdfConverter, UrdfConverterCfg
 from omni.isaac.lab.utils.assets import check_file_path
 from omni.isaac.lab.utils.dict import print_dict
@@ -51,29 +55,89 @@ ISAACLAB_EXTENDED_ASSETS_DATA_DIR = os.path.abspath(
 )
 
 
+def extract_meta_number(path):
+    match = re.search(r'/(\d+)/result\.json$', path)
+    return int(match.group(1)) if match else float('inf')
+
+
+def extract_urdf_number(path):
+    match = re.search(r'(\d+)', path)
+    return int(match.group(1)) if match else None
+
+
+def extract_number_from_path(path):
+    match = re.search(r'(\d+)', path)
+    return int(match.group(1)) if match else None
+
+
+def get_category_list(meta_paths):
+    category_list = []
+    for meta_path in meta_paths:
+        if not os.path.isabs(meta_path):
+            meta_path = os.path.abspath(meta_path)
+        with open(meta_path, "r") as f:
+            data = json.load(f)
+            category_list.append(data[0]["text"])
+
+    unique_categories = defaultdict(int)
+    renamed_list = []
+
+    for category in category_list:
+        cleaned_category = category.replace(" ", "")
+        unique_categories[cleaned_category] += 1
+        renamed_category = f"{cleaned_category}{unique_categories[cleaned_category]}"
+        renamed_list.append(renamed_category)
+
+    return renamed_list
+
+
 def main():
     # check valid file path
-    urdf_paths = args_cli.input
+    urdf_paths = args_cli.input_urdf[0].splitlines()
+    meta_paths = args_cli.input_meta[0].splitlines()
+
     if urdf_paths is None:
-        raise ValueError("URDF paths does not exist.")
+        raise ValueError("URDF paths do not exist.")
     else:
         print("URDF paths:", urdf_paths)
 
-    for urdf_path in urdf_paths:
+    if meta_paths is None:
+        raise ValueError("Meta paths do not exist.")
+    else:
+        print("Meta paths:", meta_paths)
+
+    urdf_paths = sorted(urdf_paths, key=extract_urdf_number)
+    meta_paths = sorted(meta_paths, key=extract_meta_number)
+    urdf_numbers = [extract_number_from_path(path) for path in urdf_paths]
+    meta_numbers = [extract_number_from_path(path) for path in meta_paths]
+
+    unmatched_paths = []
+    for i, (urdf_num, meta_num) in enumerate(zip(urdf_numbers, meta_numbers)):
+        if urdf_num != meta_num:
+            unmatched_paths.append((urdf_paths[i], meta_paths[i]))
+
+    if unmatched_paths:
+        print("Unmatched paths found:")
+        for urdf_path, meta_path in unmatched_paths:
+            print(f"URDF: {urdf_path}  | Meta: {meta_path}")
+    else:
+        print("All paths match.")
+
+    category_lists = get_category_list(meta_paths)
+    for urdf_path, category_list in zip(urdf_paths, category_lists):
         if not os.path.isabs(urdf_path):
             urdf_path = os.path.abspath(urdf_path)
         if not check_file_path(urdf_path):
             raise ValueError(f"Invalid file path: {urdf_path}")
 
         # Create destination directory under "Props" directory
-        base_name = os.path.basename(os.path.dirname(urdf_path))
         usd_dir = os.path.join(
-            ISAACLAB_EXTENDED_ASSETS_DATA_DIR, "Props", "USD", "gapartnet", base_name
+            ISAACLAB_EXTENDED_ASSETS_DATA_DIR, "Props", "USD", "gapartnet", category_list
         )
         os.makedirs(usd_dir, exist_ok=True)
 
         # Define USD file name based on directory name
-        usd_file_name = f"{base_name}.usd"
+        usd_file_name = f"{category_list}.usd"
 
         print("USD directory:", usd_dir)
         print("USD file name:", usd_file_name)
