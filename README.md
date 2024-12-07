@@ -24,12 +24,12 @@ docker compose build
 docker compose build isaac-lab-base
 docker compose build isaac-lab-extasks
 ```
-4. Enter `extasks` container.
+3. Enter `extasks` container.
 ```
 docker compose run isaac-lab-base
 docker compose run isaac-lab-extasks
 ```
-5. Run the following command in each directory to install the necessary components:
+4. Run the following command in each directory to install the necessary components:
 ```
 cd omni.isaac.extended_assets
 pip install -e .
@@ -50,10 +50,10 @@ WEBPORT=6100
 
 
 ## Usage
-You can simulate the Isaac-Franka-Assembly-v0 environment by running the following command.
+You can simulate the Isaac-Assembly-Franka-v0 environment by running the following command.
 ```
 cd ./scripts
-python create_scene.py --task Isaac-Franka-Assembly-v0 --enable_cameras
+python create_scene.py --task Isaac-Assembly-Franka-v0 --enable_cameras
 ```
 
 ## Extension
