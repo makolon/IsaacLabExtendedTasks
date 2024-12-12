@@ -4,7 +4,6 @@ import omni.isaac.lab.sim as sim_utils
 from omni.isaac.lab.assets import (
     ArticulationCfg,
     AssetBaseCfg,
-    DeformableObjectCfg,
     RigidObjectCfg,
 )
 from omni.isaac.lab.envs import ManagerBasedRLEnvCfg, mdp
@@ -31,64 +30,16 @@ from . import mdp as extended_mdp
 
 
 @configclass
-class Fusion360JointAssemblySceneCfg(InteractiveSceneCfg):
-    """Configuration for the assembly scene with a robot and a object.
-    This is the abstract base implementation, the exact scene is defined in the derived classes
-    which need to set the target object, robot and end-effector frames
+class FMBSingleSceneCfg(InteractiveSceneCfg):
+    """Configuration for the FMB assembly scene with a robot and multiple blocks.
+    This is the abstract base implementation, the extact scene is defined in the derived classes which need to set the target object, robot and end-effector frames
     """
-
     # robots: will be populated by agent env cfg
     robot: ArticulationCfg = MISSING
     # end-effector sensor: will be populated by agent env cfg
     ee_frame: FrameTransformerCfg = MISSING
-
-    # target object
-    object: RigidObjectCfg = RigidObjectCfg(
-        prim_path="{ENV_REGEX_NS}/Object",
-        init_state=RigidObjectCfg.InitialStateCfg(
-            pos=[0.5, 0.0, 0.055], rot=[1, 0, 0, 0]
-        ),
-        spawn=UsdFileCfg(
-            usd_path=object_path,
-            scale=(1.0, 1.0, 1.0),
-            rigid_props=RigidBodyPropertiesCfg(
-                solver_position_iteration_count=16,
-                solver_velocity_iteration_count=0,
-                max_angular_velocity=64.0,
-                max_linear_velocity=1000.0,
-                max_depenetration_velocity=3.0,
-                linear_damping=0.5,
-                angular_damping=0.5,
-                enable_gyroscopic_forces=True,
-                rigid_body_enable=True,
-                disable_gravity=False,
-            ),
-        ),
-    )
-
-    # fixture
-    fixture: RigidObjectCfg = RigidObjectCfg(
-        prim_path="{ENV_REGEX_NS}/Fixture",
-        init_state=RigidObjectCfg.InitialStateCfg(
-            pos=[0.5, 0.0, 0.055], rot=[1, 0, 0, 0]
-        ),
-        spawn=UsdFileCfg(
-            usd_path=fixture_path,
-            scale=(1.0, 1.0, 1.0),
-            rigid_props=RgidiBodyPropertiesCfg(
-                solver_position_iteration_count=16,
-                solver_velocity_iteration_count=0,
-                max_angular_velocity=64.0,
-                max_linear_velocity=1000.0,
-                max_depenetration_velocity=3.0,
-                linear_damping=0.5,
-                angular_damping=0.5,
-                enable_gyroscopic_forces=True,
-                rigid_body_enable=False,
-                disable_gravity=False,
-            ),
-        ),
-    )
+    # target block: will be populated by agent env cfg
+    target_object: RigidObjectCfg = MISSING
 
     # table
     table = AssetBaseCfg(
@@ -100,11 +51,10 @@ class Fusion360JointAssemblySceneCfg(InteractiveSceneCfg):
             usd_path=f"{ISAAC_NUCLEUS_DIR}/Props/Mounts/SeattleLabTable/table_instanceable.usd"
         ),
     )
-
     # plane
     plane = AssetBaseCfg(
         prim_path="/World/GroundPlane",
-        init_state=AssetBaseCfg.InitialStateCfg(pos=[0, 0, -1.05]),
+    init_state=AssetBaseCfg.InitialStateCfg(pos=[0, 0, -1.05]),
         spawn=GroundPlaneCfg(),
     )
 
@@ -115,7 +65,7 @@ class Fusion360JointAssemblySceneCfg(InteractiveSceneCfg):
     )
 
     # rgb camera
-    rgb_camera = CameraCfg(
+    front_rgb_camera = CameraCfg(
         prim_path="{ENV_REGEX_NS}/rgb_camera",
         update_period=0.1,
         spawn=sim_utils.PinholeCameraCfg(
@@ -128,7 +78,7 @@ class Fusion360JointAssemblySceneCfg(InteractiveSceneCfg):
     )
 
     # depth camera
-    depth_camera = CameraCfg(
+    front_depth_camera = CameraCfg(
         prim_path="{ENV_REGEX_NS}/depth_camera",
         update_period=0.1,
         spawn=sim_utils.PinholeCameraCfg(
@@ -141,7 +91,7 @@ class Fusion360JointAssemblySceneCfg(InteractiveSceneCfg):
     )
 
     # semantic camera
-    semantic_camera = CameraCfg(
+    front_semantic_camera = CameraCfg(
         prim_path="{ENV_REGEX_NS}/semantic_camera",
         update_period=0.1,
         spawn=sim_utils.PinholeCameraCfg(
@@ -195,7 +145,7 @@ class ObservationsCfg:
 
         joint_pos = ObsTerm(func=mdp.joint_pos_rel)
         joint_vel = ObsTerm(func=mdp.joint_vel_rel)
-        object_position = ObsTerm(func=extended_mdp.object_position_in_robot_root_frame)
+        object_position = ObsTerm(func=extended_mdp.target_object_position_in_robot_root_frame)
         target_object_position = ObsTerm(
             func=mdp.generated_commands, params={"command_name": "object_pose"}
         )
@@ -260,12 +210,12 @@ class EventCfg:
     reset_all = EventTerm(func=mdp.reset_scene_to_default, mode="reset")
 
     reset_object_position = EventTerm(
-        func=mdp.reset_root_state_uniform,
+        func=extended_mdp.reset_root_state_uniform,
         mode="reset",
         params={
-            "pose_range": {"x": (-0.1, 0.1), "y": (-0.25, 0.25), "z": (0.0, 0.0)},
+            "pose_range": {"x": (-0.2, 0.2), "y": (-0.25, 0.25), "z": (0.0, 0.0)},
             "velocity_range": {},
-            "asset_cfg": SceneEntityCfg("object", body_names="Object"),
+            "asset_names": ["blue_block", "green_block", "red_block", "yellow_block"],
         },
     )
 
@@ -312,13 +262,13 @@ class TerminationsCfg:
 
     object_dropping = DoneTerm(
         func=mdp.root_height_below_minimum,
-        params={"minimum_height": -0.05, "asset_cfg": SceneEntityCfg("object")},
+        params={"minimum_height": -0.05, "asset_cfg": SceneEntityCfg("target_object")},
     )
 
 
 @configclass
 class CurriculumCfg:
-    """Curriculum terms for the MDP."""
+"""Curriculum terms for the MDP."""
 
     action_rate = CurrTerm(
         func=mdp.modify_reward_weight,
@@ -332,11 +282,11 @@ class CurriculumCfg:
 
 
 @configclass
-class AssemblyEnvCfg(ManagerBasedRLEnvCfg):
-    """Configuration for the assembly environment."""
+class FMBSingleEnvCfg(ManagerBasedRLEnvCfg):
+    """Configuration for the FMB single assembly environment."""
 
     # scene settings
-    scene: AssemblySceneCfg = AssemblySceneCfg(num_envs=4096, env_spacing=2.5)
+    scene: FMBSingleSceneCfg = FMBSingleSceneCfg(num_envs=4096, env_spacing=2.5)
     # basic settings
     observations: ObservationsCfg = ObservationsCfg()
     actions: ActionsCfg = ActionsCfg()

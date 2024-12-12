@@ -1,7 +1,7 @@
 import os
 import random
-from omni.isaac.extended_tasks.sort import mdp
-from omni.isaac.extended_tasks.sort.sort_env_cfg import SortEnvCfg
+from omni.isaac.extended_tasks.block_world.sort import mdp
+from omni.isaac.extended_tasks.block_world.sort.sort_env_cfg import SortEnvCfg
 from omni.isaac.lab.assets import RigidObjectCfg
 from omni.isaac.lab.sensors import FrameTransformerCfg
 from omni.isaac.lab.sensors.frame_transformer.frame_transformer_cfg import OffsetCfg

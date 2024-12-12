@@ -1,7 +1,7 @@
 import os
 import random
-from omni.isaac.extended_tasks.sorting import mdp
-from omni.isaac.extended_tasks.sorting.sorting_env_cfg import SortingEnvCfg
+from omni.isaac.extended_tasks.block_world.sort import mdp
+from omni.isaac.extended_tasks.block_world.sort.sort_env_cfg import SortEnvCfg
 from omni.isaac.lab.assets import RigidObjectCfg
 from omni.isaac.lab.sensors import FrameTransformerCfg
 from omni.isaac.lab.sensors.frame_transformer.frame_transformer_cfg import OffsetCfg
@@ -15,7 +15,7 @@ from omni.isaac.extended_assets.kinova import KINOVA_JACO_7S_CFG  # isort: skip
 
 
 @configclass
-class Jaco7SSortingEnvCfg(SortingEnvCfg):
+class Jaco7SSortEnvCfg(SortEnvCfg):
     def __post_init__(self):
         # post init of parent
         super().__post_init__()
@@ -95,7 +95,7 @@ class Jaco7SSortingEnvCfg(SortingEnvCfg):
 
 
 @configclass
-class Jaco7SSortingEnvCfg_PLAY(Jaco7SSortingEnvCfg):
+class Jaco7SSortEnvCfg_PLAY(Jaco7SSortEnvCfg):
     def __post_init__(self):
         # post init of parent
         super().__post_init__()

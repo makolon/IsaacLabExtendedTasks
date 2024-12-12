@@ -33,7 +33,7 @@ from . import mdp as extended_mdp
 
 
 @configclass
-class CookingSceneCfg(InteractiveSceneCfg):
+class BowlStackSceneCfg(InteractiveSceneCfg):
     """Configuration for the assembly scene with a robot and a object.
     This is the abstract base implementation, the exact scene is defined in the derived classes
     which need to set the target object, robot and end-effector frames
@@ -46,6 +46,7 @@ class CookingSceneCfg(InteractiveSceneCfg):
     # target object: will be populated by agent env cfg
     object: RigidObjectCfg | DeformableObjectCfg = MISSING
 
+    # terrain
     terrain = TerrainImporterCfg(
         prim_path="/World/Kitchen",
         physics_material=sim_utils.RigidBodyMaterialCfg(
@@ -300,11 +301,11 @@ class CurriculumCfg:
 
 
 @configclass
-class CookingEnvCfg(ManagerBasedRLEnvCfg):
+class BowlStackEnvCfg(ManagerBasedRLEnvCfg):
     """Configuration for the assembly environment."""
 
     # scene settings
-    scene: CookingSceneCfg = CookingSceneCfg(num_envs=4096, env_spacing=2.5)
+    scene: BowlStackSceneCfg = BowlStackSceneCfg(num_envs=4096, env_spacing=2.5)
     # basic settings
     observations: ObservationsCfg = ObservationsCfg()
     actions: ActionsCfg = ActionsCfg()
