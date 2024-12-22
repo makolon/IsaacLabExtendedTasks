@@ -1,6 +1,6 @@
 import random
-from omni.isaac.extended_tasks.sorting import mdp
-from omni.isaac.extended_tasks.sorting.sorting_env_cfg import SortingEnvCfg
+from omni.isaac.extended_tasks.block_world.stack import mdp
+from omni.isaac.extended_tasks.block_world.stack.stack_env_cfg import StackEnvCfg
 from omni.isaac.lab.assets import RigidObjectCfg
 from omni.isaac.lab.sensors import FrameTransformerCfg
 from omni.isaac.lab.sensors.frame_transformer.frame_transformer_cfg import OffsetCfg
@@ -14,7 +14,7 @@ from omni.isaac.extended_assets.franka import FRANKA_PANDA_CFG  # isort: skip
 
 
 @configclass
-class FrankaSortingEnvCfg(SortingEnvCfg):
+class FrankaStackEnvCfg(StackEnvCfg):
     def __post_init__(self):
         # post init of parent
         super().__post_init__()
@@ -94,7 +94,7 @@ class FrankaSortingEnvCfg(SortingEnvCfg):
 
 
 @configclass
-class FrankaSortingEnvCfg_PLAY(FrankaSortingEnvCfg):
+class FrankaStackEnvCfg_PLAY(FrankaStackEnvCfg):
     def __post_init__(self):
         # post init of parent
         super().__post_init__()

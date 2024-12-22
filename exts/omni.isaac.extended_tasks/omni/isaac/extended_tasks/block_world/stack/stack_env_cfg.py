@@ -30,7 +30,7 @@ from . import mdp as extended_mdp
 
 
 @configclass
-class StackSceneCfng(InteractiveSceneCfg):
+class StackSceneCfg(InteractiveSceneCfg):
     """Configuration for the sorting scene with a robot and multiple blocks.
     This is the abstract base implementation, the exact scene is defined in the derived classes
     which need to set the target object, robot and end-effector frames
@@ -289,7 +289,7 @@ class StackEnvCfg(ManagerBasedRLEnvCfg):
     """Configuration for the sorting environment."""
 
     # scene settings
-    scene: StackSceneCfng = StackSceneCfng(num_envs=4096, env_spacing=2.5)
+    scene: StackSceneCfg = StackSceneCfg(num_envs=4096, env_spacing=2.5)
     # basic settings
     observations: ObservationsCfg = ObservationsCfg()
     actions: ActionsCfg = ActionsCfg()

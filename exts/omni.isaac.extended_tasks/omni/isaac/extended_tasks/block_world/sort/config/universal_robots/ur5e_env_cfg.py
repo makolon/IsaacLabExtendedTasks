@@ -1,4 +1,3 @@
-import os
 import random
 from omni.isaac.extended_tasks.block_world.sort import mdp
 from omni.isaac.extended_tasks.block_world.sort.sort_env_cfg import SortEnvCfg
@@ -15,7 +14,7 @@ from omni.isaac.extended_assets.universal_robots import UR5E_ROBOTIQ_2F_85_CFG  
 
 
 @configclass
-class UR5eSortingEnvCfg(SortEnvCfg):
+class UR5eSortEnvCfg(SortEnvCfg):
     def __post_init__(self):
         # post init of parent
         super().__post_init__()
@@ -49,6 +48,40 @@ class UR5eSortingEnvCfg(SortEnvCfg):
         )
         # Set the body name for the end effector
         self.commands.object_pose.body_name = "grasp_frame"
+
+        # Collect all configs
+        block_cfgs = {}
+        for block_color in ["blue", "green", "red", "yellow"]:
+            block_cfgs[block_color] = RigidObjectCfg(
+                prim_path="{ENV_REGEX_NS}/" + "{}Block".format(block_color.capitalize()),
+                init_state=RigidObjectCfg.InitialStateCfg(
+                    pos=[0.5, 0, 0.02], rot=[1, 0, 0, 0]
+                ),
+                spawn=UsdFileCfg(
+                    usd_path=f"{ISAAC_NUCLEUS_DIR}/Props/Blocks/{block_color}_block.usd",
+                    scale=(1.0, 1.0, 1.0),
+                    rigid_props=RigidBodyPropertiesCfg(
+                        solver_position_iteration_count=16,
+                        solver_velocity_iteration_count=0,
+                        max_angular_velocity=64.0,
+                        max_linear_velocity=1000.0,
+                        max_depenetration_velocity=5.0,
+                        linear_damping=0.5,
+                        angular_damping=0.5,
+                        enable_gyroscopic_forces=True,
+                        rigid_body_enabled=True,
+                        disable_gravity=False,
+                    ),
+                ),
+            )
+
+        # Set the configs as member of the class
+        for k, v in block_cfgs.items():
+            attr_name = "{}_block".format(k)
+            self.scene.__setattr__(attr_name, v)
+
+        # Set target object (randomly)
+        self.scene.target_object = random.choice(list(block_cfgs.values()))
 
         # Listens to the required transforms
         marker_cfg = FRAME_MARKER_CFG.copy()

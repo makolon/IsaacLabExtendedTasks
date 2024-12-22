@@ -1,7 +1,6 @@
-import os
 import random
-from omni.isaac.extended_tasks.sorting import mdp
-from omni.isaac.extended_tasks.sorting.sorting_env_cfg import SortingEnvCfg
+from omni.isaac.extended_tasks.block_world.stack import mdp
+from omni.isaac.extended_tasks.block_world.stack.stack_env_cfg import StackEnvCfg
 from omni.isaac.lab.assets import RigidObjectCfg
 from omni.isaac.lab.sensors import FrameTransformerCfg
 from omni.isaac.lab.sensors.frame_transformer.frame_transformer_cfg import OffsetCfg
@@ -15,7 +14,7 @@ from omni.isaac.extended_assets.universal_robots import UR10E_ROBOTIQ_2F_140_CFG
 
 
 @configclass
-class UR10eSortingEnvCfg(SortingEnvCfg):
+class UR10eStackEnvCfg(StackEnvCfg):
     def __post_init__(self):
         # post init of parent
         super().__post_init__()
@@ -104,7 +103,7 @@ class UR10eSortingEnvCfg(SortingEnvCfg):
 
 
 @configclass
-class UR10eSortingEnvCfg_PLAY(UR10eSortingEnvCfg):
+class UR10eStackEnvCfg_PLAY(UR10eStackEnvCfg):
     def __post_init__(self):
         # post init of parent
         super().__post_init__()

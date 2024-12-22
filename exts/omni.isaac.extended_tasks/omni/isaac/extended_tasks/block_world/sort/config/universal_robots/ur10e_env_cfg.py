@@ -1,4 +1,3 @@
-import os
 import random
 from omni.isaac.extended_tasks.block_world.sort import mdp
 from omni.isaac.extended_tasks.block_world.sort.sort_env_cfg import SortEnvCfg
