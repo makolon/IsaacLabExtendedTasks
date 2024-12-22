@@ -1,5 +1,5 @@
-from omni.isaac.extended_tasks.cooking import mdp
-from omni.isaac.extended_tasks.cooking.cooking_env_cfg import CookingEnvCfg
+from omni.isaac.extended_tasks.kitchen.bowl_stack import mdp
+from omni.isaac.extended_tasks.kitchen.bowl_stack.bowl_stack_env_cfg import BowlStackEnvCfg
 from omni.isaac.lab.assets import RigidObjectCfg
 from omni.isaac.lab.sensors import FrameTransformerCfg
 from omni.isaac.lab.sensors.frame_transformer.frame_transformer_cfg import OffsetCfg
@@ -13,7 +13,7 @@ from omni.isaac.extended_assets.franka import FRANKA_PANDA_CFG  # isort: skip
 
 
 @configclass
-class FrankaCookingEnvCfg(CookingEnvCfg):
+class FrankaBowlStackEnvCfg(BowlStackEnvCfg):
     def __post_init__(self):
         # post init of parent
         super().__post_init__()
@@ -79,7 +79,7 @@ class FrankaCookingEnvCfg(CookingEnvCfg):
 
 
 @configclass
-class FrankaCookingEnvCfg_PLAY(FrankaCookingEnvCfg):
+class FrankaBowlStackEnvCfg_PLAY(FrankaBowlStackEnvCfg):
     def __post_init__(self):
         # post init of parent
         super().__post_init__()
