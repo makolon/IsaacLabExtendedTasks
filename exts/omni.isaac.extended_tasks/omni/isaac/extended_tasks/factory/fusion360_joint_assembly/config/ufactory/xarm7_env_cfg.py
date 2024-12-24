@@ -1,7 +1,7 @@
 import os
 import random
-from omni.isaac.extended_tasks.assembly import mdp
-from omni.isaac.extended_tasks.assembly.assembly_env_cfg import AssemblyEnvCfg
+from omni.isaac.extended_tasks.factory.fusion360_joint_assembly import mdp
+from omni.isaac.extended_tasks.factory.fusion360_joint_assembly.fusion360_joint_assembly_env_cfg import Fusion360JointAssemblyEnvCfg
 from omni.isaac.lab.assets import RigidObjectCfg
 from omni.isaac.lab.sensors import FrameTransformerCfg
 from omni.isaac.lab.sensors.frame_transformer.frame_transformer_cfg import OffsetCfg
@@ -11,11 +11,11 @@ from omni.isaac.lab.utils import configclass
 
 from omni.isaac.lab.markers.config import FRAME_MARKER_CFG  # isort: skip
 from omni.isaac.extended_assets.ufactory import XARM7_CFG  # isort: skip
-from omni.isaac.extended_tasks.assembly import FUSION360_FIXTURE_PATH, FUSION360_OBJECT_PATH  # isort: skip
+from omni.isaac.extended_tasks.factory.fusion360_joint_assembly import FUSION360_FIXTURE_PATH, FUSION360_OBJECT_PATH  # isort: skip
 
 
 @configclass
-class XArm7AssemblyEnvCfg(AssemblyEnvCfg):
+class XArm7AssemblyEnvCfg(Fusion360JointAssemblyEnvCfg):
     def __post_init__(self):
         # post init of parent
         super().__post_init__()
@@ -31,11 +31,12 @@ class XArm7AssemblyEnvCfg(AssemblyEnvCfg):
             use_default_offset=False,
             preserve_order=True,
         )
-        self.actions.gripper_action = mdp.BinaryJointPositionActionCfg(
+        self.actions.gripper_action = mdp.JointPositionActionCfg(
             asset_name="robot",
             joint_names=["drive_joint"],
-            open_command_expr={"drive_joint": 0.0},
-            close_command_expr={"drive_joint": 40.0},
+            scale=1.0,
+            use_default_offset=False,
+            preserve_order=True,
         )
         # Set the body name for the end effector
         self.commands.object_pose.body_name = "xarm_gripper_base_link"
@@ -61,13 +62,14 @@ class XArm7AssemblyEnvCfg(AssemblyEnvCfg):
                 usd_path=object_path,
                 scale=(1.0, 1.0, 1.0),
                 rigid_props=RigidBodyPropertiesCfg(
-                    solver_position_iteration_count=16,
-                    solver_velocity_iteration_count=0,
-                    max_angular_velocity=64.0,
+                    solver_position_iteration_count=192,
+                    solver_velocity_iteration_count=1,
+                    max_angular_velocity=3666.0,
                     max_linear_velocity=1000.0,
+                    max_contact_impulse=1e32,
                     max_depenetration_velocity=5.0,
-                    linear_damping=0.5,
-                    angular_damping=0.5,
+                    linear_damping=0.0,
+                    angular_damping=0.0,
                     enable_gyroscopic_forces=True,
                     rigid_body_enabled=True,
                     disable_gravity=False,
@@ -85,13 +87,14 @@ class XArm7AssemblyEnvCfg(AssemblyEnvCfg):
                 usd_path=fixture_path,
                 scale=(1.0, 1.0, 1.0),
                 rigid_props=RigidBodyPropertiesCfg(
-                    solver_position_iteration_count=16,
-                    solver_velocity_iteration_count=0,
-                    max_angular_velocity=64.0,
+                    solver_position_iteration_count=192,
+                    solver_velocity_iteration_count=1,
+                    max_angular_velocity=3666.0,
                     max_linear_velocity=1000.0,
+                    max_contact_impulse=1e32,
                     max_depenetration_velocity=5.0,
-                    linear_damping=0.5,
-                    angular_damping=0.5,
+                    linear_damping=0.0,
+                    angular_damping=0.0,
                     enable_gyroscopic_forces=True,
                     rigid_body_enabled=True,
                     disable_gravity=False,
