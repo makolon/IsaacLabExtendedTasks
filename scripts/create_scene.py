@@ -7,6 +7,7 @@ parser = argparse.ArgumentParser(
     description="Sample code for demonstrating IsaacLabExtendedTasks."
 )
 parser.add_argument("--task", type=str, default=None, help="Name of the task.")
+parser.add_argument("--robot_name", type=str, default="robot", help="Name of the robot.")
 parser.add_argument(
     "--num_envs", type=int, default=1, help="Number of environments to spawn."
 )
@@ -54,7 +55,12 @@ def main():
                 print("-" * 80)
                 print("[INFO]: Resetting environment...")
             # Sample random actions
-            actions = torch.ones_like(env.action_manager.action)
+            actions = torch.tensor(
+                list(env.unwrapped.scene[args_cli.robot_name].cfg.init_state.joint_pos.values()),
+                dtype=torch.float32,
+                device=args_cli.device,
+            ).unsqueeze(0)
+            print("[INFO]: Actions: ", actions)
             # Step the environment
             obs, rew, terminated, truncated, info = env.step(actions)
             # Update counter
