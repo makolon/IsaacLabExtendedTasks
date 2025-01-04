@@ -25,12 +25,12 @@ LBR_IIWA7_SCHUNK_WSG_50_CFG = ArticulationCfg(
     init_state=ArticulationCfg.InitialStateCfg(
         joint_pos={
             "iiwa7_joint_1": 0.0,
-            "iiwa7_joint_2": -0.78,
+            "iiwa7_joint_2": 0.611,
             "iiwa7_joint_3": 0.0,
-            "iiwa7_joint_4": -1.4,
+            "iiwa7_joint_4": -1.31,
             "iiwa7_joint_5": 0.0,
-            "iiwa7_joint_6": 0.6,
-            "iiwa7_joint_7": 0.0,
+            "iiwa7_joint_6": 1.22,
+            "iiwa7_joint_7": 1.57,
             "drive_joint": 0.003,
         },
     ),
@@ -104,12 +104,12 @@ LBR_IIWA7_ALLEGRO_CFG = ArticulationCfg(
     init_state=ArticulationCfg.InitialStateCfg(
         joint_pos={
             "iiwa7_joint_1": 0.0,
-            "iiwa7_joint_2": -0.78,
+            "iiwa7_joint_2": 0.611,
             "iiwa7_joint_3": 0.0,
-            "iiwa7_joint_4": -1.4,
+            "iiwa7_joint_4": -1.31,
             "iiwa7_joint_5": 0.0,
-            "iiwa7_joint_6": 0.6,
-            "iiwa7_joint_7": 0.0,
+            "iiwa7_joint_6": 1.22,
+            "iiwa7_joint_7": 1.57,
             "index_joint.*": 0.04,
         },
     ),
