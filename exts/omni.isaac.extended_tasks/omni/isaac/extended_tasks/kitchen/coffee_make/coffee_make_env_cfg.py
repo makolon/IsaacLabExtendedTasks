@@ -46,27 +46,15 @@ class CoffeeMakeSceneCfg(InteractiveSceneCfg):
     # target object: will be populated by agent env cfg
     object: RigidObjectCfg | DeformableObjectCfg = MISSING
 
-    # terrain
-    terrain = TerrainImporterCfg(
-        prim_path="/World/Kitchen",
-        physics_material=sim_utils.RigidBodyMaterialCfg(
-            friction_combine_mode="multiply",
-            restitution_combine_mode="multiply",
-            static_friction=1.0,
-            dynamic_friction=1.0,
-        ),
-        terrain_type="usd",
-        usd_path=f"{ISAACLAB_EXTENDED_ASSETS_DATA_DIR}/Scenes/Kitchen/kitchen_scene_pivot.usd",
-    )
-
-    # table
-    table = AssetBaseCfg(
-        prim_path="{ENV_REGEX_NS}/Table",
+    # kitchen
+    kitchen_number: int = 1  # TODO: Fix this
+    kitchen = AssetBaseCfg(
+        prim_path="{ENV_REGEX_NS}/Kitchen",
         init_state=AssetBaseCfg.InitialStateCfg(
-            pos=[0.5, 0, 0], rot=[0.707, 0, 0, 0.707]
+            pos=[1.0, 1.0, 0.0], rot=[1.0, 0.0, 0.0, 0.0]
         ),
         spawn=UsdFileCfg(
-            usd_path=f"{ISAAC_NUCLEUS_DIR}/Props/Mounts/SeattleLabTable/table_instanceable.usd"
+            usd_path=f"{ISAACLAB_EXTENDED_ASSETS_DATA_DIR}/Scenes/USD/Kitchen/kitchen_{kitchen_number}.usd"
         ),
     )
 
