@@ -10,10 +10,10 @@ from . import ISAACLAB_EXTENDED_ASSETS_DATA_DIR
 
 LBR_IIWA7_SCHUNK_WSG_50_CFG = ArticulationCfg(
     spawn=sim_utils.UsdFileCfg(
-        usd_path=f"{ISAACLAB_EXTENDED_ASSETS_DATA_DIR}/Robots/USD/KUKA/iiwa_schunk_wsg_50/iiwa_schunk_wsg_50.usd",
+        usd_path=f"{ISAACLAB_EXTENDED_ASSETS_DATA_DIR}/Robots/USD/KUKA/iiwa7_schunk_wsg50/iiwa_schunk_wsg50.usd",
         activate_contact_sensors=False,
         rigid_props=sim_utils.RigidBodyPropertiesCfg(
-            disable_gravity=False,
+            disable_gravity=True,
             max_depenetration_velocity=5.0,
         ),
         articulation_props=sim_utils.ArticulationRootPropertiesCfg(
@@ -31,8 +31,7 @@ LBR_IIWA7_SCHUNK_WSG_50_CFG = ArticulationCfg(
             "iiwa7_joint_5": 0.0,
             "iiwa7_joint_6": 0.6,
             "iiwa7_joint_7": 0.0,
-            "wsg_50_base_joint_gripper_left": -0.04,
-            "wsg_50_base_joint_gripper_right": 0.04,
+            "drive_joint": 0.003,
         },
     ),
     actuators={
@@ -76,10 +75,7 @@ LBR_IIWA7_SCHUNK_WSG_50_CFG = ArticulationCfg(
             },
         ),
         "gripper": ImplicitActuatorCfg(
-            joint_names_expr=[
-                "wsg_50_base_joint_gripper_left",
-                "wsg_50_base_joint_gripper_right",
-            ],
+            joint_names_expr=["drive_joint"],
             effort_limit=10.0,
             velocity_limit=0.2,
             stiffness=10.0,
@@ -93,10 +89,10 @@ LBR_IIWA7_SCHUNK_WSG_50_CFG = ArticulationCfg(
 
 LBR_IIWA7_ALLEGRO_CFG = ArticulationCfg(
     spawn=sim_utils.UsdFileCfg(
-        usd_path=f"{ISAACLAB_EXTENDED_ASSETS_DATA_DIR}/Robots/USD/KUKA/iiwa_allegro/iiwa_allegro.usd",
+        usd_path=f"{ISAACLAB_EXTENDED_ASSETS_DATA_DIR}/Robots/USD/KUKA/iiwa7_allegro/iiwa_allegro.usd",
         activate_contact_sensors=False,
         rigid_props=sim_utils.RigidBodyPropertiesCfg(
-            disable_gravity=False,
+            disable_gravity=True,
             max_depenetration_velocity=5.0,
         ),
         articulation_props=sim_utils.ArticulationRootPropertiesCfg(

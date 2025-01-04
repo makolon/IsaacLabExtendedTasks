@@ -13,7 +13,7 @@ XARM7_CFG = ArticulationCfg(
         usd_path=f"{ISAACLAB_EXTENDED_ASSETS_DATA_DIR}/Robots/USD/UFactory/xarm7/xarm7.usd",
         activate_contact_sensors=False,
         rigid_props=sim_utils.RigidBodyPropertiesCfg(
-            disable_gravity=False,
+            disable_gravity=True,
             max_depenetration_velocity=5.0,
         ),
         articulation_props=sim_utils.ArticulationRootPropertiesCfg(
@@ -25,12 +25,12 @@ XARM7_CFG = ArticulationCfg(
     init_state=ArticulationCfg.InitialStateCfg(
         joint_pos={
             "joint1": 0.0,
-            "joint2": -0.569,
+            "joint2": -0.698,
             "joint3": 0.0,
-            "joint4": 2.810,
+            "joint4": 0.349,
             "joint5": 0.0,
-            "joint6": 3.037,
-            "joint7": 0.741,
+            "joint6": 1.047,
+            "joint7": 0.0,
             "drive_joint": 0.0,
         },
     ),
@@ -113,12 +113,12 @@ FACTORY_XARM7_CFG = ArticulationCfg(
     init_state=ArticulationCfg.InitialStateCfg(
         joint_pos={
             "joint1": 0.0,
-            "joint2": -0.569,
+            "joint2": -0.698,
             "joint3": 0.0,
-            "joint4": 2.810,
+            "joint4": 0.349,
             "joint5": 0.0,
-            "joint6": 3.037,
-            "joint7": 0.741,
+            "joint6": 1.047,
+            "joint7": 0.0,
             "drive_joint": 0.0,
         },
     ),

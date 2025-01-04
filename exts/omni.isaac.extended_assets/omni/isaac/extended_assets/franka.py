@@ -13,7 +13,7 @@ FRANKA_PANDA_CFG = ArticulationCfg(
         usd_path=f"{ISAACLAB_EXTENDED_ASSETS_DATA_DIR}/Robots/USD/Franka/franka_panda/franka_panda.usd",
         activate_contact_sensors=False,
         rigid_props=sim_utils.RigidBodyPropertiesCfg(
-            disable_gravity=False,
+            disable_gravity=True,
             max_depenetration_velocity=5.0,
         ),
         articulation_props=sim_utils.ArticulationRootPropertiesCfg(
@@ -31,7 +31,7 @@ FRANKA_PANDA_CFG = ArticulationCfg(
             "panda_joint5": 0.0,
             "panda_joint6": 3.037,
             "panda_joint7": 0.741,
-            "panda_finger_joint.*": 0.04,
+            "drive_joint": 0.0,
         },
     ),
     actuators={
@@ -50,7 +50,7 @@ FRANKA_PANDA_CFG = ArticulationCfg(
             damping=4.0,
         ),
         "panda_hand": ImplicitActuatorCfg(
-            joint_names_expr=["panda_finger_joint.*"],
+            joint_names_expr=["drive_joint"],
             effort_limit=200.0,
             velocity_limit=0.2,
             stiffness=2e3,
@@ -105,7 +105,7 @@ FACTORY_FRANKA_PANDA_CFG = ArticulationCfg(
             "panda_joint5": 0.0,
             "panda_joint6": 3.037,
             "panda_joint7": 0.741,
-            "panda_finger_joint.*": 0.04,
+            "drive_joint": 0.0,
         },
     ),
     actuators={
@@ -124,7 +124,7 @@ FACTORY_FRANKA_PANDA_CFG = ArticulationCfg(
             damping=4.0,
         ),
         "panda_hand": ImplicitActuatorCfg(
-            joint_names_expr=["panda_finger_joint.*"],
+            joint_names_expr=["drive_joint"],
             effort_limit=200.0,
             velocity_limit=0.2,
             stiffness=2e3,

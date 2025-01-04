@@ -13,7 +13,7 @@ UR5E_ROBOTIQ_2F_85_CFG = ArticulationCfg(
         usd_path=f"{ISAACLAB_EXTENDED_ASSETS_DATA_DIR}/Robots/USD/UniversalRobots/ur5e_robotiq_2f_85/ur5e_robotiq_2f_85.usd",
         activate_contact_sensors=False,
         rigid_props=sim_utils.RigidBodyPropertiesCfg(
-            disable_gravity=False,
+            disable_gravity=True,
             max_depenetration_velocity=5.0,
         ),
         articulation_props=sim_utils.ArticulationRootPropertiesCfg(
@@ -27,8 +27,8 @@ UR5E_ROBOTIQ_2F_85_CFG = ArticulationCfg(
             "shoulder_pan_joint": 0.0,
             "shoulder_lift_joint": -1.72,
             "elbow_joint": 1.72,
-            "wrist_1_joint": 0.0,
-            "wrist_2_joint": 0.0,
+            "wrist_1_joint": -1.57,
+            "wrist_2_joint": -1.57,
             "wrist_3_joint": 0.0,
             "finger_joint": 0.0,
         },
@@ -82,7 +82,7 @@ UR5E_ROBOTIQ_2F_85_CFG = ArticulationCfg(
 """Configuration of UR-5e arm with Robotiq 2f 85 using implicit actuator models."""
 
 
-UR5E_ROBOTIQ_2F_85_CFG = ArticulationCfg(
+FACTORY_UR5E_ROBOTIQ_2F_85_CFG = ArticulationCfg(
     spawn=sim_utils.UsdFileCfg(
         usd_path=f"{ISAACLAB_EXTENDED_ASSETS_DATA_DIR}/Robots/USD/UniversalRobots/ur5e_robotiq_2f_85/ur5e_robotiq_2f_85.usd",
         activate_contact_sensors=True,
@@ -110,8 +110,8 @@ UR5E_ROBOTIQ_2F_85_CFG = ArticulationCfg(
             "shoulder_pan_joint": 0.0,
             "shoulder_lift_joint": -1.72,
             "elbow_joint": 1.72,
-            "wrist_1_joint": 0.0,
-            "wrist_2_joint": 0.0,
+            "wrist_1_joint": -1.57,
+            "wrist_2_joint": -1.57,
             "wrist_3_joint": 0.0,
             "finger_joint": 0.0,
         },
@@ -170,11 +170,11 @@ UR5E_ROBOTIQ_2F_140_CFG = ArticulationCfg(
         usd_path=f"{ISAACLAB_EXTENDED_ASSETS_DATA_DIR}/Robots/USD/UniversalRobots/ur5e_robotiq_2f_140/ur5e_robotiq_2f_140.usd",
         activate_contact_sensors=False,
         rigid_props=sim_utils.RigidBodyPropertiesCfg(
-            disable_gravity=False,
+            disable_gravity=True,
             max_depenetration_velocity=5.0,
         ),
         articulation_props=sim_utils.ArticulationRootPropertiesCfg(
-            enabled_self_collisions=True,
+            enabled_self_collisions=False,
             solver_position_iteration_count=8,
             solver_velocity_iteration_count=0,
         ),
@@ -184,8 +184,8 @@ UR5E_ROBOTIQ_2F_140_CFG = ArticulationCfg(
             "shoulder_pan_joint": 0.0,
             "shoulder_lift_joint": -1.712,
             "elbow_joint": 1.712,
-            "wrist_1_joint": 0.0,
-            "wrist_2_joint": 0.0,
+            "wrist_1_joint": -1.57,
+            "wrist_2_joint": -1.57,
             "wrist_3_joint": 0.0,
             "finger_joint": 0.0,
         },
@@ -244,11 +244,11 @@ UR10E_ROBOTIQ_2F_85_CFG = ArticulationCfg(
         usd_path=f"{ISAACLAB_EXTENDED_ASSETS_DATA_DIR}/Robots/USD/UniversalRobots/ur10e_robotiq_2f_85/ur10e_robotiq_2f_85.usd",
         activate_contact_sensors=False,
         rigid_props=sim_utils.RigidBodyPropertiesCfg(
-            disable_gravity=False,
+            disable_gravity=True,
             max_depenetration_velocity=5.0,
         ),
         articulation_props=sim_utils.ArticulationRootPropertiesCfg(
-            enabled_self_collisions=True,
+            enabled_self_collisions=False,
             solver_position_iteration_count=8,
             solver_velocity_iteration_count=0,
         ),
@@ -258,8 +258,8 @@ UR10E_ROBOTIQ_2F_85_CFG = ArticulationCfg(
             "shoulder_pan_joint": 0.0,
             "shoulder_lift_joint": -1.712,
             "elbow_joint": 1.712,
-            "wrist_1_joint": 0.0,
-            "wrist_2_joint": 0.0,
+            "wrist_1_joint": -1.57,
+            "wrist_2_joint": -1.57,
             "wrist_3_joint": 0.0,
             "finger_joint": 0.0,
         },
@@ -318,11 +318,11 @@ UR10E_ROBOTIQ_2F_140_CFG = ArticulationCfg(
         usd_path=f"{ISAACLAB_EXTENDED_ASSETS_DATA_DIR}/Robots/USD/UniversalRobots/ur10e_robotiq_2f_140/ur10e_robotiq_2f_140.usd",
         activate_contact_sensors=False,
         rigid_props=sim_utils.RigidBodyPropertiesCfg(
-            disable_gravity=False,
+            disable_gravity=True,
             max_depenetration_velocity=5.0,
         ),
         articulation_props=sim_utils.ArticulationRootPropertiesCfg(
-            enabled_self_collisions=True,
+            enabled_self_collisions=False,
             solver_position_iteration_count=8,
             solver_velocity_iteration_count=0,
         ),
@@ -332,8 +332,8 @@ UR10E_ROBOTIQ_2F_140_CFG = ArticulationCfg(
             "shoulder_pan_joint": 0.0,
             "shoulder_lift_joint": -1.712,
             "elbow_joint": 1.712,
-            "wrist_1_joint": 0.0,
-            "wrist_2_joint": 0.0,
+            "wrist_1_joint": -1.57,
+            "wrist_2_joint": -1.57,
             "wrist_3_joint": 0.0,
             "finger_joint": 0.0,
         },
@@ -415,8 +415,8 @@ FACTORY_UR10E_ROBOTIQ_2F_140_CFG = ArticulationCfg(
             "shoulder_pan_joint": 0.0,
             "shoulder_lift_joint": -1.712,
             "elbow_joint": 1.712,
-            "wrist_1_joint": 0.0,
-            "wrist_2_joint": 0.0,
+            "wrist_1_joint": -1.57,
+            "wrist_2_joint": -1.57,
             "wrist_3_joint": 0.0,
             "finger_joint": 0.0,
         },
