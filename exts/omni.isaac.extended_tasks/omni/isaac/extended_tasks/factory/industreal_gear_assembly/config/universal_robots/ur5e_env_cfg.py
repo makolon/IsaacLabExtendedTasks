@@ -127,7 +127,7 @@ class UR5eAssemblyEnvCfg(IndustrealGearAssemblyEnvCfg):
         self.scene.gear_base = RigidObjectCfg(
             prim_path="{ENV_REGEX_NS}/GearBase",
             init_state=RigidObjectCfg.InitialStateCfg(
-                pos=[0.5, 0.1, 0.055], rot=[1, 0, 0, 0]
+                pos=[0.5, 0.1, 0.01], rot=[1, 0, 0, 0]
             ),
             spawn=UsdFileCfg(
                 usd_path=f"{INDUSTREAL_ASSEMBLY_DIR}/industreal_gear_base/industreal_gear_base.usd",
