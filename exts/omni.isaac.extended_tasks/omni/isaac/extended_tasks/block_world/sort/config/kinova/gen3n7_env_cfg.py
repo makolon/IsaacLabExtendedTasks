@@ -19,10 +19,10 @@ class Gen3N7SortEnvCfg(SortEnvCfg):
         # post init of parent
         super().__post_init__()
 
-        # Set Franka as robot
+        # Set Gen3n7 as robot
         self.scene.robot = KINOVA_GEN3_N7_CFG.replace(prim_path="{ENV_REGEX_NS}/Robot")
 
-        # Set actions for the specific robot type (franka)
+        # Set actions for the specific robot type (gen3n7)
         self.actions.arm_action = mdp.JointPositionActionCfg(
             asset_name="robot",
             joint_names=["joint_.*"],
@@ -30,11 +30,12 @@ class Gen3N7SortEnvCfg(SortEnvCfg):
             use_default_offset=False,
             preserve_order=True,
         )
-        self.actions.gripper_action = mdp.BinaryJointPositionActionCfg(
+        self.actions.gripper_action = mdp.JointPositionActionCfg(
             asset_name="robot",
             joint_names=["finger_joint.*"],
-            open_command_expr={"finger_joint.*": 0.04},
-            close_command_expr={"finger_joint.*": 0.0},
+            scale=1.0,
+            use_default_offset=False,
+            preserve_order=True,
         )
         # Set the body name for the end effector
         self.commands.object_pose.body_name = "tool_frame"

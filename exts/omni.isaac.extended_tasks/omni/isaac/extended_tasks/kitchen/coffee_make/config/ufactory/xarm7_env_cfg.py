@@ -29,14 +29,15 @@ class XArm7CookingEnvCfg(CookingEnvCfg):
             use_default_offset=False,
             preserve_order=True,
         )
-        self.actions.gripper_action = mdp.BinaryJointPositionActionCfg(
+        self.actions.gripper_action = mdp.JointPositionActionCfg(
             asset_name="robot",
-            joint_names=["panda_finger.*"],
-            open_command_expr={"panda_finger_.*": 0.04},
-            close_command_expr={"panda_finger_.*": 0.0},
+            joint_names=["drive_joint"],
+            scale=1.0,
+            use_default_offset=False,
+            preserve_order=True,
         )
         # Set the body name for the end effector
-        self.commands.object_pose.body_name = "panda_hand"
+        self.commands.object_pose.body_name = "grasp_frame"
 
         # Set Cube as object
         self.scene.object = RigidObjectCfg(
@@ -68,7 +69,7 @@ class XArm7CookingEnvCfg(CookingEnvCfg):
             visualizer_cfg=marker_cfg,
             target_frames=[
                 FrameTransformerCfg.FrameCfg(
-                    prim_path="{ENV_REGEX_NS}/Robot/panda_hand",
+                    prim_path="{ENV_REGEX_NS}/Robot/grasp_frame",
                     name="end_effector",
                     offset=OffsetCfg(
                         pos=[0.0, 0.0, 0.1034],

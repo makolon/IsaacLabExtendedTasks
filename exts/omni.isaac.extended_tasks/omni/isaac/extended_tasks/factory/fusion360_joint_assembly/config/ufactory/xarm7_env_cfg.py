@@ -39,7 +39,7 @@ class XArm7AssemblyEnvCfg(Fusion360JointAssemblyEnvCfg):
             preserve_order=True,
         )
         # Set the body name for the end effector
-        self.commands.object_pose.body_name = "xarm_gripper_base_link"
+        self.commands.object_pose.body_name = "grasp_frame"
 
         # Create dictionaries with IDs as keys and paths as values
         fixture_dict = {os.path.basename(os.path.dirname(os.path.dirname(fixture))): fixture for fixture in FUSION360_FIXTURE_PATH}
@@ -113,7 +113,7 @@ class XArm7AssemblyEnvCfg(Fusion360JointAssemblyEnvCfg):
             visualizer_cfg=marker_cfg,
             target_frames=[
                 FrameTransformerCfg.FrameCfg(
-                    prim_path="{ENV_REGEX_NS}/Robot/xarm_gripper_base_link",
+                    prim_path="{ENV_REGEX_NS}/Robot/grasp_frame",
                     name="end_effector",
                     offset=OffsetCfg(
                         pos=[0.0, 0.0, 0.1034],

@@ -18,10 +18,10 @@ class XArm7AssemblyEnvCfg(IndustrealGearAssemblyEnvCfg):
         # post init of parent
         super().__post_init__()
 
-        # Set Franka as robot
+        # Set xArm7 as robot
         self.scene.robot = FACTORY_XARM7_CFG.replace(prim_path="{ENV_REGEX_NS}/Robot")
 
-        # Set actions for the specific robot type (franka)
+        # Set actions for the specific robot type (xarm7)
         self.actions.arm_action = mdp.JointPositionActionCfg(
             asset_name="robot",
             joint_names=["joint.*"],
@@ -37,7 +37,7 @@ class XArm7AssemblyEnvCfg(IndustrealGearAssemblyEnvCfg):
             preserve_order=True,
         )
         # Set the body name for the end effector
-        self.commands.object_pose.body_name = "xarm_gripper_base_link"
+        self.commands.object_pose.body_name = "grasp_frame"
 
         # Set gear small
         self.scene.gear_small = RigidObjectCfg(
@@ -150,7 +150,7 @@ class XArm7AssemblyEnvCfg(IndustrealGearAssemblyEnvCfg):
             visualizer_cfg=marker_cfg,
             target_frames=[
                 FrameTransformerCfg.FrameCfg(
-                    prim_path="{ENV_REGEX_NS}/Robot/xarm_gripper_base_link",
+                    prim_path="{ENV_REGEX_NS}/Robot/grasp_frame",
                     name="end_effector",
                     offset=OffsetCfg(
                         pos=[0.0, 0.0, 0.1034],

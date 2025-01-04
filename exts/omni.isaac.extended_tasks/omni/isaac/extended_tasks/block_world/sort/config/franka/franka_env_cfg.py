@@ -5,9 +5,8 @@ from omni.isaac.lab.assets import RigidObjectCfg
 from omni.isaac.lab.sensors import FrameTransformerCfg
 from omni.isaac.lab.sensors.frame_transformer.frame_transformer_cfg import OffsetCfg
 from omni.isaac.lab.sim.schemas.schemas_cfg import RigidBodyPropertiesCfg
-from omni.isaac.lab.sim.spawners.from_files.from_files_cfg import UsdFileCfg
+from omni.isaac.lab.sim.spawners.shapes import SphereCfg, ConeCfg, CuboidCfg, CapsuleCfg, CylinderCfg
 from omni.isaac.lab.utils import configclass
-from omni.isaac.lab.utils.assets import ISAAC_NUCLEUS_DIR
 
 from omni.isaac.lab.markers.config import FRAME_MARKER_CFG  # isort: skip
 from omni.isaac.extended_assets.franka import FRANKA_PANDA_CFG  # isort: skip
@@ -30,39 +29,44 @@ class FrankaSortEnvCfg(SortEnvCfg):
             use_default_offset=False,
             preserve_order=True,
         )
-        self.actions.gripper_action = mdp.BinaryJointPositionActionCfg(
+        self.actions.gripper_action = mdp.JointPositionActionCfg(
             asset_name="robot",
-            joint_names=["panda_finger.*"],
-            open_command_expr={"panda_finger_.*": 0.04},
-            close_command_expr={"panda_finger_.*": 0.0},
+            joint_names=["drive_joint"],
+            scale=1.0,
+            use_default_offset=False,
+            preserve_order=True,
         )
         # Set the body name for the end effector
-        self.commands.object_pose.body_name = "panda_hand"
+        self.commands.object_pose.body_name = "grasp_frame"
 
         # Collect all configs
+        rigid_props = RigidBodyPropertiesCfg(
+            solver_position_iteration_count=16,
+            solver_velocity_iteration_count=0,
+            max_angular_velocity=64.0,
+            max_linear_velocity=1000.0,
+            max_depenetration_velocity=5.0,
+            linear_damping=0.5,
+            angular_damping=0.5,
+            enable_gyroscopic_forces=True,
+            rigid_body_enabled=True,
+            disable_gravity=False,
+        )
+        shape_cfg = {
+            "sphere": SphereCfg(radius=0.025, rigid_props=rigid_props),
+            "cone": ConeCfg(radius=0.025, height=0.05, rigid_props=rigid_props),
+            "cuboid": CuboidCfg(size=[0.05, 0.05, 0.05], rigid_props=rigid_props),
+            "capsule": CapsuleCfg(radius=0.025, height=0.05, rigid_props=rigid_props),
+            "cylinder": CylinderCfg(radius=0.025, height=0.05, rigid_props=rigid_props),
+        }
         block_cfgs = {}
-        for block_color in ["blue", "green", "red", "yellow"]:
-            block_cfgs[block_color] = RigidObjectCfg(
-                prim_path="{ENV_REGEX_NS}/" + "{}Block".format(block_color.capitalize()),
+        for block_shape in ["sphere", "cone", "cuboid", "capsule", "cylinder"]:
+            block_cfgs[block_shape] = RigidObjectCfg(
+                prim_path="{ENV_REGEX_NS}/" + "{}Block".format(block_shape.capitalize()),
                 init_state=RigidObjectCfg.InitialStateCfg(
                     pos=[0.5, 0, 0.02], rot=[1, 0, 0, 0]
                 ),
-                spawn=UsdFileCfg(
-                    usd_path=f"{ISAAC_NUCLEUS_DIR}/Props/Blocks/{block_color}_block.usd",
-                    scale=(1.0, 1.0, 1.0),
-                    rigid_props=RigidBodyPropertiesCfg(
-                        solver_position_iteration_count=16,
-                        solver_velocity_iteration_count=0,
-                        max_angular_velocity=64.0,
-                        max_linear_velocity=1000.0,
-                        max_depenetration_velocity=5.0,
-                        linear_damping=0.5,
-                        angular_damping=0.5,
-                        enable_gyroscopic_forces=True,
-                        rigid_body_enabled=True,
-                        disable_gravity=False,
-                    ),
-                ),
+                spawn=shape_cfg[block_shape],
             )
 
         # Set the configs as member of the class
@@ -83,7 +87,7 @@ class FrankaSortEnvCfg(SortEnvCfg):
             visualizer_cfg=marker_cfg,
             target_frames=[
                 FrameTransformerCfg.FrameCfg(
-                    prim_path="{ENV_REGEX_NS}/Robot/panda_hand",
+                    prim_path="{ENV_REGEX_NS}/Robot/grasp_frame",
                     name="end_effector",
                     offset=OffsetCfg(
                         pos=[0.0, 0.0, 0.1034],

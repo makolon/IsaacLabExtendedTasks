@@ -18,12 +18,12 @@ class UR10eAssemblyEnvCfg(IndustrealGearAssemblyEnvCfg):
         # post init of parent
         super().__post_init__()
 
-        # Set Franka as robot
+        # Set UR10e as robot
         self.scene.robot = UR10E_ROBOTIQ_2F_140_CFG.replace(
             prim_path="{ENV_REGEX_NS}/Robot"
         )
 
-        # Set actions for the specific robot type (franka)
+        # Set actions for the specific robot type (ur10e)
         self.actions.arm_action = mdp.JointPositionActionCfg(
             asset_name="robot",
             joint_names=[

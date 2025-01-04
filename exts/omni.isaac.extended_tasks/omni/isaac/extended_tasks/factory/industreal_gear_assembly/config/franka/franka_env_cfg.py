@@ -31,13 +31,13 @@ class FrankaAssemblyEnvCfg(IndustrealGearAssemblyEnvCfg):
         )
         self.actions.gripper_action = mdp.JointPositionActionCfg(
             asset_name="robot",
-            joint_names=["panda_finger.*"],
+            joint_names=["drive_joint"],
             scale=1.0,
             use_default_offset=False,
             preserve_order=True,
         )
         # Set the body name for the end effector
-        self.commands.object_pose.body_name = "panda_hand"
+        self.commands.object_pose.body_name = "grasp_frame"
 
         # Set gear small
         self.scene.gear_small = RigidObjectCfg(
@@ -150,7 +150,7 @@ class FrankaAssemblyEnvCfg(IndustrealGearAssemblyEnvCfg):
             visualizer_cfg=marker_cfg,
             target_frames=[
                 FrameTransformerCfg.FrameCfg(
-                    prim_path="{ENV_REGEX_NS}/Robot/panda_hand",
+                    prim_path="{ENV_REGEX_NS}/Robot/grasp_frame",
                     name="end_effector",
                     offset=OffsetCfg(
                         pos=[0.0, 0.0, 0.1034],

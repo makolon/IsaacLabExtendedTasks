@@ -115,7 +115,7 @@ class CommandsCfg:
         asset_name="robot",
         body_name=MISSING,  # will be set by agent env cfg
         resampling_time_range=(5.0, 5.0),
-        debug_vis=True,
+        debug_vis=False,
         ranges=mdp.UniformPoseCommandCfg.Ranges(
             pos_x=(0.4, 0.6),
             pos_y=(-0.25, 0.25),
@@ -135,7 +135,7 @@ class ActionsCfg:
     arm_action: (
         mdp.JointPositionActionCfg | mdp.DifferentialInverseKinematicsActionCfg
     ) = MISSING
-    gripper_action: mdp.BinaryJointPositionActionCfg = MISSING
+    gripper_action: mdp.JointPositionActionCfg = MISSING
 
 
 @configclass
@@ -218,7 +218,13 @@ class EventCfg:
         params={
             "pose_range": {"x": (-0.2, 0.2), "y": (-0.25, 0.25), "z": (0.0, 0.0)},
             "velocity_range": {},
-            "asset_names": ["blue_block", "green_block", "red_block", "yellow_block"],
+            "asset_names": [
+                "sphere_block",
+                "cone_block",
+                "cuboid_block",
+                "capsule_block",
+                "cylinder_block",
+            ],
         },
     )
 

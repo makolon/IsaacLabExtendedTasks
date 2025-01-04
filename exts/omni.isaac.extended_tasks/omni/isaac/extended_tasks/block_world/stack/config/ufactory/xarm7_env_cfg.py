@@ -19,10 +19,10 @@ class XArm7StackEnvCfg(StackEnvCfg):
         # post init of parent
         super().__post_init__()
 
-        # Set Franka as robot
+        # Set xArm7 as robot
         self.scene.robot = XARM7_CFG.replace(prim_path="{ENV_REGEX_NS}/Robot")
 
-        # Set actions for the specific robot type (franka)
+        # Set actions for the specific robot type (xarm7)
         self.actions.arm_action = mdp.JointPositionActionCfg(
             asset_name="robot",
             joint_names=["joint.*"],
@@ -30,14 +30,15 @@ class XArm7StackEnvCfg(StackEnvCfg):
             use_default_offset=False,
             preserve_order=True,
         )
-        self.actions.gripper_action = mdp.BinaryJointPositionActionCfg(
+        self.actions.gripper_action = mdp.JointPositionActionCfg(
             asset_name="robot",
             joint_names=["drive_joint"],
-            open_command_expr={"drive_joint": 0.0},
-            close_command_expr={"drive_joint": 40.0},
+            scale=1.0,
+            use_default_offset=False,
+            preserve_order=True,
         )
         # Set the body name for the end effector
-        self.commands.object_pose.body_name = "xarm_gripper_base_link"
+        self.commands.object_pose.body_name = "grasp_frame"
 
         # Collect all configs
         block_cfgs = {}
@@ -83,7 +84,7 @@ class XArm7StackEnvCfg(StackEnvCfg):
             visualizer_cfg=marker_cfg,
             target_frames=[
                 FrameTransformerCfg.FrameCfg(
-                    prim_path="{ENV_REGEX_NS}/Robot/xarm_gripper_base_link",
+                    prim_path="{ENV_REGEX_NS}/Robot/grasp_frame",
                     name="end_effector",
                     offset=OffsetCfg(
                         pos=[0.0, 0.0, 0.1034],

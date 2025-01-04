@@ -38,11 +38,12 @@ class UR10eCookingEnvCfg(CookingEnvCfg):
             use_default_offset=False,
             preserve_order=True,
         )
-        self.actions.gripper_action = mdp.BinaryJointPositionActionCfg(
+        self.actions.gripper_action = mdp.JointPositionActionCfg(
             asset_name="robot",
             joint_names=["finger_joint"],
-            open_command_expr={"finger_joint": 0.0},
-            close_command_expr={"finger_joint": 40.0},
+            scale=1.0,
+            use_default_offset=False,
+            preserve_order=True,
         )
         # Set the body name for the end effector
         self.commands.object_pose.body_name = "grasp_frame"

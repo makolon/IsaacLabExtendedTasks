@@ -19,12 +19,12 @@ class LBRIIWA7SortEnvCfg(SortEnvCfg):
         # post init of parent
         super().__post_init__()
 
-        # Set Franka as robot
+        # Set IIWA7 as robot
         self.scene.robot = LBR_IIWA7_SCHUNK_WSG_50_CFG.replace(
             prim_path="{ENV_REGEX_NS}/Robot"
         )
 
-        # Set actions for the specific robot type (franka)
+        # Set actions for the specific robot type (iiwa7)
         self.actions.arm_action = mdp.JointPositionActionCfg(
             asset_name="robot",
             joint_names=["iiwa7_joint_.*"],
@@ -32,14 +32,15 @@ class LBRIIWA7SortEnvCfg(SortEnvCfg):
             use_default_offset=False,
             preserve_order=True,
         )
-        self.actions.gripper_action = mdp.BinaryJointPositionActionCfg(
+        self.actions.gripper_action = mdp.JointPositionActionCfg(
             asset_name="robot",
-            joint_names=["wsg_50_base_joint_gripper_.*"],
-            open_command_expr={"wsg_50_base_joint_gripper_.*": 0.0},
-            close_command_expr={"wsg_50_base_joint_gripper_.*": 0.04},
+            joint_names=["drive_joint"],
+            scale=1.0,
+            use_default_offset=False,
+            preserve_order=True,
         )
         # Set the body name for the end effector
-        self.commands.object_pose.body_name = "wsg_50_base_link"
+        self.commands.object_pose.body_name = "grasp_frame"
 
         # Collect all configs
         block_cfgs = {}
@@ -85,7 +86,7 @@ class LBRIIWA7SortEnvCfg(SortEnvCfg):
             visualizer_cfg=marker_cfg,
             target_frames=[
                 FrameTransformerCfg.FrameCfg(
-                    prim_path="{ENV_REGEX_NS}/Robot/wsg_50_base_link",
+                    prim_path="{ENV_REGEX_NS}/Robot/grasp_frame",
                     name="end_effector",
                     offset=OffsetCfg(
                         pos=[0.0, 0.0, 0.1034],

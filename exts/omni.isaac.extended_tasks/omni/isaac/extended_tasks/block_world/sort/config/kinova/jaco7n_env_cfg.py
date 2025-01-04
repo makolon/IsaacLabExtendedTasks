@@ -19,10 +19,10 @@ class Jaco7NSortEnvCfg(SortEnvCfg):
         # post init of parent
         super().__post_init__()
 
-        # Set Franka as robot
+        # Set Jaco7N as robot
         self.scene.robot = KINOVA_JACO_7N_CFG.replace(prim_path="{ENV_REGEX_NS}/Robot")
 
-        # Set actions for the specific robot type (franka)
+        # Set actions for the specific robot type (jaco7n)
         self.actions.arm_action = mdp.JointPositionActionCfg(
             asset_name="robot",
             joint_names=["j2s7n300_joint.*"],
@@ -30,11 +30,12 @@ class Jaco7NSortEnvCfg(SortEnvCfg):
             use_default_offset=False,
             preserve_order=True,
         )
-        self.actions.gripper_action = mdp.BinaryJointPositionActionCfg(
+        self.actions.gripper_action = mdp.JointPositionActionCfg(
             asset_name="robot",
             joint_names=["j2n7n300_joint_finger.*"],
-            open_command_expr={"j2n7n300_joint_finger.*": 0.04},
-            close_command_expr={"j2n7n300_joint_finger.*": 0.0},
+            scale=1.0,
+            use_default_offset=False,
+            preserve_order=True,
         )
         # Set the body name for the end effector
         self.commands.object_pose.body_name = "j2n7n300_end_effector"

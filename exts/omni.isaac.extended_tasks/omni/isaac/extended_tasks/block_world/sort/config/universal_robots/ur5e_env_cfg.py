@@ -19,12 +19,12 @@ class UR5eSortEnvCfg(SortEnvCfg):
         # post init of parent
         super().__post_init__()
 
-        # Set Franka as robot
+        # Set UR5e as robot
         self.scene.robot = UR5E_ROBOTIQ_2F_85_CFG.replace(
             prim_path="{ENV_REGEX_NS}/Robot"
         )
 
-        # Set actions for the specific robot type (franka)
+        # Set actions for the specific robot type (ur5e)
         self.actions.arm_action = mdp.JointPositionActionCfg(
             asset_name="robot",
             joint_names=[

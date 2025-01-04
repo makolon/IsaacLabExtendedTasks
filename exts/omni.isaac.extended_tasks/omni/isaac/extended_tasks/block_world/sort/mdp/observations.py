@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 import torch
 from omni.isaac.lab.assets import RigidObject
 from omni.isaac.lab.managers import SceneEntityCfg
+from omni.isaac.lab.sensors import CameraData
 from omni.isaac.lab.utils.math import subtract_frame_transforms
 
 if TYPE_CHECKING:
