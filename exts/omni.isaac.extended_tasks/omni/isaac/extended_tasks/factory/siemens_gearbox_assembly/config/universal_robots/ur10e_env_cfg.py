@@ -1,5 +1,5 @@
 from omni.isaac.extended_tasks.factory.siemens_gearbox_assembly import mdp
-from omni.isaac.extended_tasks.factory.siemens_gearbox_assembly.siemens_gearbox_assembly_env_cfg import SiemensGearboxAssemblySceneCfg
+from omni.isaac.extended_tasks.factory.siemens_gearbox_assembly.siemens_gearbox_assembly_env_cfg import SiemensGearboxAssemblyEnvCfg
 from omni.isaac.lab.assets import RigidObjectCfg
 from omni.isaac.lab.sensors import FrameTransformerCfg
 from omni.isaac.lab.sensors.frame_transformer.frame_transformer_cfg import OffsetCfg
@@ -13,7 +13,7 @@ from omni.isaac.extended_tasks.factory.siemens_gearbox_assembly import SIEMENS_A
 
 
 @configclass
-class UR10eAssemblyEnvCfg(SiemensGearboxAssemblySceneCfg):
+class UR10eAssemblyEnvCfg(SiemensGearboxAssemblyEnvCfg):
     def __post_init__(self):
         # post init of parent
         super().__post_init__()
@@ -52,10 +52,10 @@ class UR10eAssemblyEnvCfg(SiemensGearboxAssemblySceneCfg):
         self.scene.gear_small = RigidObjectCfg(
             prim_path="{ENV_REGEX_NS}/GearSmall",
             init_state=RigidObjectCfg.InitialStateCfg(
-                pos=[0.5, 0, 0.055], rot=[1, 0, 0, 0]
+                pos=[0.5, 0, 0.0135], rot=[1, 0, 0, 0]
             ),
             spawn=UsdFileCfg(
-                usd_path=f"{SIEMENS_ASSEMBLY_DIR}/siemens_gear_small/siemens_gear_small.usd",
+                usd_path=f"{SIEMENS_ASSEMBLY_DIR}/gear_small/gear_small.usd",
                 scale=(1.0, 1.0, 1.0),
                 rigid_props=RigidBodyPropertiesCfg(
                     solver_position_iteration_count=192,
@@ -77,10 +77,10 @@ class UR10eAssemblyEnvCfg(SiemensGearboxAssemblySceneCfg):
         self.scene.gear_medium = RigidObjectCfg(
             prim_path="{ENV_REGEX_NS}/GearMedium",
             init_state=RigidObjectCfg.InitialStateCfg(
-                pos=[0.5, 0, 0.055], rot=[1, 0, 0, 0]
+                pos=[0.5, 0, 0.0135], rot=[1, 0, 0, 0]
             ),
             spawn=UsdFileCfg(
-                usd_path=f"{SIEMENS_ASSEMBLY_DIR}/siemens_gear_medium/siemens_gear_medium.usd",
+                usd_path=f"{SIEMENS_ASSEMBLY_DIR}/gear_medium/gear_medium.usd",
                 scale=(1.0, 1.0, 1.0),
                 rigid_props=RigidBodyPropertiesCfg(
                     solver_position_iteration_count=192,
@@ -102,10 +102,10 @@ class UR10eAssemblyEnvCfg(SiemensGearboxAssemblySceneCfg):
         self.scene.gear_large = RigidObjectCfg(
             prim_path="{ENV_REGEX_NS}/GearLarge",
             init_state=RigidObjectCfg.InitialStateCfg(
-                pos=[0.5, 0, 0.055], rot=[1, 0, 0, 0]
+                pos=[0.5, 0, 0.0285], rot=[1, 0, 0, 0]
             ),
             spawn=UsdFileCfg(
-                usd_path=f"{SIEMENS_ASSEMBLY_DIR}/siemens_gear_large/siemens_gear_large.usd",
+                usd_path=f"{SIEMENS_ASSEMBLY_DIR}/gear_large/gear_large.usd",
                 scale=(1.0, 1.0, 1.0),
                 rigid_props=RigidBodyPropertiesCfg(
                     solver_position_iteration_count=192,
@@ -127,10 +127,10 @@ class UR10eAssemblyEnvCfg(SiemensGearboxAssemblySceneCfg):
         self.scene.shaft_left = RigidObjectCfg(
             prim_path="{ENV_REGEX_NS}/ShaftLeft",
             init_state=RigidObjectCfg.InitialStateCfg(
-                pos=[0.5, 0, 0.055], rot=[1, 0, 0, 0]
+                pos=[0.5, 0, 0.096], rot=[1, 0, 0, 0]
             ),
             spawn=UsdFileCfg(
-                usd_path=f"{SIEMENS_ASSEMBLY_DIR}/siemens_shaft_left/siemens_shaft_left.usd",
+                usd_path=f"{SIEMENS_ASSEMBLY_DIR}/shaft_left/shaft_left.usd",
                 scale=(1.0, 1.0, 1.0),
                 rigid_props=RigidBodyPropertiesCfg(
                     solver_position_iteration_count=192,
@@ -152,10 +152,10 @@ class UR10eAssemblyEnvCfg(SiemensGearboxAssemblySceneCfg):
         self.scene.shaft_right = RigidObjectCfg(
             prim_path="{ENV_REGEX_NS}/ShaftRight",
             init_state=RigidObjectCfg.InitialStateCfg(
-                pos=[0.5, 0, 0.055], rot=[1, 0, 0, 0]
+                pos=[0.5, 0, 0.096], rot=[1, 0, 0, 0]
             ),
             spawn=UsdFileCfg(
-                usd_path=f"{SIEMENS_ASSEMBLY_DIR}/siemens_shaft_right/siemens_shaft_right.usd",
+                usd_path=f"{SIEMENS_ASSEMBLY_DIR}/shaft_right/shaft_right.usd",
                 scale=(1.0, 1.0, 1.0),
                 rigid_props=RigidBodyPropertiesCfg(
                     solver_position_iteration_count=192,
@@ -177,10 +177,10 @@ class UR10eAssemblyEnvCfg(SiemensGearboxAssemblySceneCfg):
         self.scene.gearbox_base = RigidObjectCfg(
             prim_path="{ENV_REGEX_NS}/GearBase",
             init_state=RigidObjectCfg.InitialStateCfg(
-                pos=[0.5, 0.1, 0.01], rot=[1, 0, 0, 0]
+                pos=[0.5, 0.1, 0.1025], rot=[1, 0, 0, 0]
             ),
             spawn=UsdFileCfg(
-                usd_path=f"{SIEMENS_ASSEMBLY_DIR}/siemens_gear_base/siemens_gear_base.usd",
+                usd_path=f"{SIEMENS_ASSEMBLY_DIR}/gearbox_base/gearbox_base.usd",
                 scale=(1.0, 1.0, 1.0),
                 rigid_props=RigidBodyPropertiesCfg(
                     solver_position_iteration_count=192,

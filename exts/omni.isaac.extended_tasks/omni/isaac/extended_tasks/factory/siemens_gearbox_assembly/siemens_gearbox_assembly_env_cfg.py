@@ -222,7 +222,7 @@ class EventCfg:
         params={
             "pose_range": {"x": (-0.1, 0.1), "y": (-0.25, 0.25), "z": (0.0, 0.0)},
             "velocity_range": {},
-            "asset_names": ["gear_small", "gear_medium", "gear_large", "gear_base"],
+            "asset_names": ["gear_small", "gear_medium", "gear_large", "shaft_left", "shaft_right", "gearbox_base"],
         },
     )
 
