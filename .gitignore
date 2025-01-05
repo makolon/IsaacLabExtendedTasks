@@ -30,6 +30,8 @@
 **/*.sif
 docker/exports/
 docker/.container.yaml
+docker/.container.cfg
+.env
 
 # IDE
 **/.idea/
