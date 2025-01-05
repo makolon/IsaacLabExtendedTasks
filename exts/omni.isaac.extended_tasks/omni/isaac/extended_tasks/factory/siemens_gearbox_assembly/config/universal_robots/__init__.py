@@ -3,7 +3,7 @@ import gymnasium as gym
 from . import agents, ur5e_env_cfg, ur10e_env_cfg
 
 gym.register(
-    id="Isaac-Industreal-Gear-Assembly-UR5e-v0",
+    id="Isaac-Siemens-Gearbox-Assembly-UR5e-v0",
     entry_point="omni.isaac.lab.envs:ManagerBasedRLEnv",
     kwargs={
         "env_cfg_entry_point": ur5e_env_cfg.UR5eAssemblyEnvCfg,
@@ -14,7 +14,7 @@ gym.register(
 
 
 gym.register(
-    id="Isaac-Industreal-Gear-Assembly-UR10e-v0",
+    id="Isaac-Siemens-Gearbox-Assembly-UR10e-v0",
     entry_point="omni.isaac.lab.envs:ManagerBasedRLEnv",
     kwargs={
         "env_cfg_entry_point": ur10e_env_cfg.UR10eAssemblyEnvCfg,

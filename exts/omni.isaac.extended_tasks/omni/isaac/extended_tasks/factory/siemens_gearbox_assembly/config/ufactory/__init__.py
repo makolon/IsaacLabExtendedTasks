@@ -3,7 +3,7 @@ import gymnasium as gym
 from . import agents, xarm7_env_cfg
 
 gym.register(
-    id="Isaac-Industreal-Gear-Assembly-XArm7-v0",
+    id="Isaac-Siemens-Gearbox-Assembly-XArm7-v0",
     entry_point="omni.isaac.lab.envs:ManagerBasedRLEnv",
     kwargs={
         "env_cfg_entry_point": xarm7_env_cfg.XArm7AssemblyEnvCfg,

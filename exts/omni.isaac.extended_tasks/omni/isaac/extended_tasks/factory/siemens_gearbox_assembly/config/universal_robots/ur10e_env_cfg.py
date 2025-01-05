@@ -52,7 +52,7 @@ class UR10eAssemblyEnvCfg(SiemensGearboxAssemblyEnvCfg):
         self.scene.gear_small = RigidObjectCfg(
             prim_path="{ENV_REGEX_NS}/GearSmall",
             init_state=RigidObjectCfg.InitialStateCfg(
-                # pos=[0.5, 0, 0.0135], rot=[1, 0, 0, 0] if scale is 1.0
+                # NOTE: When scale is 1.0, the position should be pos=[0.5, 0, 0.0135]
                 pos=[0.5, 0, 0.0675], rot=[1, 0, 0, 0]
             ),
             spawn=UsdFileCfg(
@@ -78,7 +78,7 @@ class UR10eAssemblyEnvCfg(SiemensGearboxAssemblyEnvCfg):
         self.scene.gear_medium = RigidObjectCfg(
             prim_path="{ENV_REGEX_NS}/GearMedium",
             init_state=RigidObjectCfg.InitialStateCfg(
-                # pos=[0.5, 0, 0.0135], rot=[1, 0, 0, 0] if scale is 1.0
+                # NOTE: When scale is 1.0, the position should be pos=[0.5, 0, 0.0135]
                 pos=[0.5, 0, 0.0675], rot=[1, 0, 0, 0]
             ),
             spawn=UsdFileCfg(
@@ -104,7 +104,7 @@ class UR10eAssemblyEnvCfg(SiemensGearboxAssemblyEnvCfg):
         self.scene.gear_large = RigidObjectCfg(
             prim_path="{ENV_REGEX_NS}/GearLarge",
             init_state=RigidObjectCfg.InitialStateCfg(
-                # pos=[0.5, 0, 0.0285], rot=[1, 0, 0, 0] if scale is 1.0
+                # NOTE: When scale is 1.0, the position should be pos=[0.5, 0, 0.0285]
                 pos=[0.5, 0, 0.01425], rot=[1, 0, 0, 0]
             ),
             spawn=UsdFileCfg(
@@ -130,7 +130,7 @@ class UR10eAssemblyEnvCfg(SiemensGearboxAssemblyEnvCfg):
         self.scene.shaft_left = RigidObjectCfg(
             prim_path="{ENV_REGEX_NS}/ShaftLeft",
             init_state=RigidObjectCfg.InitialStateCfg(
-                # pos=[0.5, 0, 0.096], rot=[1, 0, 0, 0] if scale is 1.0
+                # NOTE: When scale is 1.0, the position should be pos=[0.5, 0, 0.096]
                 pos=[0.5, 0, 0.048], rot=[1, 0, 0, 0]
             ),
             spawn=UsdFileCfg(
@@ -156,7 +156,7 @@ class UR10eAssemblyEnvCfg(SiemensGearboxAssemblyEnvCfg):
         self.scene.shaft_right = RigidObjectCfg(
             prim_path="{ENV_REGEX_NS}/ShaftRight",
             init_state=RigidObjectCfg.InitialStateCfg(
-                # pos=[0.5, 0, 0.096], rot=[1, 0, 0, 0] if scale is 1.0
+                # NOTE: When scale is 1.0, the position should be pos=[0.5, 0, 0.096]
                 pos=[0.5, 0, 0.048], rot=[1, 0, 0, 0]
             ),
             spawn=UsdFileCfg(
@@ -182,7 +182,7 @@ class UR10eAssemblyEnvCfg(SiemensGearboxAssemblyEnvCfg):
         self.scene.gearbox_base = RigidObjectCfg(
             prim_path="{ENV_REGEX_NS}/GearBase",
             init_state=RigidObjectCfg.InitialStateCfg(
-                # pos=[0.5, 0.1, 0.1025], rot=[1, 0, 0, 0] if scale is 1.0
+                # NOTE: When scale is 1.0, the position should be pos=[0.5, 0.1, 0.1025]
                 pos=[0.5, 0.1, 0.05125], rot=[1, 0, 0, 0]
             ),
             spawn=UsdFileCfg(
