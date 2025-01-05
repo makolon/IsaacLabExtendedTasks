@@ -3,7 +3,7 @@ import gymnasium as gym
 from . import agents, franka_env_cfg
 
 gym.register(
-    id="Isaac-Assembly-Franka-v0",
+    id="Isaac-Fusion360-Joint-Franka-v0",
     entry_point="omni.isaac.lab.envs:ManagerBasedRLEnv",
     kwargs={
         "env_cfg_entry_point": franka_env_cfg.FrankaAssemblyEnvCfg,
