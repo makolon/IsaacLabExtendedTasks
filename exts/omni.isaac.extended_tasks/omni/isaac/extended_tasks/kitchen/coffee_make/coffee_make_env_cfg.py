@@ -43,8 +43,10 @@ class CoffeeMakeSceneCfg(InteractiveSceneCfg):
     robot: ArticulationCfg = MISSING
     # end-effector sensor: will be populated by agent env cfg
     ee_frame: FrameTransformerCfg = MISSING
-    # target object: will be populated by agent env cfg
-    object: RigidObjectCfg | DeformableObjectCfg = MISSING
+    # coffee machine: will be populated by agent env cfg
+    coffee_machine: RigidObjectCfg = MISSING
+    # portion: will be populated by agent env cfg
+    portion: RigidObjectCfg | DeformableObjectCfg = MISSING
 
     # kitchen
     kitchen_number: int = 1  # TODO: Fix this
@@ -74,39 +76,39 @@ class CoffeeMakeSceneCfg(InteractiveSceneCfg):
     # rgb camera
     rgb_camera = CameraCfg(
         prim_path="{ENV_REGEX_NS}/rgb_camera",
-        update_period=0.1,
+        update_period=0.0,
         spawn=sim_utils.PinholeCameraCfg(
             focal_length=1.93,
-            horizontal_aperture=3.8,
+            horizontal_aperture=45.6,
         ),
-        width=1280,
-        height=720,
+        width=640,
+        height=480,
         data_types=["rgb"],
     )
 
     # depth camera
     depth_camera = CameraCfg(
         prim_path="{ENV_REGEX_NS}/depth_camera",
-        update_period=0.1,
+        update_period=0.0,
         spawn=sim_utils.PinholeCameraCfg(
             focal_length=1.93,
-            horizontal_aperture=3.8,
+            horizontal_aperture=45.6,
         ),
-        width=1280,
-        height=720,
+        width=640,
+        height=480,
         data_types=["distance_to_image_plane"],
     )
 
     # semantic camera
     semantic_camera = CameraCfg(
         prim_path="{ENV_REGEX_NS}/semantic_camera",
-        update_period=0.1,
+        update_period=0.0,
         spawn=sim_utils.PinholeCameraCfg(
             focal_length=1.93,
-            horizontal_aperture=3.8,
+            horizontal_aperture=45.6,
         ),
-        width=1280,
-        height=720,
+        width=640,
+        height=480,
         data_types=["semantic_segmentation"],
     )
 

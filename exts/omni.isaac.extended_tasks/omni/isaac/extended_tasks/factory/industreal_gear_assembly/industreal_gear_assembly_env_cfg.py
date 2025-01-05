@@ -75,39 +75,39 @@ class IndustrealGearAssemblySceneCfg(InteractiveSceneCfg):
     # rgb camera
     rgb_camera = CameraCfg(
         prim_path="{ENV_REGEX_NS}/rgb_camera",
-        update_period=0.1,
+        update_period=0.0,
         spawn=sim_utils.PinholeCameraCfg(
             focal_length=1.93,
-            horizontal_aperture=3.8,
+            horizontal_aperture=45.6,
         ),
-        width=1280,
-        height=720,
+        width=640,
+        height=480,
         data_types=["rgb"],
     )
 
     # depth camera
     depth_camera = CameraCfg(
         prim_path="{ENV_REGEX_NS}/depth_camera",
-        update_period=0.1,
+        update_period=0.0,
         spawn=sim_utils.PinholeCameraCfg(
             focal_length=1.93,
-            horizontal_aperture=3.8,
+            horizontal_aperture=45.6,
         ),
-        width=1280,
-        height=720,
+        width=640,
+        height=480,
         data_types=["distance_to_image_plane"],
     )
 
     # semantic camera
     semantic_camera = CameraCfg(
         prim_path="{ENV_REGEX_NS}/semantic_camera",
-        update_period=0.1,
+        update_period=0.0,
         spawn=sim_utils.PinholeCameraCfg(
             focal_length=1.93,
-            horizontal_aperture=3.8,
+            horizontal_aperture=45.6,
         ),
-        width=1280,
-        height=720,
+        width=640,
+        height=480,
         data_types=["semantic_segmentation"],
     )
 
@@ -153,10 +153,6 @@ class ObservationsCfg:
 
         joint_pos = ObsTerm(func=mdp.joint_pos_rel)
         joint_vel = ObsTerm(func=mdp.joint_vel_rel)
-        # object_position = ObsTerm(func=extended_mdp.object_position_in_robot_root_frame)
-        # target_object_position = ObsTerm(
-        #     func=mdp.generated_commands, params={"command_name": "object_pose"}
-        # )
         actions = ObsTerm(func=mdp.last_action)
 
         def __post_init__(self):
@@ -231,26 +227,6 @@ class EventCfg:
 @configclass
 class RewardsCfg:
     """Reward terms for the MDP."""
-
-    # reaching_object = RewTerm(
-    #     func=extended_mdp.object_ee_distance, params={"std": 0.1}, weight=1.0
-    # )
-
-    # lifting_object = RewTerm(
-    #     func=extended_mdp.object_is_lifted, params={"minimal_height": 0.04}, weight=15.0
-    # )
-
-    # object_goal_tracking = RewTerm(
-    #     func=extended_mdp.object_goal_distance,
-    #     params={"std": 0.3, "minimal_height": 0.04, "command_name": "object_pose"},
-    #     weight=16.0,
-    # )
-
-    # object_goal_tracking_fine_grained = RewTerm(
-    #     func=extended_mdp.object_goal_distance,
-    #     params={"std": 0.05, "minimal_height": 0.04, "command_name": "object_pose"},
-    #     weight=5.0,
-    # )
 
     # action penalty
     action_rate = RewTerm(func=mdp.action_rate_l2, weight=-1e-4)
