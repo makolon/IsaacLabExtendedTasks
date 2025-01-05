@@ -8,6 +8,54 @@ The repository, IsaacLabExtendedTasks, consists of two main components:
 
 Both components are built on top of `omni.isaac.lab_assets` and `omni.isaac.lab_tasks`.
 
+```
+omni/isaac/extended_tasks
+├── kitchen # env_name
+│   └── <task_name> # e.g. open_cabinet, bowl_stack, coffee_make
+│       ├── config
+│       │   └── <robot_name> # e.g. franka, universal_robots
+│       │       ├── __init__.py
+│       │       ├── <robot_name>_cfg.py
+│       │       └── agents
+│       │           └── __init__.py
+│       ├── mdp
+│       │   ├── observations.py
+│       │   ├── rewards.py
+│       │   └── terminations.py
+│       ├── __init__.py
+│       └── <task_name>_env_cfg.py
+├── fractory # env_name
+│   └── <task_name> # e.g. fusion360_joint_assembly, fmb_single_assembly
+│       ├── config
+│       │   └── <robot_name> # e.g. franka, universal_robots
+│       │       ├── __init__.py
+│       │       ├── <robot_name>_cfg.py
+│       │       └── agents
+│       │           └── __init__.py
+│       ├── mdp
+│       │   ├── observations.py
+│       │   ├── rewards.py
+│       │   └── terminations.py
+│       ├── __init__.py
+│       └── <task_name>_env_cfg.py
+└── block_world # env_name
+    └── <task_name> # e.g. sort, stack
+        ├── config
+        │   └── <robot_name> # e.g. franka, universal_robots
+        │       ├── __init__.py
+        │       ├── <robot_name>_cfg.py
+        │       └── agents
+        │           └── __init__.py
+        ├── mdp
+        │   ├── observations.py
+        │   ├── rewards.py
+        │   └── terminations.py
+        ├── __init__.py
+        └── <task_name>_env_cfg.py
+
+```
+
+
 ## Installation
 To install this repository, follow these steps:
 
