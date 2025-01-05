@@ -39,15 +39,15 @@ FRANKA_PANDA_CFG = ArticulationCfg(
             joint_names_expr=["panda_joint[1-4]"],
             effort_limit=87.0,
             velocity_limit=2.175,
-            stiffness=80.0,
-            damping=4.0,
+            stiffness=400.0,
+            damping=80.0,
         ),
         "panda_forearm": ImplicitActuatorCfg(
             joint_names_expr=["panda_joint[5-7]"],
             effort_limit=12.0,
             velocity_limit=2.61,
-            stiffness=80.0,
-            damping=4.0,
+            stiffness=400.0,
+            damping=80.0,
         ),
         "panda_hand": ImplicitActuatorCfg(
             joint_names_expr=["drive_joint"],
@@ -61,17 +61,6 @@ FRANKA_PANDA_CFG = ArticulationCfg(
 )
 """Configuration of Franka Emika Panda robot."""
 
-
-FRANKA_PANDA_HIGH_PD_CFG = FRANKA_PANDA_CFG.copy()
-FRANKA_PANDA_HIGH_PD_CFG.spawn.rigid_props.disable_gravity = True
-FRANKA_PANDA_HIGH_PD_CFG.actuators["panda_shoulder"].stiffness = 400.0
-FRANKA_PANDA_HIGH_PD_CFG.actuators["panda_shoulder"].damping = 80.0
-FRANKA_PANDA_HIGH_PD_CFG.actuators["panda_forearm"].stiffness = 400.0
-FRANKA_PANDA_HIGH_PD_CFG.actuators["panda_forearm"].damping = 80.0
-"""Configuration of Franka Emika Panda robot with stiffer PD control.
-
-This configuration is useful for task-space control using differential IK.
-"""
 
 FACTORY_FRANKA_PANDA_CFG = ArticulationCfg(
     spawn=sim_utils.UsdFileCfg(
