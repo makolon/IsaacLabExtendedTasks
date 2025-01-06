@@ -47,6 +47,8 @@ class IndustrealGearAssemblySceneCfg(InteractiveSceneCfg):
     gear_large: RigidObjectCfg | DeformableObjectCfg = MISSING
     # fixture: will be populated by agent env cfg
     gear_base: RigidObjectCfg | DeformableObjectCfg = MISSING
+    # base: will be populated by agent env cfg
+    base: RigidObjectCfg = MISSING
 
     # table
     table = AssetBaseCfg(

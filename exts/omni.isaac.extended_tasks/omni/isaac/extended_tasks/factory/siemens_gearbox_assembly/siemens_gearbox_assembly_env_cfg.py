@@ -50,6 +50,8 @@ class SiemensGearboxAssemblySceneCfg(InteractiveSceneCfg):
     shaft_right: RigidObjectCfg | DeformableObjectCfg = MISSING
     # fixture: will be populated by agent env cfg
     gearbox_base: RigidObjectCfg | DeformableObjectCfg = MISSING
+    # base: will be populated by agent env cfg
+    base: RigidObjectCfg = MISSING
 
     # table
     table = AssetBaseCfg(

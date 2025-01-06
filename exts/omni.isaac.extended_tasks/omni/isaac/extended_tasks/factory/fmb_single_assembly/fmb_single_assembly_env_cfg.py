@@ -40,6 +40,8 @@ class FMBSingleAssemblySceneCfg(InteractiveSceneCfg):
     ee_frame: FrameTransformerCfg = MISSING
     # target block: will be populated by agent env cfg
     target_object: RigidObjectCfg = MISSING
+    # base: will be populated by agent env cfg
+    base: RigidObjectCfg = MISSING
 
     # table
     table = AssetBaseCfg(

@@ -43,8 +43,10 @@ class Fusion360JointAssemblySceneCfg(InteractiveSceneCfg):
     ee_frame: FrameTransformerCfg = MISSING
     # target object: will be populated by agent env cfg
     object: RigidObjectCfg | DeformableObjectCfg = MISSING
-    # fixture
+    # fixture: will be populated by agent env cfg
     fixture: RigidObjectCfg | DeformableObjectCfg = MISSING
+    # base: will be populated by agent env cfg
+    base: RigidObjectCfg = MISSING
 
     # table
     table = AssetBaseCfg(
