@@ -33,7 +33,7 @@ class Gen3N7StackEnvCfg(StackEnvCfg):
         )
         self.actions.gripper_action = mdp.JointPositionActionCfg(
             asset_name="robot",
-            joint_names=["finger_joint.*"],
+            joint_names=["drive_joint.*"],
             scale=1.0,
             use_default_offset=False,
             preserve_order=True,

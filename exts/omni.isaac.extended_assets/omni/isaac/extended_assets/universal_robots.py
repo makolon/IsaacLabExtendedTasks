@@ -30,7 +30,7 @@ UR5E_ROBOTIQ_2F_85_CFG = ArticulationCfg(
             "wrist_1_joint": -1.57,
             "wrist_2_joint": -1.57,
             "wrist_3_joint": 0.0,
-            "finger_joint": 0.0,
+            "drive_joint": 0.0,
         },
     ),
     actuators={
@@ -70,7 +70,7 @@ UR5E_ROBOTIQ_2F_85_CFG = ArticulationCfg(
             },
         ),
         "end_effector:": ImplicitActuatorCfg(
-            joint_names_expr=["finger_joint"],
+            joint_names_expr=["drive_joint"],
             effort_limit=5.0,
             velocity_limit=0.2,
             stiffness=20.0,
@@ -113,7 +113,7 @@ FACTORY_UR5E_ROBOTIQ_2F_85_CFG = ArticulationCfg(
             "wrist_1_joint": -1.57,
             "wrist_2_joint": -1.57,
             "wrist_3_joint": 0.0,
-            "finger_joint": 0.0,
+            "drive_joint": 0.0,
         },
     ),
     actuators={
@@ -153,7 +153,7 @@ FACTORY_UR5E_ROBOTIQ_2F_85_CFG = ArticulationCfg(
             },
         ),
         "end_effector:": ImplicitActuatorCfg(
-            joint_names_expr=["finger_joint"],
+            joint_names_expr=["drive_joint"],
             effort_limit=5.0,
             velocity_limit=0.2,
             stiffness=20.0,
@@ -187,7 +187,7 @@ UR5E_ROBOTIQ_2F_140_CFG = ArticulationCfg(
             "wrist_1_joint": -1.57,
             "wrist_2_joint": -1.57,
             "wrist_3_joint": 0.0,
-            "finger_joint": 0.0,
+            "drive_joint": 0.0,
         },
     ),
     actuators={
@@ -227,7 +227,7 @@ UR5E_ROBOTIQ_2F_140_CFG = ArticulationCfg(
             },
         ),
         "end_effector:": ImplicitActuatorCfg(
-            joint_names_expr=["finger_joint"],
+            joint_names_expr=["drive_joint"],
             effort_limit=5.0,
             velocity_limit=0.2,
             stiffness=20.0,
@@ -261,7 +261,7 @@ UR10E_ROBOTIQ_2F_85_CFG = ArticulationCfg(
             "wrist_1_joint": -1.57,
             "wrist_2_joint": -1.57,
             "wrist_3_joint": 0.0,
-            "finger_joint": 0.0,
+            "drive_joint": 0.0,
         },
     ),
     actuators={
@@ -301,7 +301,7 @@ UR10E_ROBOTIQ_2F_85_CFG = ArticulationCfg(
             },
         ),
         "end_effector:": ImplicitActuatorCfg(
-            joint_names_expr=["finger_joint"],
+            joint_names_expr=["drive_joint"],
             effort_limit=5.0,
             velocity_limit=0.2,
             stiffness=20.0,
@@ -335,7 +335,7 @@ UR10E_ROBOTIQ_2F_140_CFG = ArticulationCfg(
             "wrist_1_joint": -1.57,
             "wrist_2_joint": -1.57,
             "wrist_3_joint": 0.0,
-            "finger_joint": 0.0,
+            "drive_joint": 0.0,
         },
     ),
     actuators={
@@ -375,7 +375,7 @@ UR10E_ROBOTIQ_2F_140_CFG = ArticulationCfg(
             },
         ),
         "end_effector:": ImplicitActuatorCfg(
-            joint_names_expr=["finger_joint"],
+            joint_names_expr=["drive_joint"],
             effort_limit=5.0,
             velocity_limit=0.2,
             stiffness=20.0,
@@ -418,7 +418,7 @@ FACTORY_UR10E_ROBOTIQ_2F_140_CFG = ArticulationCfg(
             "wrist_1_joint": -1.57,
             "wrist_2_joint": -1.57,
             "wrist_3_joint": 0.0,
-            "finger_joint": 0.0,
+            "drive_joint": 0.0,
         },
     ),
     actuators={
@@ -458,7 +458,7 @@ FACTORY_UR10E_ROBOTIQ_2F_140_CFG = ArticulationCfg(
             },
         ),
         "end_effector:": ImplicitActuatorCfg(
-            joint_names_expr=["finger_joint"],
+            joint_names_expr=["drive_joint"],
             effort_limit=5.0,
             velocity_limit=0.2,
             stiffness=20.0,

@@ -31,7 +31,7 @@ KINOVA_GEN3_N7_CFG = ArticulationCfg(
             "joint_5": 0.0,
             "joint_6": 0.4,
             "joint_7": 0.0,
-            "finger_joint": 0.0,
+            "drive_joint": 0.0,
         },
     ),
     actuators={
@@ -75,7 +75,7 @@ KINOVA_GEN3_N7_CFG = ArticulationCfg(
             },
         ),
         "gripper": ImplicitActuatorCfg(
-            joint_names_expr=["finger_joint"],
+            joint_names_expr=["drive_joint"],
             effort_limit=100.0,
             velocity_limit=0.2,
             stiffness=10.0,
