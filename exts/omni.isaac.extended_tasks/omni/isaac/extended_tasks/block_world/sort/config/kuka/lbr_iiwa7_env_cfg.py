@@ -96,7 +96,7 @@ class LBRIIWA7SortEnvCfg(SortEnvCfg):
 
         # Set the configs as member of the class
         for k, v in base_cfgs.items():
-            attr_name = "base_{}".format(k)
+            attr_name = "base{}".format(k)
             self.scene.__setattr__(attr_name, v)
 
         # Collect all configs
