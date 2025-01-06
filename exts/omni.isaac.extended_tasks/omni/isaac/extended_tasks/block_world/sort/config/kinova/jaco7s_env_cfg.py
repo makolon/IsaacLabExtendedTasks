@@ -39,6 +39,31 @@ class Jaco7SSortEnvCfg(SortEnvCfg):
         # Set the body name for the end effector
         self.commands.object_pose.body_name = "j2s7n300_end_effector"
 
+        # Add base as a rigid object
+        self.scene.base = RigidObjectCfg(
+            prim_path="{ENV_REGEX_NS}/Base",
+            init_state=RigidObjectCfg.InitialStateCfg(
+                pos=[0.45, 0.0, -0.01], rot=[1, 0, 0, 0]
+            ),
+            spawn=CuboidCfg(
+                size=[0.5, 0.7, 0.02],
+                visible=False,
+                rigid_props=RigidBodyPropertiesCfg(
+                    solver_position_iteration_count=16,
+                    solver_velocity_iteration_count=0,
+                    max_angular_velocity=64.0,
+                    max_linear_velocity=1000.0,
+                    max_depenetration_velocity=5.0,
+                    linear_damping=0.5,
+                    angular_damping=0.5,
+                    enable_gyroscopic_forces=True,
+                    rigid_body_enabled=True,
+                    disable_gravity=True,
+                    kinematic_enabled=True,
+                ),
+            ),
+        )
+
         # Collect all configs
         rigid_props = RigidBodyPropertiesCfg(
             solver_position_iteration_count=16,

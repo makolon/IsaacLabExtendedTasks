@@ -6,6 +6,7 @@ from omni.isaac.lab.sensors import FrameTransformerCfg
 from omni.isaac.lab.sensors.frame_transformer.frame_transformer_cfg import OffsetCfg
 from omni.isaac.lab.sim.schemas.schemas_cfg import RigidBodyPropertiesCfg
 from omni.isaac.lab.sim.spawners.from_files.from_files_cfg import UsdFileCfg
+from omni.isaac.lab.sim.spawners.shapes import CuboidCfg
 from omni.isaac.lab.utils import configclass
 from omni.isaac.lab.utils.assets import ISAAC_NUCLEUS_DIR
 
@@ -48,6 +49,31 @@ class UR10eStackEnvCfg(StackEnvCfg):
         )
         # Set the body name for the end effector
         self.commands.object_pose.body_name = "grasp_frame"
+
+        # Add base as a rigid object
+        self.scene.base = RigidObjectCfg(
+            prim_path="{ENV_REGEX_NS}/Base",
+            init_state=RigidObjectCfg.InitialStateCfg(
+                pos=[0.45, 0.0, -0.01], rot=[1, 0, 0, 0]
+            ),
+            spawn=CuboidCfg(
+                size=[0.5, 0.7, 0.02],
+                visible=False,
+                rigid_props=RigidBodyPropertiesCfg(
+                    solver_position_iteration_count=16,
+                    solver_velocity_iteration_count=0,
+                    max_angular_velocity=64.0,
+                    max_linear_velocity=1000.0,
+                    max_depenetration_velocity=5.0,
+                    linear_damping=0.5,
+                    angular_damping=0.5,
+                    enable_gyroscopic_forces=True,
+                    rigid_body_enabled=True,
+                    disable_gravity=True,
+                    kinematic_enabled=True,
+                ),
+            ),
+        )
 
         # Collect all configs
         block_cfgs = {}
