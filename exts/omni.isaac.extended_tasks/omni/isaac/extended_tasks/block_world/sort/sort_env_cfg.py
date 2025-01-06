@@ -40,6 +40,8 @@ class SortSceneCfg(InteractiveSceneCfg):
     robot: ArticulationCfg = MISSING
     # end-effector sensor: will be populated by agent env cfg
     ee_frame: FrameTransformerCfg = MISSING
+    # base: will be populated by agent env cfg
+    base: RigidObjectCfg = MISSING
 
     # table
     table = AssetBaseCfg(
