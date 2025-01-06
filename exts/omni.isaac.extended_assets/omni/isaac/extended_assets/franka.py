@@ -49,7 +49,7 @@ FRANKA_PANDA_CFG = ArticulationCfg(
             stiffness=400.0,
             damping=80.0,
         ),
-        "panda_hand": ImplicitActuatorCfg(
+        "gripper": ImplicitActuatorCfg(
             joint_names_expr=["drive_joint"],
             effort_limit=200.0,
             velocity_limit=0.2,
@@ -112,7 +112,7 @@ FACTORY_FRANKA_PANDA_CFG = ArticulationCfg(
             stiffness=80.0,
             damping=4.0,
         ),
-        "panda_hand": ImplicitActuatorCfg(
+        "gripper": ImplicitActuatorCfg(
             joint_names_expr=["drive_joint"],
             effort_limit=200.0,
             velocity_limit=0.2,
