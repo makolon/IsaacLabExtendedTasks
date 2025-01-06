@@ -40,10 +40,6 @@ class SortSceneCfg(InteractiveSceneCfg):
     robot: ArticulationCfg = MISSING
     # end-effector sensor: will be populated by agent env cfg
     ee_frame: FrameTransformerCfg = MISSING
-    # target block: will be populated by agent env cfg
-    target_object: RigidObjectCfg = MISSING
-    # base: will be populated by agent env cfg
-    base: RigidObjectCfg = MISSING
 
     # table
     table = AssetBaseCfg(
@@ -150,10 +146,6 @@ class ObservationsCfg:
 
         joint_pos = ObsTerm(func=mdp.joint_pos_rel)
         joint_vel = ObsTerm(func=mdp.joint_vel_rel)
-        object_position = ObsTerm(func=extended_mdp.target_object_position_in_robot_root_frame)
-        target_object_position = ObsTerm(
-            func=mdp.generated_commands, params={"command_name": "object_pose"}
-        )
         actions = ObsTerm(func=mdp.last_action)
 
         def __post_init__(self):
@@ -214,46 +206,10 @@ class EventCfg:
 
     reset_all = EventTerm(func=mdp.reset_scene_to_default, mode="reset")
 
-    reset_object_position = EventTerm(
-        func=extended_mdp.reset_root_state_uniform,
-        mode="reset",
-        params={
-            "pose_range": {"x": (-0.2, 0.2), "y": (-0.25, 0.25), "z": (0.0, 0.0)},
-            "velocity_range": {},
-            "asset_names": [
-                "sphere_block",
-                "cone_block",
-                "cuboid_block",
-                "capsule_block",
-                "cylinder_block",
-            ],
-        },
-    )
-
 
 @configclass
 class RewardsCfg:
     """Reward terms for the MDP."""
-
-    reaching_object = RewTerm(
-        func=extended_mdp.object_ee_distance, params={"std": 0.1}, weight=1.0
-    )
-
-    lifting_object = RewTerm(
-        func=extended_mdp.object_is_lifted, params={"minimal_height": 0.04}, weight=15.0
-    )
-
-    object_goal_tracking = RewTerm(
-        func=extended_mdp.object_goal_distance,
-        params={"std": 0.3, "minimal_height": 0.04, "command_name": "object_pose"},
-        weight=16.0,
-    )
-
-    object_goal_tracking_fine_grained = RewTerm(
-        func=extended_mdp.object_goal_distance,
-        params={"std": 0.05, "minimal_height": 0.04, "command_name": "object_pose"},
-        weight=5.0,
-    )
 
     # action penalty
     action_rate = RewTerm(func=mdp.action_rate_l2, weight=-1e-4)
@@ -270,11 +226,6 @@ class TerminationsCfg:
     """Termination terms for the MDP."""
 
     time_out = DoneTerm(func=mdp.time_out, time_out=True)
-
-    object_dropping = DoneTerm(
-        func=mdp.root_height_below_minimum,
-        params={"minimum_height": -0.05, "asset_cfg": SceneEntityCfg("target_object")},
-    )
 
 
 @configclass
