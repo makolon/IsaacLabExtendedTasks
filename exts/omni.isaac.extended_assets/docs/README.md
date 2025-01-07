@@ -24,13 +24,37 @@ The recommended directory structure inside `data` is as follows:
 
 You can use the following snippet to refer to the assets:
 
-```python
-
+```
 from omni.isaac.extended_assets import ISAACEXTENDED_ASSETS_DATA_DIR
-
 
 # Gen3n7
 GEN3N7_C_USD_PATH = f"{ISAACEXTENDED_ASSETS_DATA_DIR}/Robots/Kinova/gen3n7.usd"
 # XArm7
 XAMR7_USD_PATH = f"{ISAACEXTENDED_ASSETS_DATA_DIR}/Robots/UFactory/xarm7.usd"
 ```
+
+## Maintained model
+- Default
+  - [x] Franka w/ panda hand
+  - [ ] UR5e w/ robotiq2f 85
+  - [ ] UR5e w/ robotiq2f 140
+  - [ ] UR10e w/ robotiq2f 85
+  - [ ] UR10e w/ robotiq2f 140
+  - [ ] Gen3 w/ robotiq2f 85
+  - [x] xArm7 w/ xarm gripper
+  - [ ] iiwa7 w/ allegro hand
+  - [ ] iiwa7 w/ schunk wsg50
+  - [ ] Jaco7N
+  - [ ] Jaco7S
+- Instanceable
+  - [x] Franka w/ panda hand
+  - [ ] UR5e w/ robotiq2f 85
+  - [ ] UR5e w/ robotiq2f 140
+  - [ ] UR10e w/ robotiq2f 85
+  - [ ] UR10e w/ robotiq2f 140
+  - [ ] Gen3 w/ robotiq2f 85
+  - [x] xArm7 w/ xarm gripper
+  - [ ] iiwa7 w/ allegro hand
+  - [ ] iiwa7 w/ schunk wsg50
+  - [ ] Jaco7N
+  - [ ] Jaco7S
