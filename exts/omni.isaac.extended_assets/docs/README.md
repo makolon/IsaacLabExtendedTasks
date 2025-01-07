@@ -42,11 +42,11 @@ XAMR7_USD_PATH = f"{ISAACEXTENDED_ASSETS_DATA_DIR}/Robots/UFactory/xarm7.usd"
 > - The gripper's joints are implemented as mimic joints and are controlled by a single drive_joint.
 - Default
   - [x] Franka w/ panda hand
-  - [ ] UR5e w/ robotiq2f 85
-  - [ ] UR5e w/ robotiq2f 140
-  - [ ] UR10e w/ robotiq2f 85
-  - [ ] UR10e w/ robotiq2f 140
-  - [ ] Gen3 w/ robotiq2f 85
+  - [x] UR5e w/ robotiq2f 85
+  - [x] UR5e w/ robotiq2f 140
+  - [x] UR10e w/ robotiq2f 85
+  - [x] UR10e w/ robotiq2f 140
+  - [x] Gen3 w/ robotiq2f 85
   - [x] xArm7 w/ xarm gripper
   - [ ] iiwa7 w/ allegro hand
   - [ ] iiwa7 w/ schunk wsg50
