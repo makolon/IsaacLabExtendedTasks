@@ -34,6 +34,12 @@ XAMR7_USD_PATH = f"{ISAACEXTENDED_ASSETS_DATA_DIR}/Robots/UFactory/xarm7.usd"
 ```
 
 ## Maintained model
+> [!NOTE]
+> **Checklist**: Mark as "Check" if the following conditions are satisfied.
+> - The grasp_frame is present.
+> - Motion planning works correctly with cuRobo.
+> - Textures are properly applied.
+> - The gripper's joints are implemented as mimic joints and are controlled by a single drive_joint.
 - Default
   - [x] Franka w/ panda hand
   - [ ] UR5e w/ robotiq2f 85
