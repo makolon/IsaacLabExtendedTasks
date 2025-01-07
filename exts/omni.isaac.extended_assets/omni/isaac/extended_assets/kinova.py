@@ -25,11 +25,11 @@ KINOVA_GEN3_N7_CFG = ArticulationCfg(
     init_state=ArticulationCfg.InitialStateCfg(
         joint_pos={
             "joint_1": 0.0,
-            "joint_2": -0.8,
+            "joint_2": 0.0,
             "joint_3": 0.0,
-            "joint_4": 1.5,
+            "joint_4": 1.57,
             "joint_5": 0.0,
-            "joint_6": 0.4,
+            "joint_6": 1.57,
             "joint_7": 0.0,
             "drive_joint": 0.0,
         },
