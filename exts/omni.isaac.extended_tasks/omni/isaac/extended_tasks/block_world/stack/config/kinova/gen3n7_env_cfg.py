@@ -39,7 +39,7 @@ class Gen3N7StackEnvCfg(StackEnvCfg):
             preserve_order=True,
         )
         # Set the body name for the end effector
-        self.commands.object_pose.body_name = "tool_frame"
+        self.commands.object_pose.body_name = "grasp_frame"
 
         # Add base as a rigid object
         self.scene.base = RigidObjectCfg(
@@ -110,7 +110,7 @@ class Gen3N7StackEnvCfg(StackEnvCfg):
             visualizer_cfg=marker_cfg,
             target_frames=[
                 FrameTransformerCfg.FrameCfg(
-                    prim_path="{ENV_REGEX_NS}/Robot/tool_frame",
+                    prim_path="{ENV_REGEX_NS}/Robot/grasp_frame",
                     name="end_effector",
                     offset=OffsetCfg(
                         pos=[0.0, 0.0, 0.1034],
