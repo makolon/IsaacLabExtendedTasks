@@ -10,7 +10,7 @@ from . import ISAACLAB_EXTENDED_ASSETS_DATA_DIR
 
 XARM7_CFG = ArticulationCfg(
     spawn=sim_utils.UsdFileCfg(
-        usd_path=f"{ISAACLAB_EXTENDED_ASSETS_DATA_DIR}/Robots/USD/UFactory/xarm7/xarm7.usd",
+        usd_path=f"{ISAACLAB_EXTENDED_ASSETS_DATA_DIR}/Robots/USD/UFactory/xarm7/xarm7_gelsight.usd",
         activate_contact_sensors=False,
         rigid_props=sim_utils.RigidBodyPropertiesCfg(
             disable_gravity=True,
@@ -89,7 +89,7 @@ XARM7_CFG = ArticulationCfg(
 
 FACTORY_XARM7_CFG = ArticulationCfg(
     spawn=sim_utils.UsdFileCfg(
-        usd_path=f"{ISAACLAB_EXTENDED_ASSETS_DATA_DIR}/Robots/USD/UFactory/xarm7/xarm7.usd",
+        usd_path=f"{ISAACLAB_EXTENDED_ASSETS_DATA_DIR}/Robots/USD/UFactory/xarm7/xarm7_gelsight.usd",
         activate_contact_sensors=True,
         rigid_props=sim_utils.RigidBodyPropertiesCfg(
             disable_gravity=True,

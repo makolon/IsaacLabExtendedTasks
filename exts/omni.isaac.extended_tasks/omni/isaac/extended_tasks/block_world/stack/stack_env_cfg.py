@@ -38,6 +38,10 @@ class StackSceneCfg(InteractiveSceneCfg):
 
     # robots: will be populated by agent env cfg
     robot: ArticulationCfg = MISSING
+    # gelsight left camera: will be populated by agent env cfg
+    gelsight_left: CameraCfg = MISSING
+    # gelsight right camera: will be populated by agent env cfg
+    gelsight_right: CameraCfg = MISSING
     # end-effector sensor: will be populated by agent env cfg
     ee_frame: FrameTransformerCfg = MISSING
     # target block: will be populated by agent env cfg
@@ -159,6 +163,26 @@ class ObservationsCfg:
         def __post_init__(self):
             self.enable_corruption = True
             self.concatenate_terms = True
+
+    @configclass
+    class SensorCfg(ObsGroup):
+        """Observations for sensor group."""
+
+        wrist_wrench = ObsTerm(
+            func=mdp.body_incoming_wrench,
+            scale=0.1,  # TODO: Fix this
+            params={
+                "asset_cfg": SceneEntityCfg(
+                    "robot", body_names=MISSING  # will be set by agent env cfg
+                )
+            },
+        )
+        gelsight_left_image = ObsTerm(func=extended_mdp.gelsight_image, params={"side": "left"})
+        gelsight_right_image = ObsTerm(func=extended_mdp.gelsight_image, params={"side": "right"})
+
+        def __post_init__(self):
+            self.enable_corruption = False
+            self.concatenate_terms = False
 
     @configclass
     class CameraImageCfg(ObsGroup):

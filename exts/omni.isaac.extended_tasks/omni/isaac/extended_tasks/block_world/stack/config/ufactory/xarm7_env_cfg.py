@@ -1,8 +1,10 @@
 import random
+
+import omni.isaac.lab.sim as sim_utils
 from omni.isaac.extended_tasks.block_world.stack import mdp
 from omni.isaac.extended_tasks.block_world.stack.stack_env_cfg import StackEnvCfg
 from omni.isaac.lab.assets import RigidObjectCfg
-from omni.isaac.lab.sensors import FrameTransformerCfg
+from omni.isaac.lab.sensors import CameraCfg, FrameTransformerCfg
 from omni.isaac.lab.sensors.frame_transformer.frame_transformer_cfg import OffsetCfg
 from omni.isaac.lab.sim.schemas.schemas_cfg import RigidBodyPropertiesCfg
 from omni.isaac.lab.sim.spawners.from_files.from_files_cfg import UsdFileCfg
@@ -22,6 +24,38 @@ class XArm7StackEnvCfg(StackEnvCfg):
 
         # Set xArm7 as robot
         self.scene.robot = XARM7_CFG.replace(prim_path="{ENV_REGEX_NS}/Robot")
+
+        # Set the camera for the gelsight
+        self.scene.gelsight_left = CameraCfg(
+            prim_path="{ENV_REGEX_NS}/Robot/finger_left_tip_body/front_cam",
+            update_period=0.01,
+            height=320,
+            width=240,
+            data_types=["rgb", "distance_to_image_plane"],
+            spawn=sim_utils.PinholeCameraCfg(
+                focal_length=115, focus_distance=0.0015, horizontal_aperture=20.955, clipping_range=(0.1, 1e5)
+            ),
+            offset=CameraCfg.OffsetCfg(
+                pos=(0.003, 0.0, -0.1),
+                rot=(0.0, 0.70710678, 0.70710678, 0.0),
+                convention="opengl"
+            ),
+        )
+        self.scene.gelsight_right = CameraCfg(
+            prim_path="{ENV_REGEX_NS}/Robot/finger_right_tip_body/front_cam",
+            update_period=0.01,
+            height=320,
+            width=240,
+            data_types=["rgb", "distance_to_image_plane"],
+            spawn=sim_utils.PinholeCameraCfg(
+                focal_length=115, focus_distance=0.0015, horizontal_aperture=20.955, clipping_range=(0.1, 1.0e5)
+            ),
+            offset=CameraCfg.OffsetCfg(
+                pos=(0.003, 0.0, -0.1),
+                rot=(0.0, 0.70710678, 0.70710678, 0.0),
+                convention="opengl"
+            ),
+        )
 
         # Set actions for the specific robot type (xarm7)
         self.actions.arm_action = mdp.JointPositionActionCfg(
