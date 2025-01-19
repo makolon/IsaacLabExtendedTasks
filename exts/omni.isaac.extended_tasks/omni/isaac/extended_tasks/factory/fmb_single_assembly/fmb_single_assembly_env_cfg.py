@@ -7,6 +7,7 @@ from omni.isaac.lab.assets import (
     RigidObjectCfg,
 )
 from omni.isaac.lab.envs import ManagerBasedRLEnvCfg, mdp
+from omni.isaac.lab.envs.common import ViewerCfg
 from omni.isaac.lab.managers import CurriculumTermCfg as CurrTerm
 from omni.isaac.lab.managers import EventTermCfg as EventTerm
 from omni.isaac.lab.managers import ObservationGroupCfg as ObsGroup
@@ -289,6 +290,8 @@ class FMBSingleAssemblyEnvCfg(ManagerBasedRLEnvCfg):
 
     # scene settings
     scene: FMBSingleAssemblySceneCfg = FMBSingleAssemblySceneCfg(num_envs=4096, env_spacing=2.5)
+    # viewer settings
+    viewer: ViewerCfg = ViewerCfg(eye=(1.5, 1.5, 1.5), lookat=(0.0, 0.0, 0.0))
     # basic settings
     observations: ObservationsCfg = ObservationsCfg()
     actions: ActionsCfg = ActionsCfg()
