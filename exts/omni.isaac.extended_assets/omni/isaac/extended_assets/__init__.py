@@ -26,8 +26,4 @@ __version__ = ISAACLAB_EXTENDED_ASSETS_METADATA["package"]["version"]
 # Configuration for different assets.
 ##
 
-from .franka import *
-from .kinova import *
-from .kuka import *
 from .ufactory import *
-from .universal_robots import *

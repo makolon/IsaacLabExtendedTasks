@@ -27,7 +27,7 @@ class XArm7StackEnvCfg(StackEnvCfg):
 
         # Set the camera for the gelsight
         self.scene.gelsight_left = CameraCfg(
-            prim_path="{ENV_REGEX_NS}/Robot/finger_left_tip_body/front_cam",
+            prim_path="{ENV_REGEX_NS}/Robot/ssg_leftfinger_gel/gelsight_cam",
             update_period=0.01,
             height=320,
             width=240,
@@ -42,7 +42,7 @@ class XArm7StackEnvCfg(StackEnvCfg):
             ),
         )
         self.scene.gelsight_right = CameraCfg(
-            prim_path="{ENV_REGEX_NS}/Robot/finger_right_tip_body/front_cam",
+            prim_path="{ENV_REGEX_NS}/Robot/ssg_rightfinger_gel/gelsight_cam",
             update_period=0.01,
             height=320,
             width=240,

@@ -165,20 +165,24 @@ class ObservationsCfg:
             self.concatenate_terms = True
 
     @configclass
-    class SensorCfg(ObsGroup):
+    class TactileCfg(ObsGroup):
         """Observations for sensor group."""
 
         wrist_wrench = ObsTerm(
             func=mdp.body_incoming_wrench,
             scale=0.1,  # TODO: Fix this
             params={
-                "asset_cfg": SceneEntityCfg(
-                    "robot", body_names=MISSING  # will be set by agent env cfg
-                )
+                "asset_cfg": SceneEntityCfg("robot")  # will be set by agent env cfg
             },
         )
-        gelsight_left_image = ObsTerm(func=extended_mdp.gelsight_image, params={"side": "left"})
-        gelsight_right_image = ObsTerm(func=extended_mdp.gelsight_image, params={"side": "right"})
+        gelsight_left_image = ObsTerm(
+            func=extended_mdp.gelsight_image,
+            params={"sensor_cfg": SceneEntityCfg("gelsight_left"), "data_type": "rgb"},
+        )
+        gelsight_right_image = ObsTerm(
+            func=extended_mdp.gelsight_image,
+            params={"sensor_cfg": SceneEntityCfg("gelsight_right"), "data_type": "rgb"},
+        )
 
         def __post_init__(self):
             self.enable_corruption = False
@@ -228,6 +232,7 @@ class ObservationsCfg:
 
     # observation groups
     policy: PolicyCfg = PolicyCfg()
+    tactile: TactileCfg = TactileCfg()
     camera_image: CameraImageCfg = CameraImageCfg()
     camera_transform: CameraTransformCfg = CameraTransformCfg()
 
