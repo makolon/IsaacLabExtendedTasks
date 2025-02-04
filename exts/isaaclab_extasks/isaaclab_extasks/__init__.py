@@ -6,7 +6,7 @@ import toml
 
 # Conveniences to other module directories via relative paths
 ISAACLAB_EXTENDED_TASKS_EXT_DIR = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), "../../../")
+    os.path.join(os.path.dirname(__file__), "..")
 )
 """Path to the extension source directory."""
 
