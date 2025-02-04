@@ -23,8 +23,8 @@ simulation_app = app_launcher.app
 """Rest everything follows."""
 
 import gymnasium as gym
-import omni.isaac.extended_assets  # noqa: F401
-import omni.isaac.extended_tasks  # noqa: F401
+import isaaclab_exassets  # noqa: F401
+import isaaclab_extasks  # noqa: F401
 import torch
 from isaaclab_tasks.utils import parse_env_cfg
 
