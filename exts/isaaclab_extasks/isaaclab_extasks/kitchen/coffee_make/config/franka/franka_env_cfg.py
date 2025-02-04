@@ -49,7 +49,7 @@ class FrankaCoffeeMakeEnvCfg(CoffeeMakeEnvCfg):
                 usd_path=f"{ISAAC_NUCLEUS_DIR}/Props/Blocks/DexCube/dex_cube_instanceable.usd",
                 scale=(0.8, 0.8, 0.8),
                 rigid_props=RigidBodyPropertiesCfg(
-                    solver_velocity_iteration_count=32,
+                    solver_position_iteration_count=32,
                     solver_velocity_iteration_count=1,
                     max_angular_velocity=1000.0,
                     max_linear_velocity=1000.0,
