@@ -18,8 +18,8 @@ LBR_IIWA7_SCHUNK_WSG_50_CFG = ArticulationCfg(
         ),
         articulation_props=sim_utils.ArticulationRootPropertiesCfg(
             enabled_self_collisions=False,
-            solver_position_iteration_count=32,
-            solver_velocity_iteration_count=4,
+            solver_position_iteration_count=192,
+            solver_velocity_iteration_count=1,
         ),
     ),
     init_state=ArticulationCfg.InitialStateCfg(
@@ -97,8 +97,8 @@ LBR_IIWA7_ALLEGRO_CFG = ArticulationCfg(
         ),
         articulation_props=sim_utils.ArticulationRootPropertiesCfg(
             enabled_self_collisions=True,
-            solver_position_iteration_count=32,
-            solver_velocity_iteration_count=4,
+            solver_position_iteration_count=192,
+            solver_velocity_iteration_count=1,
         ),
     ),
     init_state=ArticulationCfg.InitialStateCfg(

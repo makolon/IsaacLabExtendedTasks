@@ -78,7 +78,7 @@ class SceneBuilder:
                             disable_gravity=True,
                             enable_gyroscopic_forces=True,
                             solver_position_iteration_count=8,
-                            solver_velocity_iteration_count=0,
+                            solver_velocity_iteration_count=4,
                             sleep_threshold=0.005,
                             stabilization_threshold=0.0025,
                             max_depenetration_velocity=1000.0,
