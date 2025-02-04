@@ -25,7 +25,7 @@ The recommended directory structure inside `data` is as follows:
 You can use the following snippet to refer to the assets:
 
 ```
-from omni.isaac.extended_assets import ISAACEXTENDED_ASSETS_DATA_DIR
+from isaaclab_exassets import ISAACEXTENDED_ASSETS_DATA_DIR
 
 # Gen3n7
 GEN3N7_C_USD_PATH = f"{ISAACEXTENDED_ASSETS_DATA_DIR}/Robots/Kinova/gen3n7.usd"

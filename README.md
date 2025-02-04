@@ -3,13 +3,13 @@ This repository is based on IsaacLab and is designed to add new tasks that are n
 
 ## Structure
 The repository, IsaacLabExtendedTasks, consists of two main components:
-- `omni.isaac.extended_assets`
-- `omni.isaac.extended_tasks`
+- `isaaclab_exassets`
+- `isaaclab_extasks`
 
 Both components are built on top of `isaaclab_assets` and `isaaclab_tasks`.
 
 ```
-omni/isaac/extended_tasks
+isaaclab_extasks
 ├── kitchen # env_name
 │   └── <task_name> # e.g. open_cabinet, bowl_stack, coffee_make
 │       ├── config
@@ -80,10 +80,10 @@ docker compose run isaac-lab-extasks
 4. Run the following command in each directory to install the necessary components:
 ```
 cd exts/
-cd omni.isaac.extended_assets/
+cd isaaclab_exassets/
 pip install -e .
 
-cd omni.isaac.extended_tasks/
+cd isaaclab_extasks/
 pip install -e .
 ```
 
@@ -163,8 +163,8 @@ The following tasks are currently available in this repository:
 ## Extension
 This repository is intended for use with IsaacTAMP and IsaacLab. It can be installed via the following command:
 ```
-pip install git+https://github.com/makolon/IsaacLabExtendedTasks.git/#subdirectory=omni.isaac.extended_assets
-pip install git+https://github.com/makolon/IsaacLabExtendedAssets.git/#subdirectory=omni.isaac.extended_tasks
+pip install git+https://github.com/makolon/IsaacLabExtendedTasks.git/#subdirectory=isaaclab_exassets
+pip install git+https://github.com/makolon/IsaacLabExtendedAssets.git/#subdirectory=isaaclab_extasks
 ```
 
 For detailed usage instructions, please refer to the README files located in each directory.

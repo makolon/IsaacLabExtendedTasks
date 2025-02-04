@@ -14,7 +14,7 @@ itself. However, its various instances are included in directories within the en
 This looks like as follows:
 
 ```tree
-omni/isaac/extended_tasks/assembly/
+isaaclab_extasks/assembly/
 ├── __init__.py
 ├── config
 │   ├── franka
@@ -35,7 +35,7 @@ omni/isaac/extended_tasks/assembly/
 ```
 
 ```tree
-omni/isaac/extended_tasks/cooking/
+isaaclab_extasks/cooking/
 ├── __init__.py
 ├── config
 │   ├── franka
@@ -55,7 +55,7 @@ omni/isaac/extended_tasks/cooking/
 └── cooking_env_cfg.py  # <- this is the base cooking task configuration
 ```
 
-The environments are then registered in the `omni/isaac/extended_tasks/assembly/config/franka/__init__.py`:
+The environments are then registered in the `isaaclab_extasks/assembly/config/franka/__init__.py`:
 
 ```python
 gym.register(
@@ -67,7 +67,7 @@ gym.register(
 
 ```
 
-The environments are then registered in the `omni/isaac/extended_tasks/cooking/config/universal_robots/__init__.py`:
+The environments are then registered in the `isaaclab_extasks/cooking/config/universal_robots/__init__.py`:
 
 ```
 gym.register(
