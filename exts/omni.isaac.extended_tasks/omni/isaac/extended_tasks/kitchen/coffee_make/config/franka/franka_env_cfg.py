@@ -1,14 +1,14 @@
 from omni.isaac.extended_tasks.kitchen.coffee_make import mdp
 from omni.isaac.extended_tasks.kitchen.coffee_make.coffee_make_env_cfg import CoffeeMakeEnvCfg
-from omni.isaac.lab.assets import RigidObjectCfg
-from omni.isaac.lab.sensors import FrameTransformerCfg
-from omni.isaac.lab.sensors.frame_transformer.frame_transformer_cfg import OffsetCfg
-from omni.isaac.lab.sim.schemas.schemas_cfg import RigidBodyPropertiesCfg
-from omni.isaac.lab.sim.spawners.from_files.from_files_cfg import UsdFileCfg
-from omni.isaac.lab.utils import configclass
-from omni.isaac.lab.utils.assets import ISAAC_NUCLEUS_DIR
+from isaaclab.assets import RigidObjectCfg
+from isaaclab.sensors import FrameTransformerCfg
+from isaaclab.sensors.frame_transformer.frame_transformer_cfg import OffsetCfg
+from isaaclab.sim.schemas.schemas_cfg import RigidBodyPropertiesCfg
+from isaaclab.sim.spawners.from_files.from_files_cfg import UsdFileCfg
+from isaaclab.utils import configclass
+from isaaclab.utils.assets import ISAAC_NUCLEUS_DIR
 
-from omni.isaac.lab.markers.config import FRAME_MARKER_CFG  # isort: skip
+from isaaclab.markers.config import FRAME_MARKER_CFG  # isort: skip
 from omni.isaac.extended_assets.franka import FRANKA_PANDA_CFG  # isort: skip
 
 

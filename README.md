@@ -1,12 +1,12 @@
 # IsaacLabExtendedTasks
-This repository is based on IsaacLab and is designed to add new tasks that are not available in `omni.isaac.lab_tasks`.
+This repository is based on IsaacLab and is designed to add new tasks that are not available in `isaaclab_tasks`.
 
 ## Structure
 The repository, IsaacLabExtendedTasks, consists of two main components:
 - `omni.isaac.extended_assets`
 - `omni.isaac.extended_tasks`
 
-Both components are built on top of `omni.isaac.lab_assets` and `omni.isaac.lab_tasks`.
+Both components are built on top of `isaaclab_assets` and `isaaclab_tasks`.
 
 ```
 omni/isaac/extended_tasks

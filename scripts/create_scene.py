@@ -1,6 +1,6 @@
 import argparse
 
-from omni.isaac.lab.app import AppLauncher
+from isaaclab.app import AppLauncher
 
 # Add argparse arguments
 parser = argparse.ArgumentParser(
@@ -26,7 +26,7 @@ import gymnasium as gym
 import omni.isaac.extended_assets  # noqa: F401
 import omni.isaac.extended_tasks  # noqa: F401
 import torch
-from omni.isaac.lab_tasks.utils import parse_env_cfg
+from isaaclab_tasks.utils import parse_env_cfg
 
 
 def main():

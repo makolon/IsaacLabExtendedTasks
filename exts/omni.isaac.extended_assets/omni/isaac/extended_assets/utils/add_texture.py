@@ -1,6 +1,6 @@
 import argparse
 
-from omni.isaac.lab.app import AppLauncher
+from isaaclab.app import AppLauncher
 
 parser = argparse.ArgumentParser(description="Utility to convert a mesh file into USD format.")
 parser.add_argument("input", type=str, nargs="+", help="The path to the input mesh file.")
@@ -17,7 +17,7 @@ import omni.usd
 import omni.kit.commands
 import omni.kit.app as app
 from pxr import Sdf, UsdShade, Usd, UsdGeom
-from omni.isaac.lab.utils.assets import check_file_path
+from isaaclab.utils.assets import check_file_path
 
 
 def main():

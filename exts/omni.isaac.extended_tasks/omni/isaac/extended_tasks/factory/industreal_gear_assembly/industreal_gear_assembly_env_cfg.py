@@ -1,32 +1,32 @@
 from dataclasses import MISSING
 
-import omni.isaac.lab.sim as sim_utils
-from omni.isaac.lab.assets import (
+import isaaclab.sim as sim_utils
+from isaaclab.assets import (
     ArticulationCfg,
     AssetBaseCfg,
     DeformableObjectCfg,
     RigidObjectCfg,
 )
-from omni.isaac.lab.envs import ManagerBasedRLEnvCfg, mdp
-from omni.isaac.lab.envs.common import ViewerCfg
-from omni.isaac.lab.managers import CurriculumTermCfg as CurrTerm
-from omni.isaac.lab.managers import EventTermCfg as EventTerm
-from omni.isaac.lab.managers import ObservationGroupCfg as ObsGroup
-from omni.isaac.lab.managers import ObservationTermCfg as ObsTerm
-from omni.isaac.lab.managers import RewardTermCfg as RewTerm
-from omni.isaac.lab.managers import SceneEntityCfg
-from omni.isaac.lab.managers import TerminationTermCfg as DoneTerm
-from omni.isaac.lab.scene import InteractiveSceneCfg
-from omni.isaac.lab.sensors import CameraCfg
-from omni.isaac.lab.sensors.frame_transformer.frame_transformer_cfg import (
+from isaaclab.envs import ManagerBasedRLEnvCfg, mdp
+from isaaclab.envs.common import ViewerCfg
+from isaaclab.managers import CurriculumTermCfg as CurrTerm
+from isaaclab.managers import EventTermCfg as EventTerm
+from isaaclab.managers import ObservationGroupCfg as ObsGroup
+from isaaclab.managers import ObservationTermCfg as ObsTerm
+from isaaclab.managers import RewardTermCfg as RewTerm
+from isaaclab.managers import SceneEntityCfg
+from isaaclab.managers import TerminationTermCfg as DoneTerm
+from isaaclab.scene import InteractiveSceneCfg
+from isaaclab.sensors import CameraCfg
+from isaaclab.sensors.frame_transformer.frame_transformer_cfg import (
     FrameTransformerCfg,
 )
-from omni.isaac.lab.sim.spawners.from_files.from_files_cfg import (
+from isaaclab.sim.spawners.from_files.from_files_cfg import (
     GroundPlaneCfg,
     UsdFileCfg,
 )
-from omni.isaac.lab.utils import configclass
-from omni.isaac.lab.utils.assets import ISAAC_NUCLEUS_DIR
+from isaaclab.utils import configclass
+from isaaclab.utils.assets import ISAAC_NUCLEUS_DIR
 
 from . import mdp as extended_mdp
 
@@ -302,6 +302,7 @@ class IndustrealGearAssemblyEnvCfg(ManagerBasedRLEnvCfg):
         self.sim.physx.gpu_found_lost_aggregate_pairs_capacity = 1024 * 1024 * 64
         self.sim.physx.gpu_total_aggregate_pairs_capacity = 64 * 1024
         self.sim.physx.gpu_max_num_partitions = 1  # Important for stable simulation.
+        self.sim.physx.solver_type = 0
         # physics material settings
         self.sim.physics_material.static_friction = 1.0
         self.sim.physics_material.dynamic_friction = 1.0

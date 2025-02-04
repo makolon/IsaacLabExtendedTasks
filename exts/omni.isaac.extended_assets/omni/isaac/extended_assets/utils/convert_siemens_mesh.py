@@ -1,6 +1,6 @@
 import argparse
 
-from omni.isaac.lab.app import AppLauncher
+from isaaclab.app import AppLauncher
 
 # add argparse arguments
 parser = argparse.ArgumentParser(
@@ -44,10 +44,10 @@ simulation_app = app_launcher.app
 
 import os
 
-from omni.isaac.lab.sim.converters import MeshConverter, MeshConverterCfg
-from omni.isaac.lab.sim.schemas import schemas_cfg
-from omni.isaac.lab.utils.assets import check_file_path
-from omni.isaac.lab.utils.dict import print_dict
+from isaaclab.sim.converters import MeshConverter, MeshConverterCfg
+from isaaclab.sim.schemas import schemas_cfg
+from isaaclab.utils.assets import check_file_path
+from isaaclab.utils.dict import print_dict
 
 # Conveniences to other module directories via relative paths
 ISAACLAB_EXTENDED_ASSETS_DATA_DIR = os.path.abspath(

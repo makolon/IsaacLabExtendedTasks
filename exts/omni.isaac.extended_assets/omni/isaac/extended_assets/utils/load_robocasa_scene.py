@@ -1,6 +1,6 @@
 import argparse
 
-from omni.isaac.lab.app import AppLauncher
+from isaaclab.app import AppLauncher
 
 parser = argparse.ArgumentParser(description="Utility to convert a mesh file into USD format.")
 parser.add_argument("--input", type=str, default="env_config.json", help="The path to the input mesh file.")
@@ -19,9 +19,9 @@ import json
 import torch
 import numpy as np
 import omni.isaac.core.utils.prims as prim_utils
-import omni.isaac.lab.sim as sim_utils
-from omni.isaac.lab.assets import AssetBase, ArticulationCfg, AssetBaseCfg, RigidObjectCfg, RigidObject
-from omni.isaac.lab.sim import SimulationContext
+import isaaclab.sim as sim_utils
+from isaaclab.assets import AssetBase, ArticulationCfg, AssetBaseCfg, RigidObjectCfg, RigidObject
+from isaaclab.sim import SimulationContext
 from pxr import Sdf, UsdShade, Usd, UsdGeom
 ISAACLAB_EXTENDED_ASSETS_DATA_DIR = os.path.abspath(
     os.path.join(os.path.dirname(__file__), "../../../../", "data")

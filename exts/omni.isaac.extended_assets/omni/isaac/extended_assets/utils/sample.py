@@ -18,7 +18,7 @@ This script demonstrates how to create a rigid object and interact with it.
 
 import argparse
 
-from omni.isaac.lab.app import AppLauncher
+from isaaclab.app import AppLauncher
 
 # add argparse arguments
 parser = argparse.ArgumentParser(description="Tutorial on spawning and interacting with a rigid object.")
@@ -37,11 +37,11 @@ import torch
 
 import omni.isaac.core.utils.prims as prim_utils
 
-import omni.isaac.lab.sim as sim_utils
-import omni.isaac.lab.utils.math as math_utils
-from omni.isaac.lab.assets import RigidObject, RigidObjectCfg
-from omni.isaac.lab.sim import SimulationContext
-from omni.isaac.lab.utils.assets import ISAAC_NUCLEUS_DIR
+import isaaclab.sim as sim_utils
+import isaaclab.utils.math as math_utils
+from isaaclab.assets import RigidObject, RigidObjectCfg
+from isaaclab.sim import SimulationContext
+from isaaclab.utils.assets import ISAAC_NUCLEUS_DIR
 
 
 def design_scene():
