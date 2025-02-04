@@ -321,3 +321,4 @@ class StackEnvCfg(ManagerBasedRLEnvCfg):
         self.sim.physx.gpu_max_rigid_contact_count = 1024 * 1024 * 64
         self.sim.physx.gpu_found_lost_aggregate_pairs_capacity = 1024 * 1024 * 64
         self.sim.physx.gpu_total_aggregate_pairs_capacity = 64 * 1024
+        self.sim.physx.solver_type = 0
