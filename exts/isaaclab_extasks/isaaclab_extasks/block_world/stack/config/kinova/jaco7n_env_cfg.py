@@ -51,8 +51,8 @@ class Jaco7NStackEnvCfg(StackEnvCfg):
                 size=[0.5, 0.7, 0.02],
                 visible=False,
                 rigid_props=RigidBodyPropertiesCfg(
-                    solver_position_iteration_count=16,
-                    solver_velocity_iteration_count=0,
+                    solver_velocity_iteration_count=32,
+                    solver_velocity_iteration_count=4,
                     max_angular_velocity=64.0,
                     max_linear_velocity=1000.0,
                     max_depenetration_velocity=5.0,
@@ -78,8 +78,8 @@ class Jaco7NStackEnvCfg(StackEnvCfg):
                     usd_path=f"{ISAAC_NUCLEUS_DIR}/Props/Blocks/{block_color}_block.usd",
                     scale=(1.0, 1.0, 1.0),
                     rigid_props=RigidBodyPropertiesCfg(
-                        solver_position_iteration_count=16,
-                        solver_velocity_iteration_count=0,
+                        solver_velocity_iteration_count=32,
+                        solver_velocity_iteration_count=4,
                         max_angular_velocity=64.0,
                         max_linear_velocity=1000.0,
                         max_depenetration_velocity=5.0,

@@ -216,8 +216,8 @@ class UR10eAssemblyEnvCfg(SiemensGearboxAssemblyEnvCfg):
                 size=[0.5, 0.7, 0.02],
                 visible=False,
                 rigid_props=RigidBodyPropertiesCfg(
-                    solver_position_iteration_count=16,
-                    solver_velocity_iteration_count=0,
+                    solver_velocity_iteration_count=32,
+                    solver_velocity_iteration_count=4,
                     max_angular_velocity=64.0,
                     max_linear_velocity=1000.0,
                     max_depenetration_velocity=5.0,
