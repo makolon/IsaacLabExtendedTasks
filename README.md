@@ -88,7 +88,7 @@ pip install -e .
 ```
 
 > [!NOTE]
-> Update the DISPLAY environment in the .env file using free display. (The display free if it is not in the /tmp/.X11-unix/ folder of the host machine) Also, change the WEBPORT to enable the first free port (Get it by calculating DISPLAY + 6080).
+> Update the `DISPLAY` environment in the `.env` file using free display. (The display free if it is not in the `/tmp/.X11-unix/` folder of the host machine) Also, change the `WEBPORT` to enable the first free port (Get it by calculating `DISPLAY + 6080`).
 
 ```
 # If there is no file /tmp/.X11-unix/X20
