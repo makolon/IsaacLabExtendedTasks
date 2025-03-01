@@ -1,5 +1,4 @@
-from isaaclab_extasks.factory.industreal_gear_assembly import mdp
-from isaaclab_extasks.factory.industreal_gear_assembly.industreal_gear_assembly_env_cfg import IndustrealGearAssemblyEnvCfg
+from isaaclab.envs import mdp
 from isaaclab.assets import RigidObjectCfg
 from isaaclab.sensors import FrameTransformerCfg
 from isaaclab.sensors.frame_transformer.frame_transformer_cfg import OffsetCfg
@@ -11,6 +10,7 @@ from isaaclab.utils import configclass
 from isaaclab.markers.config import FRAME_MARKER_CFG  # isort: skip
 from isaaclab_exassets.universal_robots import UR5E_ROBOTIQ_2F_85_CFG  # isort: skip
 from isaaclab_extasks.factory.industreal_gear_assembly import INDUSTREAL_ASSEMBLY_DIR  # isort: skip
+from isaaclab_extasks.factory.industreal_gear_assembly.industreal_gear_assembly_env_cfg import IndustrealGearAssemblyEnvCfg
 
 
 @configclass

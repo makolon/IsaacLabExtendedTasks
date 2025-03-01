@@ -1,5 +1,4 @@
-from isaaclab_extasks.cooking import mdp
-from isaaclab_extasks.cooking.cooking_env_cfg import CookingEnvCfg
+from isaaclab.envs import mdp
 from isaaclab.assets import RigidObjectCfg
 from isaaclab.sensors import FrameTransformerCfg
 from isaaclab.sensors.frame_transformer.frame_transformer_cfg import OffsetCfg
@@ -7,9 +6,9 @@ from isaaclab.sim.schemas.schemas_cfg import RigidBodyPropertiesCfg
 from isaaclab.sim.spawners.from_files.from_files_cfg import UsdFileCfg
 from isaaclab.utils import configclass
 from isaaclab.utils.assets import ISAAC_NUCLEUS_DIR
-
 from isaaclab.markers.config import FRAME_MARKER_CFG  # isort: skip
 from isaaclab_exassets.universal_robots import UR5E_ROBOTIQ_2F_140_CFG  # isort: skip
+from isaaclab_extasks.cooking.cooking_env_cfg import CookingEnvCfg
 
 
 @configclass

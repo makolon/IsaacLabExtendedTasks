@@ -1,5 +1,4 @@
-from isaaclab_extasks.factory.industreal_gear_assembly import mdp
-from isaaclab_extasks.factory.industreal_gear_assembly.industreal_gear_assembly_env_cfg import IndustrealGearAssemblyEnvCfg
+from isaaclab.envs import mdp
 from isaaclab.assets import RigidObjectCfg
 from isaaclab.sensors import FrameTransformerCfg
 from isaaclab.sensors.frame_transformer.frame_transformer_cfg import OffsetCfg
@@ -7,10 +6,10 @@ from isaaclab.sim.schemas.schemas_cfg import RigidBodyPropertiesCfg
 from isaaclab.sim.spawners.from_files.from_files_cfg import UsdFileCfg
 from isaaclab.sim.spawners.shapes import CuboidCfg
 from isaaclab.utils import configclass
-
 from isaaclab.markers.config import FRAME_MARKER_CFG  # isort: skip
 from isaaclab_exassets.franka import FRANKA_PANDA_CFG  # isort: skip
 from isaaclab_extasks.factory.industreal_gear_assembly import INDUSTREAL_ASSEMBLY_DIR  # isort: skip
+from isaaclab_extasks.factory.industreal_gear_assembly.industreal_gear_assembly_env_cfg import IndustrealGearAssemblyEnvCfg
 
 
 @configclass

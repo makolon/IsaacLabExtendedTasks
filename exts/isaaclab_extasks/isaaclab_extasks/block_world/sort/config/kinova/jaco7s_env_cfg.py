@@ -1,5 +1,4 @@
-from isaaclab_extasks.block_world.sort import mdp
-from isaaclab_extasks.block_world.sort.sort_env_cfg import SortEnvCfg
+from isaaclab.envs import mdp
 from isaaclab.assets import RigidObjectCfg
 from isaaclab.sensors import FrameTransformerCfg
 from isaaclab.sensors.frame_transformer.frame_transformer_cfg import OffsetCfg
@@ -8,9 +7,9 @@ from isaaclab.sim.spawners.from_files.from_files_cfg import UsdFileCfg
 from isaaclab.sim.spawners.shapes import CuboidCfg
 from isaaclab.utils import configclass
 from isaaclab.utils.assets import ISAAC_NUCLEUS_DIR
-
 from isaaclab.markers.config import FRAME_MARKER_CFG  # isort: skip
 from isaaclab_exassets.kinova import KINOVA_JACO_7S_CFG  # isort: skip
+from isaaclab_extasks.block_world.sort.sort_env_cfg import SortEnvCfg
 
 
 @configclass
