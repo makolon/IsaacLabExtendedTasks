@@ -1,15 +1,15 @@
 # IsaacLabExtendedTasks
-This repository is based on IsaacLab and is designed to add new tasks that are not available in `omni.isaac.lab_tasks`.
+This repository is based on IsaacLab and is designed to add new tasks that are not available in `isaaclab_tasks`.
 
 ## Structure
 The repository, IsaacLabExtendedTasks, consists of two main components:
-- `omni.isaac.extended_assets`
-- `omni.isaac.extended_tasks`
+- `isaaclab_exassets`
+- `isaaclab_extasks`
 
-Both components are built on top of `omni.isaac.lab_assets` and `omni.isaac.lab_tasks`.
+Both components are built on top of `isaaclab_assets` and `isaaclab_tasks`.
 
 ```
-omni/isaac/extended_tasks
+isaaclab_extasks
 ├── kitchen # env_name
 │   └── <task_name> # e.g. open_cabinet, bowl_stack, coffee_make
 │       ├── config
@@ -80,15 +80,15 @@ docker compose run isaac-lab-extasks
 4. Run the following command in each directory to install the necessary components:
 ```
 cd exts/
-cd omni.isaac.extended_assets/
+cd isaaclab_exassets/
 pip install -e .
 
-cd omni.isaac.extended_tasks/
+cd isaaclab_extasks/
 pip install -e .
 ```
 
 > [!NOTE]
-> Update the DISPLAY environment in the .env file using free display. (The display free if it is not in the /tmp/.X11-unix/ folder of the host machine) Also, change the WEBPORT to enable the first free port (Get it by calculating DISPLAY + 6080).
+> Update the `DISPLAY` environment in the `.env` file using free display. (The display free if it is not in the `/tmp/.X11-unix/` folder of the host machine) Also, change the `WEBPORT` to enable the first free port (Get it by calculating `DISPLAY + 6080`).
 
 ```
 # If there is no file /tmp/.X11-unix/X20
@@ -163,8 +163,8 @@ The following tasks are currently available in this repository:
 ## Extension
 This repository is intended for use with IsaacTAMP and IsaacLab. It can be installed via the following command:
 ```
-pip install git+https://github.com/makolon/IsaacLabExtendedTasks.git/#subdirectory=omni.isaac.extended_assets
-pip install git+https://github.com/makolon/IsaacLabExtendedAssets.git/#subdirectory=omni.isaac.extended_tasks
+pip install git+https://github.com/makolon/IsaacLabExtendedTasks.git/#subdirectory=isaaclab_exassets
+pip install git+https://github.com/makolon/IsaacLabExtendedAssets.git/#subdirectory=isaaclab_extasks
 ```
 
 For detailed usage instructions, please refer to the README files located in each directory.
