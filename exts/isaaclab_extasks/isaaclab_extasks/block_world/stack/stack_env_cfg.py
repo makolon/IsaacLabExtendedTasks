@@ -309,7 +309,7 @@ class StackEnvCfg(ManagerBasedRLEnvCfg):
         """Post initialization."""
         # general settings
         self.decimation = 2
-        self.episode_length_s = 60.0
+        self.episode_length_s = 2000.0
         # simulation settings
         self.sim.dt = 1 / 60
         self.sim.render_interval = self.decimation
