@@ -24,6 +24,7 @@ from isaaclab.sim.spawners.from_files.from_files_cfg import (
     GroundPlaneCfg,
     UsdFileCfg,
 )
+from isaaclab.terrains import HfRandomUniformTerrainCfg, TerrainGeneratorCfg, TerrainImporterCfg
 from isaaclab.utils import configclass
 from isaaclab.utils.assets import ISAAC_NUCLEUS_DIR
 
@@ -57,17 +58,14 @@ class StackSceneCfg(InteractiveSceneCfg):
         ),
     )
 
-    # plane
-    plane = AssetBaseCfg(
-        prim_path="/World/GroundPlane",
-        init_state=AssetBaseCfg.InitialStateCfg(pos=[0, 0, -1.05]),
-        spawn=GroundPlaneCfg(),
-    )
-
     # lights
     light = AssetBaseCfg(
         prim_path="/World/light",
-        spawn=sim_utils.DomeLightCfg(color=(0.75, 0.75, 0.75), intensity=3000.0),
+        spawn=sim_utils.DomeLightCfg(
+            intensity=750.0,
+            texture_format="latlong",
+            texture_file="https://omniverse-content-staging.s3.us-west-2.amazonaws.com/DoNotDelete/PhysicsDemoAssets/106.5/FrankaNutBolt/ZetoCG.com_WarehouseInterior2b_4x8k.hdr",
+        ),  # TODO: Fix texture file path
     )
 
     # rgb camera
