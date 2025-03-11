@@ -278,3 +278,6 @@ class SortEnvCfg(ManagerBasedRLEnvCfg):
         self.sim.physx.gpu_found_lost_aggregate_pairs_capacity = 1024 * 1024 * 64
         self.sim.physx.gpu_total_aggregate_pairs_capacity = 64 * 1024
         self.sim.physx.solver_type = 0
+        # physics material settings
+        self.sim.physics_material.static_friction = 1.0
+        self.sim.physics_material.dynamic_friction = 1.0
