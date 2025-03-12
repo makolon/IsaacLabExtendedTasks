@@ -1,3 +1,4 @@
+import torch
 from dataclasses import MISSING
 
 import isaaclab.sim as sim_utils
@@ -214,6 +215,21 @@ class EventCfg:
     """Configuration for events."""
 
     reset_all = EventTerm(func=mdp.reset_scene_to_default, mode="reset")
+
+    reset_object_position = EventTerm(
+        func=extended_mdp.reset_root_state_uniform,
+        mode="reset",
+        params={
+            "pose_range": {
+                "x": (-0.2, 0.2),
+                "y": (-0.25, 0.25),
+                "z": (0.0, 0.0),
+                "yaw": (-torch.pi, torch.pi)
+            },
+            "velocity_range": {},
+            "asset_names": ["blue_block", "green_block", "red_block", "yellow_block"],
+        },
+    )
 
 
 @configclass
