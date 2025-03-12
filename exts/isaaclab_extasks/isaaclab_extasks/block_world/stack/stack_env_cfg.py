@@ -16,7 +16,7 @@ from isaaclab.managers import RewardTermCfg as RewTerm
 from isaaclab.managers import SceneEntityCfg
 from isaaclab.managers import TerminationTermCfg as DoneTerm
 from isaaclab.scene import InteractiveSceneCfg
-from isaaclab.sensors import CameraCfg
+from isaaclab.sensors import CameraCfg, TiledCameraCfg
 from isaaclab.sensors.frame_transformer.frame_transformer_cfg import (
     FrameTransformerCfg,
 )
@@ -69,42 +69,66 @@ class StackSceneCfg(InteractiveSceneCfg):
     )
 
     # rgb camera
-    rgb_camera = CameraCfg(
+    rgb_camera = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/rgb_camera",
         update_period=0.0,
-        spawn=sim_utils.PinholeCameraCfg(
-            focal_length=1.93,
-            horizontal_aperture=45.6,
-        ),
         width=640,
         height=480,
         data_types=["rgb"],
+        spawn=sim_utils.PinholeCameraCfg(
+            focal_length=19.3,
+            focus_distance=5.0,
+            horizontal_aperture=38.96,
+            vertical_aperture=24.53,
+            clipping_range=(0.01, 1000000.0),
+        ),
+        offset=TiledCameraCfg.OffsetCfg(
+            pos=(1.2, 0.0, 0.75),
+            rot=(0.61237, 0.35355, 0.35355, 0.61237),  # (0.0, 60.0, 90.0)
+            convention="opengl"
+        ),
     )
 
     # depth camera
-    depth_camera = CameraCfg(
+    depth_camera = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/depth_camera",
         update_period=0.0,
-        spawn=sim_utils.PinholeCameraCfg(
-            focal_length=1.93,
-            horizontal_aperture=45.6,
-        ),
         width=640,
         height=480,
         data_types=["distance_to_image_plane"],
+        spawn=sim_utils.PinholeCameraCfg(
+            focal_length=19.3,
+            focus_distance=5.0,
+            horizontal_aperture=38.96,
+            vertical_aperture=24.53,
+            clipping_range=(0.01, 1000000.0),
+        ),
+        offset=TiledCameraCfg.OffsetCfg(
+            pos=(1.2, 0.0, 0.75),
+            rot=(0.61237, 0.35355, 0.35355, 0.61237),  # (0.0, 60.0, 90.0)
+            convention="opengl"
+        ),
     )
 
     # semantic camera
-    semantic_camera = CameraCfg(
+    semantic_camera = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/semantic_camera",
         update_period=0.0,
-        spawn=sim_utils.PinholeCameraCfg(
-            focal_length=1.93,
-            horizontal_aperture=45.6,
-        ),
         width=640,
         height=480,
         data_types=["semantic_segmentation"],
+        spawn=sim_utils.PinholeCameraCfg(
+            focal_length=19.3,
+            focus_distance=5.0,
+            horizontal_aperture=38.96,
+            vertical_aperture=24.53,
+            clipping_range=(0.01, 1000000.0),
+        ),
+        offset=TiledCameraCfg.OffsetCfg(
+            pos=(1.2, 0.0, 0.75),
+            rot=(0.61237, 0.35355, 0.35355, 0.61237),  # (0.0, 60.0, 90.0)
+            convention="opengl"
+        ),
     )
 
 
