@@ -39,7 +39,7 @@ class UR5eYCBArrangeEnvCfg(YCBArrangeEnvCfg):
         )
         self.actions.gripper_action = mdp.JointPositionActionCfg(
             asset_name="robot",
-            joint_names=["drive_joint"],
+            joint_names=["finger_joint"],
             scale=1.0,
             use_default_offset=False,
             preserve_order=True,
