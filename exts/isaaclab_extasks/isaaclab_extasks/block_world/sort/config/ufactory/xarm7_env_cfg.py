@@ -122,6 +122,11 @@ class XArm7SortEnvCfg(SortEnvCfg):
                 ),
             )
 
+        # Set the configs as member of the class
+        for k, v in block_cfgs.items():
+            attr_name = "{}_block".format(k)
+            self.scene.__setattr__(attr_name, v)
+
         # Listens to the required transforms
         marker_cfg = FRAME_MARKER_CFG.copy()
         marker_cfg.markers["frame"].scale = (0.1, 0.1, 0.1)
