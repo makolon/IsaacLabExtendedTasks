@@ -69,7 +69,7 @@ UR5E_ROBOTIQ_2F_85_CFG = ArticulationCfg(
                 "wrist_3_joint": 40.0,
             },
         ),
-        "gripper:": ImplicitActuatorCfg(
+        "gripper": ImplicitActuatorCfg(
             joint_names_expr=["finger_joint"],
             effort_limit=0.5,
             velocity_limit=0.2,
@@ -152,7 +152,7 @@ FACTORY_UR5E_ROBOTIQ_2F_85_CFG = ArticulationCfg(
                 "wrist_3_joint": 40.0,
             },
         ),
-        "gripper:": ImplicitActuatorCfg(
+        "gripper": ImplicitActuatorCfg(
             joint_names_expr=["finger_joint"],
             effort_limit=0.5,
             velocity_limit=0.2,
@@ -226,7 +226,7 @@ UR5E_ROBOTIQ_2F_140_CFG = ArticulationCfg(
                 "wrist_3_joint": 40.0,
             },
         ),
-        "gripper:": ImplicitActuatorCfg(
+        "gripper": ImplicitActuatorCfg(
             joint_names_expr=["finger_joint"],
             effort_limit=0.5,
             velocity_limit=0.2,
@@ -300,7 +300,7 @@ UR10E_ROBOTIQ_2F_85_CFG = ArticulationCfg(
                 "wrist_3_joint": 40.0,
             },
         ),
-        "gripper:": ImplicitActuatorCfg(
+        "gripper": ImplicitActuatorCfg(
             joint_names_expr=["finger_joint"],
             effort_limit=0.5,
             velocity_limit=0.2,
@@ -374,7 +374,7 @@ UR10E_ROBOTIQ_2F_140_CFG = ArticulationCfg(
                 "wrist_3_joint": 40.0,
             },
         ),
-        "gripper:": ImplicitActuatorCfg(
+        "gripper": ImplicitActuatorCfg(
             joint_names_expr=["finger_joint"],
             effort_limit=0.5,
             velocity_limit=0.2,
@@ -457,7 +457,7 @@ FACTORY_UR10E_ROBOTIQ_2F_140_CFG = ArticulationCfg(
                 "wrist_3_joint": 40.0,
             },
         ),
-        "gripper:": ImplicitActuatorCfg(
+        "gripper": ImplicitActuatorCfg(
             joint_names_expr=["finger_joint"],
             effort_limit=0.5,
             velocity_limit=0.2,
