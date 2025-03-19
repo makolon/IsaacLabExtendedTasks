@@ -43,7 +43,7 @@ class XArm7YCBArrangeEnvCfg(YCBArrangeEnvCfg):
         marker_cfg.markers["frame"].scale = (0.1, 0.1, 0.1)
         marker_cfg.prim_path = "/Visuals/FrameTransformer"
         self.scene.ee_frame = FrameTransformerCfg(
-            prim_path="{ENV_REGEX_NS}/Robot/link0",
+            prim_path="{ENV_REGEX_NS}/Robot/link_base",
             debug_vis=False,
             visualizer_cfg=marker_cfg,
             target_frames=[
