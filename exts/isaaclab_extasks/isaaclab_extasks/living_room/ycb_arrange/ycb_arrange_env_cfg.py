@@ -426,7 +426,7 @@ class EventCfg:
         func=extended_mdp.reset_root_state_uniform_outside,
         mode="reset",
         params={
-            "pose_range": {"x": (-0.2, 0.4), "y": (-0.35, 0.35), "z": (0.0, 0.0)},
+            "pose_range": {"x": (-0.2, 0.3), "y": (-0.3, 0.3), "z": (0.0, 0.0)},
             "velocity_range": {},
             "region_name": "region",
             "asset_names": ["spam_can", "banana", "mustard_bottle", "sugar_box", "tomato_can"],
