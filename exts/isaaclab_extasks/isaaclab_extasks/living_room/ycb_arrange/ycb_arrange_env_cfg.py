@@ -437,11 +437,12 @@ class EventCfg:
     reset_all = EventTerm(func=mdp.reset_scene_to_default, mode="reset")
 
     reset_object_position = EventTerm(
-        func=extended_mdp.reset_root_state_uniform,
+        func=extended_mdp.reset_root_state_uniform_outside,
         mode="reset",
         params={
-            "pose_range": {"x": (-0.2, 0.2), "y": (-0.25, 0.25), "z": (0.0, 0.0)},
+            "pose_range": {"x": (-0.2, 0.4), "y": (-0.35, 0.35), "z": (0.0, 0.0)},
             "velocity_range": {},
+            "region_name": "region",
             "asset_names": ["spam_can", "banana", "mustard_bottle", "sugar_box", "tomato_can"],
         },
     )
