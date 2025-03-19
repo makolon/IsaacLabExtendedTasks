@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import random
 import torch
 from typing import TYPE_CHECKING
 
@@ -65,7 +66,10 @@ def reset_root_state_uniform_outside(
     asset_names: list[str],
 ):
     """Reset the asset root state to a random position and velocity uniformly within the given ranges,
-    ensuring the asset is placed outside the specified region.
+    ensuring the asset is placed **outside** the specified region.
+
+    The sampling ensures that objects are placed in a region that is within `pose_range`
+    but **outside** the forbidden `region_name`.
 
     Parameters
     ----------
@@ -83,46 +87,43 @@ def reset_root_state_uniform_outside(
         The names of the assets to reset.
     """
 
-    # Get the bounding box of the region
+    # Get the bounding box of the forbidden region
     region = env.scene[region_name]
     pos = torch.tensor(region.cfg.init_state.pos, device=env.device)
     size = torch.tensor(region.cfg.spawn.size, device=env.device)
 
-    min_bounds = pos - (size / 2)
-    max_bounds = pos + (size / 2)
+    min_forbidden = pos - (size / 2)
+    max_forbidden = pos + (size / 2)
+
+    # Get the overall sampling bounds from `pose_range`
+    min_bounds = torch.tensor([pose_range["x"][0], pose_range["y"][0], pose_range["z"][0]], device=env.device)
+    max_bounds = torch.tensor([pose_range["x"][1], pose_range["y"][1], pose_range["z"][1]], device=env.device)
+
+    # Define the four valid regions around the forbidden region (X-Y plane)
+    valid_regions = [
+        (min_bounds, torch.tensor([min_forbidden[0], max_bounds[1], max_bounds[2]], device=env.device)),  # Left region
+        (torch.tensor([max_forbidden[0], min_bounds[1], min_bounds[2]], device=env.device), max_bounds),  # Right region
+        (torch.tensor([min_forbidden[0], max_bounds[1], min_bounds[2]], device=env.device), max_bounds),  # Top region
+        (min_bounds, torch.tensor([max_bounds[0], min_forbidden[1], max_bounds[2]], device=env.device)),  # Bottom region
+    ]
 
     for name in asset_names:
         asset: RigidObject | Articulation = env.scene[name]
         root_states = asset.data.default_root_state[env_ids].clone()
 
-        # Ensure all objects are placed OUTSIDE the region
-        valid_positions = torch.zeros((len(env_ids), 3), device=asset.device)
-        num_valid_samples = 0
+        # Sample positions ensuring they are OUTSIDE the forbidden region
+        positions = torch.zeros((len(env_ids), 3), device=asset.device)
 
-        while num_valid_samples < len(env_ids):
-            # Sample positions from pose_range
-            range_list = [pose_range.get(key, (0.0, 0.0)) for key in ["x", "y", "z"]]
-            ranges = torch.tensor(range_list, device=asset.device)
-            rand_samples = math_utils.sample_uniform(ranges[:, 0], ranges[:, 1], (len(env_ids) - num_valid_samples, 3), device=asset.device)
+        for i in range(len(env_ids)):
+            # Randomly select one of the valid regions
+            min_valid, max_valid = random.choice(valid_regions)
 
-            candidate_positions = root_states[num_valid_samples:, 0:3] + env.scene.env_origins[env_ids[num_valid_samples:]] + rand_samples
-
-            # Check if positions are outside the region
-            mask_outside = (
-                (candidate_positions[:, 0] < min_bounds[0]) | (candidate_positions[:, 0] > max_bounds[0]) |
-                (candidate_positions[:, 1] < min_bounds[1]) | (candidate_positions[:, 1] > max_bounds[1]) |
-                (candidate_positions[:, 2] < min_bounds[2]) | (candidate_positions[:, 2] > max_bounds[2])
-            )
-
-            # Only keep valid positions
-            valid_samples = candidate_positions[mask_outside]
-            valid_count = valid_samples.shape[0]
-
-            # Store valid positions
-            valid_positions[num_valid_samples:num_valid_samples + valid_count] = valid_samples
-            num_valid_samples += valid_count  # Update count of collected valid samples
-
-        positions = valid_positions  # Use only valid positions
+            # Sample uniformly within the selected region
+            positions[i] = torch.tensor([
+                torch.rand((), device=asset.device) * (max_valid[0] - min_valid[0]) + min_valid[0],
+                torch.rand((), device=asset.device) * (max_valid[1] - min_valid[1]) + min_valid[1],
+                torch.rand((), device=asset.device) * (max_valid[2] - min_valid[2]) + min_valid[2],
+            ])
 
         # Apply random orientations
         range_list = [pose_range.get(key, (0.0, 0.0)) for key in ["roll", "pitch", "yaw"]]
@@ -135,7 +136,6 @@ def reset_root_state_uniform_outside(
         range_list = [velocity_range.get(key, (0.0, 0.0)) for key in ["x", "y", "z", "roll", "pitch", "yaw"]]
         ranges = torch.tensor(range_list, device=asset.device)
         rand_samples = math_utils.sample_uniform(ranges[:, 0], ranges[:, 1], (len(env_ids), 6), device=asset.device)
-
         velocities = root_states[:, 7:13] + rand_samples
 
         # Set new state into the simulation

@@ -1,5 +1,6 @@
 from dataclasses import MISSING
 
+import torch
 import isaaclab.sim as sim_utils
 from isaaclab.assets import (
     ArticulationCfg,
@@ -426,7 +427,12 @@ class EventCfg:
         func=extended_mdp.reset_root_state_uniform_outside,
         mode="reset",
         params={
-            "pose_range": {"x": (-0.2, 0.3), "y": (-0.3, 0.3), "z": (0.0, 0.0)},
+            "pose_range": {
+                "x": (0.2, 0.8),
+                "y": (-0.3, 0.3),
+                "z": (0.0, 0.0),
+                "yaw": (-torch.pi, torch.pi)
+            },
             "velocity_range": {},
             "region_name": "region",
             "asset_names": ["spam_can", "banana", "mustard_bottle", "sugar_box", "tomato_can"],
