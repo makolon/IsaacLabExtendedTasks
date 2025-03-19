@@ -76,8 +76,8 @@ XARM7_CFG = ArticulationCfg(
         ),
         "gripper": ImplicitActuatorCfg(
             joint_names_expr=["drive_joint"],
-            effort_limit=0.5,
-            velocity_limit=0.2,
+            effort_limit=5.0,
+            velocity_limit=2.0,
             stiffness=0.05,
             damping=0.01,
         ),
@@ -164,8 +164,8 @@ FACTORY_XARM7_CFG = ArticulationCfg(
         ),
         "gripper": ImplicitActuatorCfg(
             joint_names_expr=["drive_joint"],
-            effort_limit=0.5,
-            velocity_limit=0.2,
+            effort_limit=5.0,
+            velocity_limit=2.0,
             stiffness=0.05,
             damping=0.01,
         ),
