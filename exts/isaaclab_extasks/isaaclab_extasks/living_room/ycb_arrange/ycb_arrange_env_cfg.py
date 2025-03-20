@@ -23,7 +23,12 @@ from isaaclab.sensors.frame_transformer.frame_transformer_cfg import (
     FrameTransformerCfg,
 )
 from isaaclab.sim.spawners.shapes import CuboidCfg
-from isaaclab.sim.schemas.schemas_cfg import ArticulationRootPropertiesCfg, MassPropertiesCfg, CollisionPropertiesCfg, RigidBodyPropertiesCfg
+from isaaclab.sim.schemas.schemas_cfg import (
+    ArticulationRootPropertiesCfg,
+    MassPropertiesCfg,
+    CollisionPropertiesCfg,
+    RigidBodyPropertiesCfg
+)
 from isaaclab.sim.spawners.from_files.from_files_cfg import (
     GroundPlaneCfg,
     UsdFileCfg,

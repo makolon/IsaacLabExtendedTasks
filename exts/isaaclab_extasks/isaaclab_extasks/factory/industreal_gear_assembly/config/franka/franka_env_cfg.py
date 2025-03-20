@@ -2,7 +2,12 @@ from isaaclab.envs import mdp
 from isaaclab.assets import RigidObjectCfg
 from isaaclab.sensors import FrameTransformerCfg
 from isaaclab.sensors.frame_transformer.frame_transformer_cfg import OffsetCfg
-from isaaclab.sim.schemas.schemas_cfg import RigidBodyPropertiesCfg
+from isaaclab.sim.schemas.schemas_cfg import (
+    ArticulationRootPropertiesCfg,
+    MassPropertiesCfg,
+    CollisionPropertiesCfg,
+    RigidBodyPropertiesCfg
+)
 from isaaclab.sim.spawners.from_files.from_files_cfg import UsdFileCfg
 from isaaclab.sim.spawners.shapes import CuboidCfg, CylinderCfg
 from isaaclab.utils import configclass
@@ -48,6 +53,15 @@ class FrankaAssemblyEnvCfg(IndustrealGearAssemblyEnvCfg):
             spawn=UsdFileCfg(
                 usd_path=f"{INDUSTREAL_ASSEMBLY_DIR}/industreal_gear_small/industreal_gear_small.usd",
                 scale=(1.0, 1.0, 1.0),
+                mass_props=MassPropertiesCfg(mass=0.05),
+                articulation_props=ArticulationRootPropertiesCfg(
+                    articulation_enabled=False,
+                ),
+                collision_props=CollisionPropertiesCfg(
+                    collision_enabled=True,
+                    contact_offset=0.01,
+                    rest_offset=0.0,
+                ),
                 rigid_props=RigidBodyPropertiesCfg(
                     solver_position_iteration_count=192,
                     solver_velocity_iteration_count=1,
@@ -73,6 +87,15 @@ class FrankaAssemblyEnvCfg(IndustrealGearAssemblyEnvCfg):
             spawn=UsdFileCfg(
                 usd_path=f"{INDUSTREAL_ASSEMBLY_DIR}/industreal_gear_medium/industreal_gear_medium.usd",
                 scale=(1.0, 1.0, 1.0),
+                mass_props=MassPropertiesCfg(mass=0.05),
+                articulation_props=ArticulationRootPropertiesCfg(
+                    articulation_enabled=False,
+                ),
+                collision_props=CollisionPropertiesCfg(
+                    collision_enabled=True,
+                    contact_offset=0.01,
+                    rest_offset=0.0,
+                ),
                 rigid_props=RigidBodyPropertiesCfg(
                     solver_position_iteration_count=192,
                     solver_velocity_iteration_count=1,
@@ -98,6 +121,15 @@ class FrankaAssemblyEnvCfg(IndustrealGearAssemblyEnvCfg):
             spawn=UsdFileCfg(
                 usd_path=f"{INDUSTREAL_ASSEMBLY_DIR}/industreal_gear_large/industreal_gear_large.usd",
                 scale=(1.0, 1.0, 1.0),
+                mass_props=MassPropertiesCfg(mass=0.05),
+                articulation_props=ArticulationRootPropertiesCfg(
+                    articulation_enabled=False,
+                ),
+                collision_props=CollisionPropertiesCfg(
+                    collision_enabled=True,
+                    contact_offset=0.01,
+                    rest_offset=0.0,
+                ),
                 rigid_props=RigidBodyPropertiesCfg(
                     solver_position_iteration_count=192,
                     solver_velocity_iteration_count=1,
