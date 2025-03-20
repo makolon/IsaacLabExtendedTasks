@@ -171,6 +171,7 @@ class ObservationsCfg:
     @configclass
     class PolicyCfg(ObsGroup):
         """Observations for policy group."""
+
         joint_pos = ObsTerm(func=mdp.joint_pos)
         joint_vel = ObsTerm(func=mdp.joint_vel)
         object_position = ObsTerm(func=extended_mdp.target_object_position_in_robot_root_frame)
@@ -179,7 +180,14 @@ class ObservationsCfg:
         )
         actions = ObsTerm(func=mdp.last_action)
 
+        def __post_init__(self):
+            self.enable_corruption = True
+            self.concatenate_terms = True
+
+    @configclass
+    class CameraImageCfg(ObsGroup):
         """Observations for image group."""
+
         rgb_image = ObsTerm(
             func=mdp.image,
             params={"sensor_cfg": SceneEntityCfg("rgb_camera"), "data_type": "rgb"},
@@ -199,7 +207,12 @@ class ObservationsCfg:
             },
         )
 
-        """Observations for camera transform group."""
+        def __post_init__(self):
+            self.enable_corruption = False
+            self.concatenate_terms = False
+
+    @configclass
+    class CameraTransformCfg(ObsGroup):
         camera_position = ObsTerm(
             func=extended_mdp.cam_position,
             params={"sensor_cfg": SceneEntityCfg("rgb_camera")},
@@ -210,11 +223,13 @@ class ObservationsCfg:
         )
 
         def __post_init__(self):
-            self.enable_corruption = True
-            self.concatenate_terms = True
+            self.enable_corruption = False
+            self.concatenate_terms = False
 
     # observation groups
     policy: PolicyCfg = PolicyCfg()
+    camera_image: CameraImageCfg = CameraImageCfg()
+    camera_transform: CameraTransformCfg = CameraTransformCfg()
 
 
 @configclass
