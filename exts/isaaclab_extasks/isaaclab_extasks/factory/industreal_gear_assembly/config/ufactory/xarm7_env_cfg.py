@@ -4,7 +4,7 @@ from isaaclab.sensors import FrameTransformerCfg
 from isaaclab.sensors.frame_transformer.frame_transformer_cfg import OffsetCfg
 from isaaclab.sim.schemas.schemas_cfg import RigidBodyPropertiesCfg
 from isaaclab.sim.spawners.from_files.from_files_cfg import UsdFileCfg
-from isaaclab.sim.spawners.shapes import CuboidCfg
+from isaaclab.sim.spawners.shapes import CuboidCfg, CylinderCfg
 from isaaclab.utils import configclass
 from isaaclab.markers.config import FRAME_MARKER_CFG  # isort: skip
 from isaaclab_exassets.ufactory import FACTORY_XARM7_CFG  # isort: skip
@@ -148,6 +148,80 @@ class XArm7AssemblyEnvCfg(IndustrealGearAssemblyEnvCfg):
             ),
             spawn=CuboidCfg(
                 size=[0.5, 0.7, 0.02],
+                visible=False,
+                rigid_props=RigidBodyPropertiesCfg(
+                    solver_position_iteration_count=32,
+                    solver_velocity_iteration_count=4,
+                    max_angular_velocity=64.0,
+                    max_linear_velocity=1000.0,
+                    max_depenetration_velocity=5.0,
+                    linear_damping=0.5,
+                    angular_damping=0.5,
+                    enable_gyroscopic_forces=True,
+                    rigid_body_enabled=True,
+                    disable_gravity=True,
+                    kinematic_enabled=True,
+                ),
+            ),
+        )
+
+        # Add bastargete as a rigid object
+        self.scene.target_small = RigidObjectCfg(
+            prim_path="{ENV_REGEX_NS}/TargetSmall",
+            init_state=RigidObjectCfg.InitialStateCfg(
+                pos=[0.45, 0.0, 0.01], rot=[1, 0, 0, 0]
+            ),
+            spawn=CylinderCfg(
+                radius=0.005,
+                height=0.02,
+                visible=False,
+                rigid_props=RigidBodyPropertiesCfg(
+                    solver_position_iteration_count=32,
+                    solver_velocity_iteration_count=4,
+                    max_angular_velocity=64.0,
+                    max_linear_velocity=1000.0,
+                    max_depenetration_velocity=5.0,
+                    linear_damping=0.5,
+                    angular_damping=0.5,
+                    enable_gyroscopic_forces=True,
+                    rigid_body_enabled=True,
+                    disable_gravity=True,
+                    kinematic_enabled=True,
+                ),
+            ),
+        )
+        self.scene.target_medium = RigidObjectCfg(
+            prim_path="{ENV_REGEX_NS}/TargetMedium",
+            init_state=RigidObjectCfg.InitialStateCfg(
+                pos=[0.45, 0.0, 0.01], rot=[1, 0, 0, 0]
+            ),
+            spawn=CylinderCfg(
+                radius=0.005,
+                height=0.02,
+                visible=False,
+                rigid_props=RigidBodyPropertiesCfg(
+                    solver_position_iteration_count=32,
+                    solver_velocity_iteration_count=4,
+                    max_angular_velocity=64.0,
+                    max_linear_velocity=1000.0,
+                    max_depenetration_velocity=5.0,
+                    linear_damping=0.5,
+                    angular_damping=0.5,
+                    enable_gyroscopic_forces=True,
+                    rigid_body_enabled=True,
+                    disable_gravity=True,
+                    kinematic_enabled=True,
+                ),
+            ),
+        )
+        self.scene.target_large = RigidObjectCfg(
+            prim_path="{ENV_REGEX_NS}/TargetLarge",
+            init_state=RigidObjectCfg.InitialStateCfg(
+                pos=[0.45, 0.0, 0.01], rot=[1, 0, 0, 0]
+            ),
+            spawn=CylinderCfg(
+                radius=0.005,
+                height=0.02,
                 visible=False,
                 rigid_props=RigidBodyPropertiesCfg(
                     solver_position_iteration_count=32,

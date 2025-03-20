@@ -1,3 +1,4 @@
+import torch
 from dataclasses import MISSING
 
 import isaaclab.sim as sim_utils
@@ -17,7 +18,7 @@ from isaaclab.managers import RewardTermCfg as RewTerm
 from isaaclab.managers import SceneEntityCfg
 from isaaclab.managers import TerminationTermCfg as DoneTerm
 from isaaclab.scene import InteractiveSceneCfg
-from isaaclab.sensors import CameraCfg
+from isaaclab.sensors import CameraCfg, TiledCameraCfg
 from isaaclab.sensors.frame_transformer.frame_transformer_cfg import (
     FrameTransformerCfg,
 )
@@ -50,6 +51,10 @@ class IndustrealGearAssemblySceneCfg(InteractiveSceneCfg):
     gear_base: RigidObjectCfg | DeformableObjectCfg = MISSING
     # base: will be populated by agent env cfg
     base: RigidObjectCfg = MISSING
+    # target base: will be populated by agent env cfg
+    target_small: RigidObjectCfg = MISSING
+    target_medium: RigidObjectCfg = MISSING
+    target_large: RigidObjectCfg = MISSING
 
     # table
     table = AssetBaseCfg(
@@ -62,56 +67,77 @@ class IndustrealGearAssemblySceneCfg(InteractiveSceneCfg):
         ),
     )
 
-    # plane
-    plane = AssetBaseCfg(
-        prim_path="/World/GroundPlane",
-        init_state=AssetBaseCfg.InitialStateCfg(pos=[0, 0, -1.05]),
-        spawn=GroundPlaneCfg(),
-    )
-
     # lights
     light = AssetBaseCfg(
         prim_path="/World/light",
-        spawn=sim_utils.DomeLightCfg(color=(0.75, 0.75, 0.75), intensity=3000.0),
+        spawn=sim_utils.DomeLightCfg(
+            intensity=750.0,
+            texture_format="latlong",
+            texture_file="https://omniverse-content-staging.s3.us-west-2.amazonaws.com/DoNotDelete/PhysicsDemoAssets/106.5/FrankaNutBolt/ZetoCG.com_WarehouseInterior2b_4x8k.hdr",
+        ),  # TODO: Fix texture file path
     )
 
     # rgb camera
-    rgb_camera = CameraCfg(
+    rgb_camera = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/rgb_camera",
         update_period=0.0,
-        spawn=sim_utils.PinholeCameraCfg(
-            focal_length=1.93,
-            horizontal_aperture=45.6,
-        ),
         width=640,
         height=480,
         data_types=["rgb"],
+        spawn=sim_utils.PinholeCameraCfg(
+            focal_length=19.3,
+            focus_distance=5.0,
+            horizontal_aperture=38.96,
+            vertical_aperture=24.53,
+            clipping_range=(0.01, 1000000.0),
+        ),
+        offset=TiledCameraCfg.OffsetCfg(
+            pos=(1.2, 0.0, 0.75),
+            rot=(0.61237, 0.35355, 0.35355, 0.61237),  # (0.0, 60.0, 90.0)
+            convention="opengl"
+        ),
     )
 
     # depth camera
-    depth_camera = CameraCfg(
+    depth_camera = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/depth_camera",
         update_period=0.0,
-        spawn=sim_utils.PinholeCameraCfg(
-            focal_length=1.93,
-            horizontal_aperture=45.6,
-        ),
         width=640,
         height=480,
         data_types=["distance_to_image_plane"],
+        spawn=sim_utils.PinholeCameraCfg(
+            focal_length=19.3,
+            focus_distance=5.0,
+            horizontal_aperture=38.96,
+            vertical_aperture=24.53,
+            clipping_range=(0.01, 1000000.0),
+        ),
+        offset=TiledCameraCfg.OffsetCfg(
+            pos=(1.2, 0.0, 0.75),
+            rot=(0.61237, 0.35355, 0.35355, 0.61237),  # (0.0, 60.0, 90.0)
+            convention="opengl"
+        ),
     )
 
     # semantic camera
-    semantic_camera = CameraCfg(
+    semantic_camera = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/semantic_camera",
         update_period=0.0,
-        spawn=sim_utils.PinholeCameraCfg(
-            focal_length=1.93,
-            horizontal_aperture=45.6,
-        ),
         width=640,
         height=480,
         data_types=["semantic_segmentation"],
+        spawn=sim_utils.PinholeCameraCfg(
+            focal_length=19.3,
+            focus_distance=5.0,
+            horizontal_aperture=38.96,
+            vertical_aperture=24.53,
+            clipping_range=(0.01, 1000000.0),
+        ),
+        offset=TiledCameraCfg.OffsetCfg(
+            pos=(1.2, 0.0, 0.75),
+            rot=(0.61237, 0.35355, 0.35355, 0.61237),  # (0.0, 60.0, 90.0)
+            convention="opengl"
+        ),
     )
 
 
@@ -217,12 +243,30 @@ class EventCfg:
     reset_all = EventTerm(func=mdp.reset_scene_to_default, mode="reset")
 
     reset_object_position = EventTerm(
-        func=extended_mdp.reset_root_state_uniform,
+        func=extended_mdp.reset_root_state_uniform_non_overlapping,
         mode="reset",
         params={
-            "pose_range": {"x": (-0.1, 0.1), "y": (-0.25, 0.25), "z": (0.0, 0.0)},
+            "pose_range": {
+                "x": (-0.1, 0.1),
+                "y": (-0.25, 0.25),
+                "z": (0.0, 0.0),
+                "yaw": (-torch.pi, torch.pi)
+            },
             "velocity_range": {},
-            "asset_names": ["gear_small", "gear_medium", "gear_large", "gear_base"],
+            "target_asset": "gear_base",
+            "asset_names": ["gear_small", "gear_medium", "gear_large"],
+        },
+    )
+    reset_target_position = EventTerm(
+        func=extended_mdp.reset_target_position,
+        mode="reset",
+        params={
+            "target_asset": "gear_base",
+            "offset_dict": {
+                "target_small": 0.051,
+                "target_medium": 0.0205,
+                "target_large": -0.0305,
+            },
         },
     )
 
