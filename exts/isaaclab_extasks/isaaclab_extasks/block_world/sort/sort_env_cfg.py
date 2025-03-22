@@ -171,10 +171,6 @@ class ObservationsCfg:
 
         joint_pos = ObsTerm(func=mdp.joint_pos)
         joint_vel = ObsTerm(func=mdp.joint_vel)
-        object_position = ObsTerm(func=extended_mdp.target_object_position_in_robot_root_frame)
-        target_object_position = ObsTerm(
-            func=mdp.generated_commands, params={"command_name": "object_pose"}
-        )
         actions = ObsTerm(func=mdp.last_action)
 
         def __post_init__(self):
