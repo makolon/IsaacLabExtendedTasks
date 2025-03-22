@@ -31,15 +31,13 @@ class SceneConstructor:
 
         return scene
 
-    def _generate_random_object(self):
-        obj_type = np.random.choice(['cube', 'cylinder', 'sphere'])
-        obj = {
-            'type': obj_type,
-            'position': utils.random_position(
-                self.scene_config['object_position_range']),
-            'rotation': utils.random_rotation(),
-            'scale': utils.random_scale(
-                self.scene_config['object_scale_range']),
-            'material': self.scene_config['object_material']
-        }
-        return obj
+    def add_mdl_materials(self, scene):
+        pass
+
+    def refine_scene(self, scene):
+        """
+        Refine the scene using the mesh collision detection
+        Args:
+            scene (_type_): _description_
+        """
+        pass
