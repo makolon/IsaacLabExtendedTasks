@@ -1,0 +1,2 @@
+pygraphviz==1.14
+scene-synthesizer[all]==1.12.5

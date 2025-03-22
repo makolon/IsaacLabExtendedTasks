@@ -14,7 +14,7 @@ EXTENSION_TOML_DATA = toml.load(
 
 # Installation operation
 setup(
-    name="isaaclab_exassets",
+    name="isaaclab_scenesynth",
     author="Makoto Sato",
     maintainer="Makoto Sato",
     url=EXTENSION_TOML_DATA["package"]["repository"],
@@ -23,7 +23,7 @@ setup(
     keywords=EXTENSION_TOML_DATA["package"]["keywords"],
     include_package_data=True,
     python_requires=">=3.10",
-    packages=["isaaclab_exassets"],
+    packages=["isaaclab_scenesynth"],
     classifiers=[
         "Natural Language :: English",
         "Programming Language :: Python :: 3.10",
