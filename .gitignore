@@ -59,6 +59,9 @@ _repo
 _build
 .lastformat
 
+# OpenAI API Key
+**/configs/openai_api_key.yaml
+
 # RL-Games
 **/runs/*
 **/logs/*
