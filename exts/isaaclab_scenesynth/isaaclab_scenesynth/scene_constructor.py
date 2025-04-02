@@ -15,16 +15,6 @@ from scene_synthesizer.procedural_assets import TrimeshSceneAsset, URDFAsset
 from isaaclab_scenesynth.llm_manager import LLMManager
 
 
-DEFAULT_HANDLE_SHAPE_ARGS = {
-    "straight_ratio": 0.5,
-    "curvature_ratio": 0.8,
-    "num_segments_curvature": 10,
-    "num_segments_cross_section": 8,
-    "aspect_ratio_cross_section": 0.5,
-    "tmp_mesh_dir": "./assets"
-}
-
-
 def get_explicit_args(cls):
     """
     Returns all explicit constructor arguments for a class,
@@ -37,6 +27,17 @@ def get_explicit_args(cls):
         if name != 'self' and param.kind != param.VAR_KEYWORD  # Exclude **kwargs
     ]
     return explicit
+
+
+def convert_ndarray_to_list(obj):
+    if isinstance(obj, np.ndarray):
+        return obj.tolist()
+    elif isinstance(obj, dict):
+        return {k: convert_ndarray_to_list(v) for k, v in obj.items()}
+    elif isinstance(obj, list):
+        return [convert_ndarray_to_list(x) for x in obj]
+    else:
+        return obj
 
 
 class SceneConstructor:
@@ -70,7 +71,7 @@ class SceneConstructor:
         scene = ps.Scene()
 
         # Ask user for scene description
-        user_input = self.get_user_input("What kind of scene would you like to create? ")
+        user_input = self.get_user_input("What kind of scene would you like to create?\n")
 
         # Ask LLM for types of assets
         asset_types = self.llm_manager.query_asset_types(user_input, list(self.asset_classes.keys()))
@@ -101,10 +102,13 @@ class SceneConstructor:
             scene = self.refine_scene(scene)
 
         # Save
-        scene.save('constructed_scene.usd')
+        scene.export('constructed_scene.usd')
         self.write_scene_cfg(scene)
 
     def create_asset(self, component: Dict):
+        """
+        Create an asset instance from the component dictionary.
+        """
         atype = component["type"]
         if atype not in self.asset_classes:
             raise ValueError(f"Unsupported asset type: {atype}")
@@ -112,25 +116,6 @@ class SceneConstructor:
         required_args = get_explicit_args(cls)
 
         kwargs = {arg: component[arg] for arg in required_args if arg in component}
-
-        # Normalize list-like fields
-        for key in ["compartment_types", "lower_compartment_types"]:
-            if key in kwargs and isinstance(kwargs[key], str):
-                kwargs[key] = [kwargs[key]]
-        if "compartment_interior_masks" in kwargs:
-            if all(isinstance(x, int) for x in kwargs["compartment_interior_masks"]):
-                kwargs["compartment_interior_masks"] = [[x] for x in kwargs["compartment_interior_masks"]]
-
-        # Adjust compartment_types to only include entries for mask==1
-        if "compartment_mask" in kwargs and "compartment_types" in kwargs:
-            mask_flat = [v for row in kwargs["compartment_mask"] for v in row]
-            types_flat = kwargs["compartment_types"]
-            if len(types_flat) == len(mask_flat):
-                # convert to filtered list with only entries for 1s
-                filtered_types = [t for t, m in zip(types_flat, mask_flat) if m == 1]
-                kwargs["compartment_types"] = filtered_types
-            else:
-                print(f"[Warning] Mismatched length between compartment_mask and types: {len(mask_flat)} vs {len(types_flat)}")
 
         # Clean up invalid keys for handle_shape_args
         if "handle_shape_args" in kwargs:
@@ -163,12 +148,16 @@ class SceneConstructor:
         """
         Save metadata, graph, and configuration.
         """
+        config = convert_ndarray_to_list(scene.get_configuration())
+        metadata = convert_ndarray_to_list(scene.metadata)
+        graph = convert_ndarray_to_list(scene.graph.to_dict())
+
         with open("scene_configuration.json", "w") as f:
-            json.dump(scene.get_configuration(), f, indent=4)
+            json.dump(config, f, indent=4)
         with open("scene_metadata.json", "w") as f:
-            json.dump(scene.metadata, f, indent=4)
+            json.dump(metadata, f, indent=4)
         with open("scene_graph.json", "w") as f:
-            json.dump(scene.graph.to_dict(), f, indent=4)
+            json.dump(graph, f, indent=4)
 
     def get_user_input(self, prompt):
         return input(prompt)

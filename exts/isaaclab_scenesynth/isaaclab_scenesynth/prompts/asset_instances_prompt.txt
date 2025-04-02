@@ -12,28 +12,20 @@ Please return a JSON list. Each element should be a dictionary with:
 - transform: 4x4 matrix (identity is fine if unknown)
 - the required parameters for the specified type
 
-Please generate a JSON list of components for the scene. Ensure that all parameters adhere to the following constraints:
-- `compartment_mask` must be a 2D list (e.g., [[1, 0], [1, 1]]) representing the layout of compartments.
-- `compartment_types` must be a flat list in row-major order (i.e., left to right, top to bottom), and must have the same number of elements as the total number of entries in `compartment_mask` (i.e., rows × columns).
-  - For each entry in the mask:
-    - If the value is `1`, choose a type from ['door_left', 'door_top', 'door_right', 'door_bottom', 'drawer', 'closed', 'open']
-    - If the value is `0`, the corresponding entry in `compartment_types` must be `"none"`
-- `compartment_widths` must be a list with length equal to the number of columns in `compartment_mask`.
-- `compartment_heights` must be a list with length equal to the number of rows in `compartment_mask`.
-- `handle_offset` must be a flat list of three float values representing a 3D offset (e.g., [0.1, 0.4, 0.0]). Do not nest the list.
+Please follow these rules for compartments:
+- `compartment_mask` must be a 2D list (e.g., [[0, 1], [2, 3]]).
+  - Each value in this mask is an integer index into `compartment_types`.
+- `compartment_types` must be a flat list. The length must be at least `max(compartment_mask) + 1`.
+  - You can use: ['none', 'drawer', 'door_left', 'door_right', 'door_top', 'door_bottom', 'closed', 'open']
+- `compartment_interior_masks` must be a none.
+- `compartment_widths` must match the number of columns in `compartment_mask`.
+- `compartment_heights` must match the number of rows in `compartment_mask`.
 
-When including `door_shape_args` or `handle_shape_args`, use only the valid fields specified below:
+Additional constraints:
+- `handle_offset` must be a flat list of three float values (e.g., [0.1, 0.4, 0.0])
+- Only include the following valid fields for `handle_shape_args`:
+  - straight_ratio, curvature_ratio, num_segments_curvature, num_segments_cross_section, aspect_ratio_cross_section, tmp_mesh_dir
+- Do not include any `"shape"` or `"radius"` fields in `handle_shape_args` or `door_shape_args`
+- If `"use_primitives"` is true for a bin, do not include the `"angle"` field.
 
-Valid `handle_shape_args` fields:
-- straight_ratio (float)
-- curvature_ratio (float)
-- num_segments_curvature (int)
-- num_segments_cross_section (int)
-- aspect_ratio_cross_section (float)
-- tmp_mesh_dir (string)
-
-If `"use_primitives"` is set to true for a bin object, do not include the `"angle"` field.
-
-Do not include any extra fields like `"shape"` or `"radius"` in `door_shape_args` or `handle_shape_args`.
-
-Return only valid JSON output.
+Return only valid JSON.
