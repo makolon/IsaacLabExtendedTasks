@@ -73,7 +73,7 @@ class SceneConstructor:
         """
 
         # Ask user for scene description
-        user_input = self.get_user_input("What kind of scene would you like to create?\n")
+        user_input = self.get_user_input("What kind of scene would you like to create?: ")
 
         # Ask LLM for types of assets
         asset_types = self.llm_manager.query_asset_types(user_input, list(self.asset_classes.keys()))
@@ -97,6 +97,7 @@ class SceneConstructor:
             scene.add_object(asset=asset, obj_id=comp["id"], transform=comp["transform"])
 
         # Preview
+        print("Previewing the scene...")
         scene.show()
 
         # Refine if needed
@@ -105,7 +106,12 @@ class SceneConstructor:
             scene = self.refine_scene(scene)
 
         # Save
-        scene.export('constructed_scene.usd')
+        if self.cfg.add_material:
+            self.add_material(scene, usd_filename=self.cfg.usd_filename)
+        else:
+            scene.export('constructed_scene.usd')
+
+        # Save scene mata information
         self.save_scene_meta_info(scene)
 
     def create_asset(self, component: Dict):
@@ -124,7 +130,6 @@ class SceneConstructor:
         if "handle_shape_args" in kwargs:
             kwargs["handle_shape_args"].pop("shape", None)
             kwargs["handle_shape_args"].pop("radius", None)
-            kwargs["handle_offset"] = [0.0, 0.0, 0.0]
 
         # Clean up invalid keys for door_shape_args
         if "door_shape_args" in kwargs:
@@ -153,7 +158,7 @@ class SceneConstructor:
         """
         config = convert_ndarray_to_list(scene.get_configuration())
         metadata = convert_ndarray_to_list(scene.metadata)
-        graph = convert_ndarray_to_list(scene.graph.to_dict())
+        graph = convert_ndarray_to_list(scene.graph.to_edgelist())
 
         with open("scene_configuration.json", "w") as f:
             json.dump(config, f, indent=4)
@@ -166,7 +171,7 @@ class SceneConstructor:
         """
         Write scene configuration to a file.
         """
-        scene_graph = scene.graph.to_dict()
+        scene_graph = scene.graph.to_edgelist()
 
         # Ask user for robot selection
         user_input = self.get_user_input("Would you select a robot for this scene?: ")
@@ -176,7 +181,7 @@ class SceneConstructor:
 
         return scene_cfg
 
-    def add_material(self, scene):
+    def add_material(self, scene, usd_filename: str):
         """
         Add material to the scene.
         """
@@ -307,16 +312,19 @@ class SceneConstructor:
         # A dictionary mapping scene object/part names to types the general types of objects/parts defined above
         # The keys are regular expressions of prim_paths in the USD
         geometries = scene.get_geometries()
+        print("geometries:", geometries)
         geometry2material = {}
         for geom in geometries:
-            # Match the geometry name to the material type
+            geom_name = str(geom) if isinstance(geom, str) else getattr(geom, "name", None)
+            if geom_name is None:
+                continue
             for geom_regex, material_group in materials.items():
-                if re.match(geom_regex, geom):
-                    geometry2material[geom] = material_group
+                if re.match(geom_regex, geom_name):
+                    geometry2material[geom_name] = material_group
                     break
 
         # Generate UV coordinates for certain primitives
-        scene.unwrap_geometries('(sink_cabinet/sink_countertop|countertop_.*|.*countertop)')  # TODO: Fix this
+        # scene.unwrap_geometries('(sink_cabinet/sink_countertop|countertop_.*|.*countertop)')  # TODO: Fix this
 
         # Export the scene to a USD stage (in memory, not written to disk yet)
         stage = scene.export(file_type='usd')
@@ -349,7 +357,8 @@ class SceneConstructor:
                 material=mtl,
                 prim_paths=paths
             )
-        return stage
+        # Export scene to USD file
+        stage.Export(usd_filename)
 
     def get_user_input(self, prompt):
         return input(prompt)

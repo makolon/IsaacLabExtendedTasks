@@ -7,11 +7,17 @@ ENV ISAACEXTASKS_PATH=${ISAACEXTASKS_PATH_ARG}
 
 # Install dependencies and remove cache
 RUN --mount=type=cache,target=/var/cache/apt \
-    apt-get update && apt-get install -y --no-install-recommends \
-    graphviz \
-    graphviz-dev \
-    apt -y autoremove && apt clean autoclean && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends \
+        graphviz \
+        graphviz-dev && \
+    apt-get -y autoremove && \
+    apt-get clean && \
+    apt-get autoclean && \
     rm -rf /var/lib/apt/lists/*
+
+# Copy the requirements.txt
+COPY ../requirements.txt ./
 
 # Install python package
 RUN --mount=type=cache,target=/var/cache/apt \

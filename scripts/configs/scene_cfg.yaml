@@ -2,6 +2,7 @@ api_key_file: "openai_api_key.yaml"   # Set via environment variable or override
 engine: "gpt-4"                       # OpenAI engine name, e.g., gpt-4 or gpt-3.5-turbo
 prompt_dir: "./prompts"               # Path to directory containing prompt text templates
 output_dir: "./output"                # Where to save USD and JSON outputs
+add_material: True
 usd_filename: "constructed_scene.usd"
 cfg_filename: "scene_configuration.json"
 metadata_filename: "scene_metadata.json"

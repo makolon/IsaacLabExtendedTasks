@@ -141,8 +141,8 @@ services:
   isaac-lab-base:
     profiles: [ "base" ]
     build:
-      context: docker
-      dockerfile: Dockerfile.base
+      context: ./
+      dockerfile: docker/Dockerfile.base
       args:
         - ISAACSIM_BASE_IMAGE_ARG=${ISAACSIM_BASE_IMAGE}
         - ISAACSIM_VERSION_ARG=${ISAACSIM_VERSION}
@@ -166,8 +166,8 @@ services:
   isaac-lab-extasks:
     profiles: [ "extasks" ]
     build:
-      context: docker
-      dockerfile: Dockerfile.extasks
+      context: ./
+      dockerfile: docker/Dockerfile.extasks
       args:
         # ISAACEXTASKS_PATH_ARG will default to NONE.
         # This is to avoid a warning message when building

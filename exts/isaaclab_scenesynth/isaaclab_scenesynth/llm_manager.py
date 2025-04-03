@@ -75,7 +75,6 @@ class LLMManager:
             type_descriptions=type_description_str,
         )
         response = self._chat(system_prompt, user_prompt)
-        print("LLM response:", response)
         return json.loads(response)
 
     def _chat(self, system_prompt: str, user_prompt: str) -> str:
