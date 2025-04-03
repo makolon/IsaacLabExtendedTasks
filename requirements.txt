@@ -1,4 +1,3 @@
 openai==1.70.0
 pygraphviz==1.14
 scene-synthesizer[all]==1.14.4
-trimesh==4.6.6

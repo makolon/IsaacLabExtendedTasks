@@ -6,6 +6,7 @@ import re
 from typing import Dict
 
 import numpy as np
+import trimesh
 import trimesh.transformations as tra
 from omegaconf import DictConfig
 
@@ -96,20 +97,23 @@ class SceneConstructor:
             asset = self.create_asset(comp)
             scene.add_object(asset=asset, obj_id=comp["id"], transform=comp["transform"])
 
-        # Preview
-        print("Previewing the scene...")
-        scene.show()
-
         # Refine if needed
         confirmation = self.get_user_input("Is this scene okay? (yes/no): ")
         if confirmation.lower() != "yes":
-            scene = self.refine_scene(scene)
+            if self.cfg.method == "analytical":
+                scene = self.refine_scene_analytical(scene)
+            elif self.cfg.method == "llm_feedback":
+                scene = self.refine_scene_llm(scene)
+
+        # Preview
+        print("Previewing the scene...")
+        scene.show()
 
         # Save
         if self.cfg.add_material:
             self.add_material(scene, usd_filename=self.cfg.usd_filename)
         else:
-            scene.export('constructed_scene.usd')
+            scene.export(self.cfg.usd_filename)
 
         # Save scene mata information
         self.save_scene_meta_info(scene)
@@ -138,21 +142,7 @@ class SceneConstructor:
 
         return cls(**kwargs)
 
-    def refine_scene(self, scene):
-        """
-        Ask LLM to modify the scene and rebuild it.
-        """
-        refinement_input = self.get_user_input("How would you like to modify the scene?")
-        refined_components = self.llm_manager.query(refinement_input)
-
-        scene.remove_object(".*")  # Remove all objects
-        for comp in refined_components:
-            asset = self.create_asset(comp)
-            scene.add_object(asset=asset, obj_id=comp["id"], transform=comp["transform"])
-        scene.show()
-        return scene
-
-    def save_scene_meta_info(self, scene):
+    def save_scene_meta_info(self, scene: trimesh.Scene):
         """
         Save metadata, graph, and configuration.
         """
@@ -181,7 +171,7 @@ class SceneConstructor:
 
         return scene_cfg
 
-    def add_material(self, scene, usd_filename: str):
+    def add_material(self, scene: trimesh.Scene, usd_filename: str):
         """
         Add material to the scene.
         """
@@ -312,7 +302,6 @@ class SceneConstructor:
         # A dictionary mapping scene object/part names to types the general types of objects/parts defined above
         # The keys are regular expressions of prim_paths in the USD
         geometries = scene.get_geometries()
-        print("geometries:", geometries)
         geometry2material = {}
         for geom in geometries:
             geom_name = str(geom) if isinstance(geom, str) else getattr(geom, "name", None)
@@ -360,5 +349,59 @@ class SceneConstructor:
         # Export scene to USD file
         stage.Export(usd_filename)
 
-    def get_user_input(self, prompt):
+    def refine_scene_llm(self, scene: trimesh.Scene) -> trimesh.Scene:
+        """
+        Ask LLM to modify the scene and rebuild it.
+        """
+        refinement_input = self.get_user_input("How would you like to modify the scene?")
+        refined_components = self.llm_manager.query(refinement_input)
+
+        scene.remove_object(".*")  # Remove all objects
+        for comp in refined_components:
+            asset = self.create_asset(comp)
+            scene.add_object(asset=asset, obj_id=comp["id"], transform=comp["transform"])
+        scene.show()
+        return scene
+
+    def refine_scene_analytical(self, scene: trimesh.Scene, spacing: float = 0.2) -> trimesh.Scene:
+        """
+        Rearranges the connected components of a Trimesh Scene along the x-axis
+        to avoid overlap between objects.
+
+        Args:
+            scene (trimesh.Scene): Input scene containing multiple objects/components.
+            spacing (float): Space between each component.
+
+        Returns:
+            trimesh.Scene: Rearranged scene with non-overlapping components.
+        """
+        new_scene = trimesh.Scene()
+        offset = 0.0
+
+        # Extract connected components as sub-scenes
+        components = scene.connected_components_geometry()
+
+        for i, component in enumerate(components):
+            # Merge geometries in component to compute bounding box
+            merged = component.dump().sum()
+            size_x = merged.bounds[1][0] - merged.bounds[0][0]
+            center = merged.bounding_box.centroid
+
+            # Compute transformation: center at origin then move to offset
+            translation_to_origin = -center
+            translation_to_position = [offset + size_x / 2, 0, 0]
+            total_translation = trimesh.transformations.translation_matrix(
+                translation_to_origin + translation_to_position
+            )
+
+            # Apply transform and add to new scene
+            component.apply_transform(total_translation)
+            new_scene = new_scene + component
+
+            # Update offset
+            offset += size_x + spacing
+
+        return new_scene
+
+    def get_user_input(self, prompt: str) -> str:
         return input(prompt)
