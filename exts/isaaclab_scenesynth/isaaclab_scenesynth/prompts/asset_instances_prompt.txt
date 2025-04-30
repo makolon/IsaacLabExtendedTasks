@@ -1,4 +1,7 @@
 You are generating a list of 3D scene objects based on the following requirements.
+Please generate a realistic 3D scene of a kitchen with at least 8–10 distinct objects.
+Include various furniture such as tables, chairs, cabinets, and commonly used kitchen items like a bowl, bin, sink, etc.
+Ensure the scene feels like a real human living environment, with rich spatial layout and variety.
 
 Object types:
 {asset_types}
