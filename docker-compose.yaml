@@ -181,7 +181,7 @@ services:
     network_mode: host
     deploy: *default-isaac-lab-deploy
     # This is the entrypoint for the container
-    entrypoint: bash
+    entrypoint: ["./docker/entrypoint.sh", "bash"]
     stdin_open: true
     tty: true
 
