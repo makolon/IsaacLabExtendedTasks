@@ -83,7 +83,7 @@ class SortSceneCfg(InteractiveSceneCfg):
         offset=TiledCameraCfg.OffsetCfg(
             pos=(1.2, 0.0, 0.75),
             rot=(0.61237, 0.35355, 0.35355, 0.61237),  # (0.0, 60.0, 90.0)
-            convention="opengl"
+            convention="opengl",
         ),
     )
 
@@ -104,7 +104,7 @@ class SortSceneCfg(InteractiveSceneCfg):
         offset=TiledCameraCfg.OffsetCfg(
             pos=(1.2, 0.0, 0.75),
             rot=(0.61237, 0.35355, 0.35355, 0.61237),  # (0.0, 60.0, 90.0)
-            convention="opengl"
+            convention="opengl",
         ),
     )
 
@@ -125,7 +125,7 @@ class SortSceneCfg(InteractiveSceneCfg):
         offset=TiledCameraCfg.OffsetCfg(
             pos=(1.2, 0.0, 0.75),
             rot=(0.61237, 0.35355, 0.35355, 0.61237),  # (0.0, 60.0, 90.0)
-            convention="opengl"
+            convention="opengl",
         ),
     )
 
@@ -171,10 +171,6 @@ class ObservationsCfg:
 
         joint_pos = ObsTerm(func=mdp.joint_pos)
         joint_vel = ObsTerm(func=mdp.joint_vel)
-        object_position = ObsTerm(func=extended_mdp.target_object_position_in_robot_root_frame)
-        target_object_position = ObsTerm(
-            func=mdp.generated_commands, params={"command_name": "object_pose"}
-        )
         actions = ObsTerm(func=mdp.last_action)
 
         def __post_init__(self):
@@ -243,7 +239,7 @@ class EventCfg:
                 "x": (-0.1, 0.1),
                 "y": (-0.1, 0.1),
                 "z": (0.0, 0.0),
-                "yaw": (-torch.pi, torch.pi)
+                "yaw": (-torch.pi, torch.pi),
             },
             "velocity_range": {},
             "asset_names": ["blue_block", "green_block", "red_block", "yellow_block"],
