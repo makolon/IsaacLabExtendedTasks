@@ -1,4 +1,4 @@
-"""Installation script for the 'isaaclab_exassets' python package."""
+"""Installation script for the 'isaaclab_extasks' python package."""
 
 import os
 
@@ -14,7 +14,7 @@ EXTENSION_TOML_DATA = toml.load(
 
 # Installation operation
 setup(
-    name="isaaclab_exassets",
+    name="isaaclab_extasks",
     author="Makoto Sato",
     maintainer="Makoto Sato",
     url=EXTENSION_TOML_DATA["package"]["repository"],
@@ -23,10 +23,11 @@ setup(
     keywords=EXTENSION_TOML_DATA["package"]["keywords"],
     include_package_data=True,
     python_requires=">=3.10",
-    packages=["isaaclab_exassets"],
+    packages=["isaaclab_extasks"],
     classifiers=[
         "Natural Language :: English",
         "Programming Language :: Python :: 3.10",
+        "Isaac Sim :: 4.5.0",
         "Isaac Sim :: 4.2.0",
         "Isaac Sim :: 4.1.0",
     ],

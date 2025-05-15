@@ -5,6 +5,24 @@ FROM isaac-lab-base AS base
 ARG ISAACEXTASKS_PATH_ARG
 ENV ISAACEXTASKS_PATH=${ISAACEXTASKS_PATH_ARG}
 
+# Install dependencies and remove cache
+RUN --mount=type=cache,target=/var/cache/apt \
+    apt-get update && \
+    apt-get install -y --no-install-recommends \
+        graphviz \
+        graphviz-dev && \
+    apt-get -y autoremove && \
+    apt-get clean && \
+    apt-get autoclean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copy the requirements.txt
+COPY ../requirements.txt ./
+
+# Install python package
+RUN --mount=type=cache,target=/var/cache/pip \
+    ${ISAACLAB_PATH}/_isaac_sim/python.sh -m pip install -r requirements.txt
+
 # make working directory as the IsaacExtendedTasks directory
 # this is the default directory when the container is run
 WORKDIR ${ISAACEXTASKS_PATH}

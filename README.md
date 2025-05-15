@@ -17,8 +17,10 @@ isaaclab_extasks
 │       │       ├── __init__.py
 │       │       ├── <robot_name>_cfg.py
 │       │       └── agents
+│       │           ├── rsl_rl_ppo_cfg.py
 │       │           └── __init__.py
 │       ├── mdp
+│       │   ├── __init__.py
 │       │   ├── observations.py
 │       │   ├── rewards.py
 │       │   └── terminations.py
@@ -31,8 +33,10 @@ isaaclab_extasks
 │       │       ├── __init__.py
 │       │       ├── <robot_name>_cfg.py
 │       │       └── agents
+│       │           ├── rsl_rl_ppo_cfg.py
 │       │           └── __init__.py
 │       ├── mdp
+│       │   ├── __init__.py
 │       │   ├── observations.py
 │       │   ├── rewards.py
 │       │   └── terminations.py
@@ -45,14 +49,15 @@ isaaclab_extasks
         │       ├── __init__.py
         │       ├── <robot_name>_cfg.py
         │       └── agents
+        │           ├── rsl_rl_ppo_cfg.py
         │           └── __init__.py
         ├── mdp
+        │   ├── __init__.py
         │   ├── observations.py
         │   ├── rewards.py
         │   └── terminations.py
         ├── __init__.py
         └── <task_name>_env_cfg.py
-
 ```
 
 
@@ -67,24 +72,13 @@ git clone https://github.com/makolon/IsaacLabExtendedTasks.git
 2. Build docker container.
 ```
 cp .env.sample .env
-docker compose build
-# Or build separately
 docker compose build isaac-lab-base
 docker compose build isaac-lab-extasks
 ```
+
 3. Enter `extasks` container.
 ```
-docker compose run isaac-lab-base
 docker compose run isaac-lab-extasks
-```
-4. Run the following command in each directory to install the necessary components:
-```
-cd exts/
-cd isaaclab_exassets/
-pip install -e .
-
-cd isaaclab_extasks/
-pip install -e .
 ```
 
 > [!NOTE]

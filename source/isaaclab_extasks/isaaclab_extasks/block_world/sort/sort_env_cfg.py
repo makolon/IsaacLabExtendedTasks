@@ -83,7 +83,7 @@ class SortSceneCfg(InteractiveSceneCfg):
         offset=TiledCameraCfg.OffsetCfg(
             pos=(1.2, 0.0, 0.75),
             rot=(0.61237, 0.35355, 0.35355, 0.61237),  # (0.0, 60.0, 90.0)
-            convention="opengl"
+            convention="opengl",
         ),
     )
 
@@ -104,7 +104,7 @@ class SortSceneCfg(InteractiveSceneCfg):
         offset=TiledCameraCfg.OffsetCfg(
             pos=(1.2, 0.0, 0.75),
             rot=(0.61237, 0.35355, 0.35355, 0.61237),  # (0.0, 60.0, 90.0)
-            convention="opengl"
+            convention="opengl",
         ),
     )
 
@@ -125,7 +125,7 @@ class SortSceneCfg(InteractiveSceneCfg):
         offset=TiledCameraCfg.OffsetCfg(
             pos=(1.2, 0.0, 0.75),
             rot=(0.61237, 0.35355, 0.35355, 0.61237),  # (0.0, 60.0, 90.0)
-            convention="opengl"
+            convention="opengl",
         ),
     )
 
@@ -239,7 +239,7 @@ class EventCfg:
                 "x": (-0.1, 0.1),
                 "y": (-0.1, 0.1),
                 "z": (0.0, 0.0),
-                "yaw": (-torch.pi, torch.pi)
+                "yaw": (-torch.pi, torch.pi),
             },
             "velocity_range": {},
             "asset_names": ["blue_block", "green_block", "red_block", "yellow_block"],
